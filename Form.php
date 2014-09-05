@@ -227,8 +227,8 @@ class Form extends FormContainer {
 		$this->hidden[] = $this->factory("hidden", $key, false, $attr);
 	}
 
-	public function csrf_token() {
-		$this->hidden_field("csrf_token", csrf_token());
+	static protected function csrf_token(){
+		return false;
 	}
 
 	private function start() {
@@ -267,8 +267,9 @@ class Form extends FormContainer {
 					break;
 				}
 			}
-			if(!$has_csrf) {
-				$this->csrf_token();
+
+			if ( !$has_csrf && ($csrf_token=$this->csrf_token()) ) {
+				$this->hidden_field("csrf_token", $csrf_token);
 			}
 		}
 
