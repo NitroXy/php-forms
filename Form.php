@@ -10,6 +10,9 @@ define('LAYOUT_FILL', 2);
 function serialize_attr($data){
 	$attr = array();
 	foreach ( $data as $key => $value ){
+		if ( is_array($value) ){
+			$value = implode(' ', $value);
+		}
 		$attr[] = "$key=\"$value\"";
 	}
 	return implode(' ', $attr);
@@ -181,6 +184,7 @@ class Form extends FormContainer {
 			case 'table': $layout = new FormLayoutTable(); break;
 			case 'p': $layout = new FormLayoutP(); break;
 			case 'plain': $layout = new FormLayout(); break;
+			case 'bootstrap': $layout = new FormLayoutBootstrap(); break;
 			case 'unbuffered': $this->unbuffered = true; break;
 			default:
 				trigger_error_caller("Form class called with unknown layout `$layout'", E_USER_NOTICE);
@@ -372,7 +376,7 @@ class FormContainer {
 		list($id, $name, $value) = $this->generate_data($key, $attr);
 		switch ( $type ){
 		case 'hidden': $field = new FormInput($key, false, $name, $value, 'hidden', false, $attr); break;
-		case 'submit': $field = new FormInput(false, $id, $name, $label, 'submit', false, $attr); break;
+		case 'submit': $field = new FormButton(false, $id, $name, $label, 'submit', false, $attr); break;
 		case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
 		case 'hint': $field = new HintField($key, $label, $attr); break;
 		default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
@@ -530,6 +534,10 @@ class FormData {
 };
 
 class FormLayout {
+	public function render_group($label, $field, $error, $hint){
+		$this->add_row($label, $field, $error, $hint);
+	}
+
 	public function add_row($label, $field, $error, $hint){
 		if($label !== false) echo "	<span class=\"form-label\">$label</span>\n";
 		echo "	<span class=\"form-field\">{$field->get_content()}</span>\n";
@@ -603,6 +611,52 @@ class FormLayoutTable extends FormLayout {
 	}
 }
 
+class FormLayoutBootstrap extends FormLayout {
+	public function field_class(){
+		return array('form-control');
+	}
+
+	static private function has_class($field, $pattern){
+		if ( !isset($field->attr['class']) ) return false;
+		$class = $field->attr['class'];
+		if ( !is_array($class) ){
+			$class = explode(' ', $class);
+		}
+		foreach ( $class as $cur ){
+			if ( preg_match("/^$pattern.+\$/", $cur) ) return true;
+		}
+		return false;
+	}
+
+	static private function field_content($field){
+		if ( $field instanceof FormButton ){
+			$class = array('btn');
+			if ( !static::has_class($field, 'btn-.+') ){
+				$class[] = 'btn-primary';
+			}
+			return $field->get_content(array('class' => $class));
+		}
+
+		return $field->get_content(array('class' => 'form-control'));
+	}
+
+	public function render_group($label, $group, $error, $hind){
+		echo '<div>';
+		foreach ( $group->children() as $field ){
+			echo static::field_content($field);
+		}
+		echo '</div>';
+	}
+
+	public function add_row($label, $field, $error, $hint){
+
+		echo '<div class="form-group">';
+		echo "	<label>$label</label>";
+		echo '	' . static::field_content($field);
+		echo '</div>';
+	}
+}
+
 interface FormField {
 	public function render($layout, $res);
 	public function layout_hints();
@@ -627,12 +681,12 @@ class FormGroup extends FormContainer implements FormField {
 		$callback($this);
 	}
 
+	public function children(){
+		return $this->fields;
+	}
+
 	public function render($layout, $res){
-		$layout->add_row(
-			$this->get_label(),
-			$this,
-			$this->get_error($res),
-			$this->hint);
+		$layout->render_group($this->get_label(), $this, $this->get_error($res), $this->hint);
 	}
 
 	public function get_label(){
@@ -649,7 +703,7 @@ class FormGroup extends FormContainer implements FormField {
 	}
 
 	public function get_content(){
-		return implode('', array_map(function($f) { return '<span class="form-group">' . $f->get_content() . '</span>'; }, $this->fields));
+		return '';
 	}
 
 	public function layout_hints(){
@@ -765,8 +819,9 @@ class FormInput implements FormField {
 		return $this->name;
 	}
 
-	public function get_content(){
-		return "<input " . $this->serialize_attr() . " />";
+	public function get_content(array $extra_attr = array()){
+		$attr = array_merge_recursive($extra_attr, $this->attr);
+		return "<input " . $this->serialize_attr($attr) . " />";
 	}
 
 	public function get_error($res){
@@ -787,6 +842,10 @@ class FormInput implements FormField {
 	protected function serialize_attr($data=null){
 		return serialize_attr($data ?: $this->attr);
 	}
+}
+
+class FormButton extends FormInput {
+
 }
 
 class TextAreaField extends FormInput {
