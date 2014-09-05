@@ -38,7 +38,7 @@ class Form extends FormContainer {
 	 * Create a form bound to an key-value array.
 	 */
 	static public function from_array($id, $array, $callback, array $options=array()){
-		$form = new Form(false, null);
+		$form = static::create_instance(false, null);
 		$form->parse_options($options);
 		$form->callback = $callback;
 		$form->id = $id;
@@ -52,7 +52,7 @@ class Form extends FormContainer {
 	 * Name will use class name as prefix, e.g name="Foo[field]".
 	 */
 	static public function from_object($obj, $callback, array $options=array()){
-		$form = new Form(false, null);
+		$form = static::create_instance(false, null);
 		$form->parse_options($options);
 		$form->callback = $callback;
 		$form->id = get_class($obj);
@@ -81,12 +81,22 @@ class Form extends FormContainer {
 	 * Create a resource-less form.
 	 */
 	static public function create($id, $callback, array $options=array()){
-		$form = new Form(false, null);
+		$form = static::create_instance(false, null);
 		$form->parse_options($options);
 		$form->callback = $callback;
 		$form->id = $id;
 		$form->res = null;
 		$form->render();
+	}
+
+	/**
+	 * Creates an instance of the called form class.
+	 * Just like "new Form()" but works with late static binding so an inherited
+	 * class can call "MyForm::from_object(..)" and still get a MyForm instance.
+	 */
+	static private function create_instance($id, $callback, array $options=array()){
+		$classname = get_called_class();
+		return new $classname($id, $callback, $options);
 	}
 
 	/**
