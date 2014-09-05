@@ -3,6 +3,11 @@
 define('LAYOUT_TWOROWS', 1);
 define('LAYOUT_FILL', 2);
 
+require 'layout/layout.php';
+require 'layout/plain.php';
+require 'layout/table.php';
+require 'layout/bootstrap.php';
+
 /**
  * Takes key-value array and serializes them to a string as
  * 'key="value" foo="bar"'.
@@ -23,7 +28,7 @@ class Form extends FormContainer {
 		'method' => 'post',      /* form method (get or post) */
 		'action' => '',          /* form action */
 		'enctype' => false,      /* form encoding */
-		'layout' => 'table',     /* layout engine, one of {plain, p, table, unbuffered} or a class extending FormLayout. If unbuffered fields is written directly. */
+		'layout' => 'table',     /* layout engine, one of {plain, table, bootstrap, unbuffered} or a class extending FormLayout. If unbuffered fields is written directly. */
 		'prefix' => false,       /* use a custom prefix in front of all names, default is nothing for arrays and class name for objects */
 		'style' => '',           /* add custom style to form, e.g. width */
 		'class' => array(),      /* additional classes (accepts string or array) */
@@ -175,21 +180,18 @@ class Form extends FormContainer {
 	private function set_layout($options){
 		$layout = $options['layout'];
 
-		if ( isset($options['p']) ){
-			$layout = $options['p'] ? 'p' : 'table';
-		}
-
-		if ( !is_callable($layout) ){
+		if ( is_string($layout) ){
 			switch ( $layout ){
 			case 'table': $layout = new FormLayoutTable(); break;
-			case 'p': $layout = new FormLayoutP(); break;
-			case 'plain': $layout = new FormLayout(); break;
+			case 'plain': $layout = new FormLayoutPlain(); break;
 			case 'bootstrap': $layout = new FormLayoutBootstrap(); break;
 			case 'unbuffered': $this->unbuffered = true; break;
 			default:
 				trigger_error_caller("Form class called with unknown layout `$layout'", E_USER_NOTICE);
-				$layout = new FormLayout();
+				$layout = new FormLayoutPlain();
 			}
+		} else if ( !$layout instanceof FormLayout ){
+			trigger_error_caller("Layout must either be string or a class implementing FormLayout", E_USER_ERROR);
 		}
 
 		$this->layout = $layout;
@@ -379,6 +381,8 @@ class FormContainer {
 		case 'submit': $field = new FormButton(false, $id, $name, $label, 'submit', false, $attr); break;
 		case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
 		case 'hint': $field = new HintField($key, $label, $attr); break;
+		case 'file': $field = new FormUpload($key, $id, $name, $value, $type, $label, $attr); break;
+		case 'checkbox': $field = new FormCheckbox($key, $id, $name, $value, $type, $label, $attr); break;
 		default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
 		}
 
@@ -458,7 +462,7 @@ class FormContainer {
 		if ( $remove ){
 			$attr = array();
 			list($id, $name, $value) = $this->generate_data($key . '_remove', $attr);
-			$this->fields[] = new ManualField("{$key}_remove", '', "<input type='checkbox' class='checkbox' name='$name' id='$id' value='1' /> <label for='$id'>Ta bort</label>", false);
+			$this->fields[] = new ManualField("{$key}_remove", '', "<label><input type='checkbox' name='$name' id='$id' value='1' />Ta bort</label>", false);
 		}
 	}
 
@@ -502,14 +506,8 @@ class FormContainer {
 	}
 
 	public function checkbox($key, $text, $label=null, array $attr=array()) {
-		list($id, $name, $value) = $this->generate_data($key, $attr);
 		$this->hidden_field($key, '0');
-		$field = new ManualField($key, $label, "<input type='checkbox' class='checkbox' name='$name' id='$id' value='1' ".($value?"checked='checked'":"")." /> <label for='$id'>$text</label>", isset($attr['hint']) ? $attr['hint'] : null,$name);
-		$this->fields[] = $field;
-
-		if ( $this->unbuffered() ){
-			echo $field->get_content() . "\n";
-		}
+		$this->fields[] = $this->factory('checkbox', $key, $text, $attr);
 	}
 
 	public function fields_for($id, $obj, $method){
@@ -532,130 +530,6 @@ class FormData {
 		return false;
 	}
 };
-
-class FormLayout {
-	public function render_group($label, $field, $error, $hint){
-		$this->add_row($label, $field, $error, $hint);
-	}
-
-	public function add_row($label, $field, $error, $hint){
-		if($label !== false) echo "	<span class=\"form-label\">$label</span>\n";
-		echo "	<span class=\"form-field\">{$field->get_content()}</span>\n";
-		if($error !== false) echo "	<span class=\"form-error\">$error</span>\n";
-		if($hint !== false) echo "	<span class=\"form-hint\">$hint</span>\n";
-	}
-
-	public function end(){
-		/* do nothing */
-	}
-}
-
-class FormLayoutP extends FormLayout {
-	public function add_row($label, $field, $error, $hint){
-		echo "	<p>\n";
-		if($label !== false) echo "	<span class=\"form-label\">$label</span>\n";
-		echo "	<span class=\"form-field\">{$field->get_content()}</span>\n";
-		if($error !== false) echo "	<span class=\"form-error\">$error</span>\n";
-		if($hint !== false) echo "	<span class=\"form-hint\">$hint</span>\n";
-		echo "	</p>\n";
-	}
-}
-
-class FormLayoutTable extends FormLayout {
-	public $closed = true;
-
-	public function add_row($label, $field, $error, $hint){
-		if ( $this->closed ){
-			$this->closed = false;
-			echo "	<table class=\"layout\">\n";
-		}
-
-		$hints = $field->layout_hints();
-
-		if ( !($hints & LAYOUT_TWOROWS) ){
-			echo "		<tr>\n";
-			if ( $label !== false ){
-				echo "			<th class=\"form-label\" valign=\"top\">$label</th>\n";
-				echo "			<td class=\"form-field\" valign=\"top\">{$field->get_content()}</td>\n";
-				echo "			<td class=\"form-hint\"  valign=\"top\">$hint</td>\n";
-				echo "			<td class=\"form-error\" valign=\"top\">$error</td>\n";
-			} else {
-				echo "			<td class=\"form-field\" colspan=\"4\">{$field->get_content()}</td>\n";
-			}
-			echo "		</tr>\n";
-		} else if ( $hints & LAYOUT_FILL ){
-			echo "		<tr>\n";
-			echo "			<th class=\"form-label tworow\" colspan=\"2\" valign=\"top\">$label</th>\n";
-			echo "			<td class=\"form-hint\"  valign=\"top\">$hint</td>\n";
-			echo "			<td class=\"form-error\" valign=\"top\">$error</td>\n";
-			echo "		</tr>\n";
-			echo "		<tr>\n";
-			echo "			<td class=\"form-field\" colspan=\"4\">{$field->get_content()}</td>\n";
-			echo "		</tr>\n";
-		} else {
-			echo "		<tr>\n";
-			echo "			<th class=\"form-label tworow\" colspan=\"4\">$label</th>\n";
-			echo "		</tr>\n";
-			echo "		<tr>\n";
-			echo "			<td class=\"form-field\" valign=\"top\" colspan=\"2\">{$field->get_content()}</td>\n";
-			echo "			<td class=\"form-hint\"  valign=\"top\">$hint</td>\n";
-			echo "			<td class=\"form-error\" valign=\"top\">$error</td>\n";
-			echo "		</tr>\n";
-		}
-	}
-
-	public function end(){
-		if ( $this->closed ) return;
-		$this->closed = true;
-		echo "	</table>\n";
-	}
-}
-
-class FormLayoutBootstrap extends FormLayout {
-	public function field_class(){
-		return array('form-control');
-	}
-
-	static private function has_class($field, $pattern){
-		if ( !isset($field->attr['class']) ) return false;
-		$class = $field->attr['class'];
-		if ( !is_array($class) ){
-			$class = explode(' ', $class);
-		}
-		foreach ( $class as $cur ){
-			if ( preg_match("/^$pattern.+\$/", $cur) ) return true;
-		}
-		return false;
-	}
-
-	static private function field_content($field){
-		if ( $field instanceof FormButton ){
-			$class = array('btn');
-			if ( !static::has_class($field, 'btn-.+') ){
-				$class[] = 'btn-primary';
-			}
-			return $field->get_content(array('class' => $class));
-		}
-
-		return $field->get_content(array('class' => 'form-control'));
-	}
-
-	public function render_group($label, $group, $error, $hind){
-		echo '<div>';
-		foreach ( $group->children() as $field ){
-			echo static::field_content($field);
-		}
-		echo '</div>';
-	}
-
-	public function add_row($label, $field, $error, $hint){
-
-		echo '<div class="form-group">';
-		echo "	<label>$label</label>";
-		echo '	' . static::field_content($field);
-		echo '</div>';
-	}
-}
 
 interface FormField {
 	public function render($layout, $res);
@@ -686,7 +560,7 @@ class FormGroup extends FormContainer implements FormField {
 	}
 
 	public function render($layout, $res){
-		$layout->render_group($this->get_label(), $this, $this->get_error($res), $this->hint);
+		$layout->render_group($this, $res);
 	}
 
 	public function get_label(){
@@ -789,7 +663,7 @@ class FormInput implements FormField {
 	 * Read and remove $key from attribute array.
 	 * @return true if attribute existed.
 	 */
-	private function pop_attr($key, &$attr, &$value){
+	protected function pop_attr($key, &$attr, &$value){
 		if ( array_key_exists($key, $attr) ){
 			$value = $attr[$key];
 			unset($attr[$key]);
@@ -799,11 +673,7 @@ class FormInput implements FormField {
 	}
 
 	public function render($layout, $res) {
-		$layout->add_row(
-			$this->get_label(),
-			$this,
-			$this->get_error($res),
-			$this->get_hint());
+		$layout->render_field($this, $this->get_error($res));
 	}
 
 	public function get_id() {
@@ -829,7 +699,7 @@ class FormInput implements FormField {
 		return ucfirst($res->errors[$this->key][0]); /* get first error only */
 	}
 
-	private function get_hint(){
+	public function get_hint(){
 		return $this->hint;
 	}
 
@@ -848,6 +718,40 @@ class FormButton extends FormInput {
 
 }
 
+class FormUpload extends FormInput {
+
+}
+
+class FormCheckbox extends FormInput {
+	public function __construct($key, $id, $name, $value, $type, $label, $attr) {
+		$this->key = $key;
+		$this->id = $id;
+		$this->name = $name;
+		$this->label = $label;
+		$this->hint = null;
+
+		$this->pop_attr('hint', $attr, $this->hint);
+
+		if (  $type != null  ) $attr['type'] = $type;
+		if (    $id != null  ) $attr['id'] = $id;
+		if (  $name != null  ) $attr['name'] = $name;
+
+		$attr['value'] = '1';
+		if ( $value ){
+			$attr['checked'] = 'checked';
+		}
+
+		$this->attr = $attr;
+	}
+
+
+	public function get_content(array $extra_attr = array()){
+		$attr = array_merge_recursive($extra_attr, $this->attr);
+		$text = $this->label;
+		return "<label><input " . $this->serialize_attr($attr) . " />$text</label>";
+	}
+}
+
 class TextAreaField extends FormInput {
 	private $value = '';
 
@@ -856,8 +760,9 @@ class TextAreaField extends FormInput {
 		$this->value = $value;
 	}
 
-	public function get_content(){
-		return "<textarea " . $this->serialize_attr() . " >{$this->value}</textarea>";
+	public function get_content(array $extra_attr = array()){
+		$attr = array_merge_recursive($extra_attr, $this->attr);
+		return "<textarea " . $this->serialize_attr($attr) . " >{$this->value}</textarea>";
 	}
 }
 
@@ -873,17 +778,11 @@ class HintField implements FormField {
 	}
 
 	public function render($layout, $res) {
-		$layout->add_row(
-			$this->get_label(),
-			$this,
-			false,
-			false);
+		$layout->render_hint($this);
 	}
 
-	public function get_content(){
-		return '<p ' . serialize_attr($this->attr) . ">{$this->text}</p>";
-	}
-
+	public function get_hint(){ return false; }
+	public function get_content(){ return $this->text; }
 	public function get_label(){ return $this->label; }
 	public function layout_hints(){ return 0; }
 	public function get_id() { return false; }
@@ -903,11 +802,7 @@ class ManualField implements FormField {
 	}
 
 	public function render($layout, $res) {
-		$layout->add_row(
-			$this->get_label(),
-			$this,
-			$this->get_error($res),
-			$this->get_hint());
+		$layout->render_field($this, $this->get_error($res));
 	}
 
 	public function get_error($res){

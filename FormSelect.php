@@ -72,7 +72,8 @@ class FormSelect extends FormInput {
 		$this->options[] = "<option " . $this->serialize_attr($attr) . ">$text</option>";
 	}
 
-	public function get_content(){
-		return '<select ' . $this->serialize_attr() . ">\n" . implode("\n", $this->options) . "\n</select>\n";
+	public function get_content(array $extra_attr = array()){
+		$attr = array_merge_recursive($extra_attr, $this->attr);
+		return '<select ' . $this->serialize_attr($attr) . ">\n" . implode("\n", $this->options) . "\n</select>\n";
 	}
 }
