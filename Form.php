@@ -16,7 +16,7 @@ function serialize_attr($data){
 }
 
 class Form extends FormContainer {
-	static private $defaults = array(
+	static protected $base_options = array(
 		'method' => 'post',      /* form method (get or post) */
 		'action' => '',          /* form action */
 		'enctype' => false,      /* form encoding */
@@ -132,7 +132,7 @@ class Form extends FormContainer {
 	}
 
 	private function parse_options($user){
-		$options = array_merge(static::$defaults, $user);
+		$options = array_merge(static::$base_options, static::default_options(), $user);
 
 		/* split classes given as string */
 		if ( !is_array($options['class']) ){
@@ -225,6 +225,10 @@ class Form extends FormContainer {
 			$attr['value'] = $value;
 		}
 		$this->hidden[] = $this->factory("hidden", $key, false, $attr);
+	}
+
+	static protected function default_options(){
+		return array();
 	}
 
 	static protected function csrf_token(){
