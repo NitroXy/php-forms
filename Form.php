@@ -35,6 +35,24 @@ class Form extends FormContainer {
 	private $unbuffered = false;
 
 	/**
+	 * Override to set defaults for subclassed form.
+	 * Should return an array with options. See $base_options.
+	 */
+	static protected function default_options(){
+		return array();
+	}
+
+	/**
+	 * Override to support CSRF tokens.
+	 * It should return a string with the CSRF token or false to disable. Tokens
+	 * is automatically appended to all forms but it will not validate it (user
+	 * must check for presence and validate)
+	 */
+	static protected function csrf_token(){
+		return false;
+	}
+
+	/**
 	 * Create a form bound to an key-value array.
 	 */
 	static public function from_array($id, $array, $callback, array $options=array()){
@@ -225,14 +243,6 @@ class Form extends FormContainer {
 			$attr['value'] = $value;
 		}
 		$this->hidden[] = $this->factory("hidden", $key, false, $attr);
-	}
-
-	static protected function default_options(){
-		return array();
-	}
-
-	static protected function csrf_token(){
-		return false;
 	}
 
 	private function start() {
