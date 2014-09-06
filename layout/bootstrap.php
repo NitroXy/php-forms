@@ -79,12 +79,4 @@ class FormLayoutBootstrap implements FormLayout {
 		echo '	</div>';
 		echo '</div>';
 	}
-
-	public function add_row($label, $field, $error, $hint){
-
-		echo '<div class="form-group">';
-		echo "	$label";
-		echo '	' . static::field_content($field);
-		echo '</div>';
-	}
 }
