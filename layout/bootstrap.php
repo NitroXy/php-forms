@@ -12,6 +12,11 @@ class FormLayoutBootstrap implements FormLayout {
 			$class = 'checkbox';
 		}
 
+		if ( $error ){
+			$class .= ' has-error';
+			$hint = $hint ? "$hint<br/>$error" : $error;
+		}
+
 		echo "<div class=\"$class\">";
 		if ( $label ){
 			echo "	<label for=\"$id\" class=\"control-label\">$label</label>";
