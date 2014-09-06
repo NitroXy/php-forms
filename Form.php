@@ -667,8 +667,7 @@ class FormInput implements FormField {
 	}
 
 	public function get_label(){
-		if ( !$this->label ) return false;
-		return "<label for=\"{$this->id}\">{$this->label}</label>";
+		return $this->label;
 	}
 
 	public function get_name() {

@@ -2,6 +2,7 @@
 
 class FormLayoutBootstrap implements FormLayout {
 	public function render_field($field, $error){
+		$id = $field->get_id();
 		$label = $field->get_label();
 		$content = static::field_content($field);
 		$hint = $field->get_hint();
@@ -12,7 +13,9 @@ class FormLayoutBootstrap implements FormLayout {
 		}
 
 		echo "<div class=\"$class\">";
-		echo "	$label</label>";
+		if ( $label ){
+			echo "	<label for=\"$id\" class=\"control-label\">$label</label>";
+		}
 		echo "	$content";
 		if ( $hint ){
 			echo "	<span class=\"help-block\">$hint</span>";
