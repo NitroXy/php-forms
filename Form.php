@@ -252,20 +252,6 @@ class Form extends FormContainer {
 	}
 
 	private function start() {
-		if($this->res != null && $this->res->has_errors()) {
-			$ret = '';
-			foreach($this->res->errors as $key => $errors) {
-				$prefix = '';
-				if ( $key != "base" ) {
-					$prefix = "Fel i fältet $key: ";
-				}
-				foreach($errors as $e) {
-					$ret .= "$prefix$e<br />";
-				}
-			}
-			flash('error', $ret);
-		}
-
 		/* create array of key=value pairs */
 		$attr = array();
 		foreach ( $this->attr as $key => $value ){
