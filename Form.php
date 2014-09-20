@@ -610,12 +610,12 @@ class FormFieldset extends FormContainer implements FormField {
 }
 
 class FormInput implements FormField {
-	private $key;
-	private $id;
-	private $name;
-	private $label;
-	private $tworow = 0;
-	private $fill = 0;
+	protected $key;
+	protected $id;
+	protected $name;
+	protected $label;
+	protected $tworow = 0;
+	protected $fill = 0;
 
 	/**
 	 * @param $key used when fetching value.
