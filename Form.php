@@ -616,6 +616,7 @@ class FormInput implements FormField {
 	protected $label;
 	protected $tworow = 0;
 	protected $fill = 0;
+	protected $icon = false;
 
 	/**
 	 * @param $key used when fetching value.
@@ -637,6 +638,7 @@ class FormInput implements FormField {
 		$this->pop_attr('hint', $attr, $this->hint);
 		$this->pop_attr('tworow', $attr, $this->tworow);
 		$this->pop_attr('fill', $attr, $this->fill);
+		$this->pop_attr('icon', $attr, $this->icon);
 
 		if (  $type != null ) $attr['type'] = $type;
 		if ( $value !== null ) $attr['value'] = $value;
@@ -672,6 +674,10 @@ class FormInput implements FormField {
 
 	public function get_name() {
 		return $this->name;
+	}
+
+	public function get_icon(){
+		return $this->icon;
 	}
 
 	public function get_content(array $extra_attr = array()){

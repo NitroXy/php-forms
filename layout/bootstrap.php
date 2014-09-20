@@ -59,7 +59,10 @@ class FormLayoutBootstrap implements FormLayout {
 			if ( !static::has_class($field, 'btn-.+') ){
 				$class[] = 'btn-primary';
 			}
-			return $field->get_content(array('class' => $class));
+			if ( $icon = $field->get_icon() ){
+				$icon = "<span class=\"$icon\"></span>";
+			}
+			return $field->get_content(array('class' => $class, 'icon' => $icon));
 		}
 
 		return $field->get_content(array('class' => 'form-control'));
