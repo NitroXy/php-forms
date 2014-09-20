@@ -367,6 +367,8 @@ class FormContainer {
 		case 'button': $field = new FormButton(false, $id, $name, $label, 'button', false, $attr); break;
 		case 'submit': $field = new FormButton(false, $id, $name, $label, 'submit', false, $attr); break;
 		case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
+		case 'static': $field = new StaticField($value, $label, $attr); break;
+		case 'link': $field = new LinkField($label, $attr); break;
 		case 'hint': $field = new HintField($key, $label, $attr); break;
 		case 'file': $field = new FormUpload($key, $id, $name, $value, $type, $label, $attr); break;
 		case 'checkbox': $field = new FormCheckbox($key, $id, $name, $value, $type, $label, $attr); break;
@@ -485,6 +487,14 @@ class FormContainer {
 	 */
 	public function button($text, $key=null, array $attr=array()) {
 		$this->fields[] = $this->factory('button', $key, $text, $attr);
+	}
+
+	public function static_value($key, $label=false, array $attr=array()){
+		$this->fields[] = $this->factory('static', $key, $label, $attr);
+	}
+
+	public function link($text, $href, $label=false, array $attr=array()){
+		$this->fields[] = $this->factory('link', false, $label, array_merge(array('text' => $text, 'href' => $href), $attr));
 	}
 
 	/**
@@ -766,6 +776,54 @@ class TextAreaField extends FormInput {
 		$attr = array_merge_recursive($extra_attr, $this->attr);
 		return "<textarea " . $this->serialize_attr($attr) . " >{$this->value}</textarea>";
 	}
+}
+
+class StaticField extends FormInput {
+	protected $text = null;
+
+	public function __construct($text, $label, $attr){
+		parent::__construct(false, false, false, null, null, $label, $attr);
+		$this->text = $text;
+	}
+
+	public function render($layout, $res) {
+		$layout->render_static($this);
+	}
+
+	public function get_content(array $extra_attr = array()){
+		$attr = array_merge_recursive($extra_attr, $this->attr);
+		$this->pop_attr('icon', $attr, $icon); /* layout reads icon data, puts html back into attr */
+		return $icon . $this->text;
+	}
+
+	public function get_hint(){ return false; }
+	public function get_label(){ return $this->label; }
+	public function layout_hints(){ return 0; }
+	public function get_id() { return false; }
+}
+
+class LinkField extends StaticField {
+	protected $href = null;
+
+	public function __construct($label, $attr){
+		$this->pop_attr('text', $attr, $text);
+		parent::__construct($text, $label, $attr);
+	}
+
+	public function render($layout, $res) {
+		$layout->render_static($this);
+	}
+
+	public function get_content(array $extra_attr = array()){
+		$attr = array_merge_recursive($extra_attr, $this->attr);
+		$this->pop_attr('icon', $attr, $icon); /* layout reads icon data, puts html back into attr */
+		return "<a " . $this->serialize_attr($attr) . " />$icon{$this->text}</a>";
+	}
+
+	public function get_hint(){ return false; }
+	public function get_label(){ return $this->label; }
+	public function layout_hints(){ return 0; }
+	public function get_id() { return false; }
 }
 
 class HintField implements FormField {

@@ -28,6 +28,23 @@ class FormLayoutBootstrap implements FormLayout {
 		echo '</div>';
 	}
 
+	public function render_static($field){
+		$id = $field->get_id();
+		$label = $field->get_label();
+		$content = $field->get_content();
+		$hint = $field->get_hint();
+
+		echo "<div class=\"form-group\">";
+		if ( $label ){
+			echo "	<label for=\"$id\" class=\"control-label\">$label</label>";
+		}
+		echo "	<p class=\"form-control-static\">$content</p>";
+		if ( $hint ){
+			echo "	<span class=\"help-block\">$hint</span>";
+		}
+		echo '</div>';
+	}
+
 	public function render_fieldset($fieldset){}
 	public function render_hint($field){}
 	public function begin(){}
@@ -52,6 +69,13 @@ class FormLayoutBootstrap implements FormLayout {
 	static private function field_content($field){
 		if ( $field instanceof FormUpload || $field instanceof FormCheckbox ){
 			return $field->get_content();
+		}
+
+		if ( $field instanceof StaticField ){
+			if ( $icon = $field->get_icon() ){
+				$icon = "<span class=\"$icon\"></span>";
+			}
+			return $field->get_content(array('icon' => $icon));
 		}
 
 		if ( $field instanceof FormButton ){
