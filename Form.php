@@ -364,6 +364,7 @@ class FormContainer {
 		list($id, $name, $value) = $this->generate_data($key, $attr);
 		switch ( $type ){
 		case 'hidden': $field = new FormInput($key, false, $name, $value, 'hidden', false, $attr); break;
+		case 'button': $field = new FormButton(false, $id, $name, $label, 'button', false, $attr); break;
 		case 'submit': $field = new FormButton(false, $id, $name, $label, 'submit', false, $attr); break;
 		case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
 		case 'hint': $field = new HintField($key, $label, $attr); break;
@@ -473,12 +474,17 @@ class FormContainer {
 	/**
 	 * Submit button.
 	 *
-	 * Use 'class' => 'link-submit' to get a submit button looking like a link
-	 *
 	 * @option 'confirm' adds onclick="return confirm(..);"
 	 */
 	public function submit($text, $key=null, array $attr=array()) {
 		$this->fields[] = $this->factory('submit', $key, $text, $attr);
+	}
+
+	/**
+	 * Generic button.
+	 */
+	public function button($text, $key=null, array $attr=array()) {
+		$this->fields[] = $this->factory('button', $key, $text, $attr);
 	}
 
 	/**
