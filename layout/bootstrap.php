@@ -72,7 +72,7 @@ class FormLayoutBootstrap implements FormLayout {
 		if ( $label ){
 			echo "	<label>$label</label>";
 		}
-		echo '	<div>';
+		echo '	<div class="clearfix">';
 		foreach ( $group->children() as $field ){
 			echo static::field_content($field);
 		}
