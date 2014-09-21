@@ -243,8 +243,7 @@ class Form extends FormContainer {
 	/**
 	 * Overridden hidden so child-containers can call this.
 	 */
-	public function hidden_field($key, $value=null) {
-		$attr = array();
+	public function hidden_field($key, $value=null, array $attr=array()) {
 		if ( $value !== null ){
 			$attr['value'] = $value;
 		}
@@ -394,8 +393,8 @@ class FormContainer {
 	 *
 	 * @param $value If set it overrides regular value.
 	 */
-	public function hidden_field($key, $value=null) {
-		$this->form->hidden_field($key, $value);
+	public function hidden_field($key, $value=null, array $attr=array()){
+		$this->form->hidden_field($key, $value, $attr);
 	}
 
 	public function text_field($key, $label=null, array $attr=array()){
