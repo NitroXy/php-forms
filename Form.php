@@ -63,6 +63,7 @@ class Form extends FormContainer {
 		'prefix' => false,       /* use a custom prefix in front of all names, default is nothing for arrays and class name for objects */
 		'style' => '',           /* add custom style to form, e.g. width */
 		'class' => array(),      /* additional classes (accepts string or array) */
+		'data' => array(),       /* extra data attributes */
 	);
 
 	private $id="";
