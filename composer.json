@@ -20,7 +20,7 @@
 		"easybook/geshi": "~1.0"
 	},
 	"autoload": {
-		"psr-4": { "NitroXy\\PHPForms\\": "src/" }
+		"psr-4": { "NitroXy\\PHPForms\\": ["src/", "src/lib/"] }
 	},
 	"autoload-dev": {
 		"psr-4": { "NitroXy\\PHPForms\\Tests\\": "tests/" }
