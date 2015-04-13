@@ -206,6 +206,7 @@ class Form extends FormContainer {
 		if (    $options['style'] ) $this->attr['style'] = $options['style'];
 		if (   $options['prefix'] ) $this->name_pattern = $options['prefix'] . '[%s]';
 		if (  $options['enctype'] ) $this->attr['enctype'] = $options['enctype'];
+		if (     $options['data'] ) $this->attr['data'] =  $options['data'];
 	}
 
 	private function set_layout($options){
@@ -282,14 +283,7 @@ class Form extends FormContainer {
 	}
 
 	private function start() {
-		/* create array of key=value pairs */
-		$attr = array();
-		foreach ( $this->attr as $key => $value ){
-			if ( is_array($value) ) $value = implode(" ", $value);
-			$attr[] = "$key=\"$value\"";
-		}
-		$attr = implode(' ', $attr);
-
+		$attr = serialize_attr($this->attr);
 		echo "<form id=\"{$this->id}\" $attr>\n";
 	}
 
