@@ -14,7 +14,7 @@ class FormSelect extends FormInput {
 	 */
 	public function __construct($form, $key, $label=null, $attr=array()){
 		if ( $label && !is_string($label) ){
-			trigger_error_caller("Label must be string");
+			trigger_error("Label must be string");
 		}
 
 		list($id, $name, $value) = $form->generate_data($key, $attr);

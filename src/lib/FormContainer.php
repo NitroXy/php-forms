@@ -17,7 +17,7 @@ class FormContainer {
 	 */
 	public function factory($type, $key, $label=null, array $attr=array()){
 		if ( $label && !is_string($label) ){
-			trigger_error_caller("Label must be string");
+			trigger_error("Label must be string");
 		}
 		list($id, $name, $value) = $this->generate_data($key, $attr);
 		switch ( $type ){
@@ -122,14 +122,14 @@ class FormContainer {
 	 */
 	public function group($label, $callback, array $attr=array()){
 		if ( $this->unbuffered() ){
-			trigger_error_caller("Cannot use Form groups in unbuffered mode", E_USER_ERROR);
+			trigger_error("Cannot use Form groups in unbuffered mode", E_USER_ERROR);
 		}
 		$this->fields[] = new FormGroup($this, $label, $callback, $attr);
 	}
 
 	public function fieldset($label, $callback){
 		if ( $this->unbuffered() ){
-			trigger_error_caller("Cannot use Form fieldsets in unbuffered mode", E_USER_ERROR);
+			trigger_error("Cannot use Form fieldsets in unbuffered mode", E_USER_ERROR);
 		}
 		$this->fields[] = new FormFieldset($this, $label, $callback);
 	}
