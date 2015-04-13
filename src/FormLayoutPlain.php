@@ -1,5 +1,7 @@
 <?php
 
+namespace NitroXy\PHPForms;
+
 class FormLayoutPlain implements FormLayout {
 	public function render_field($field, $error){
 		$label = $field->get_label();

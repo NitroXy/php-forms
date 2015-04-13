@@ -171,7 +171,7 @@ class Form extends FormContainer {
 			case 'bootstrap': $layout = new FormLayoutBootstrap(); break;
 			case 'unbuffered': $this->unbuffered = true; break;
 			default:
-				trigger_error_caller("Form class called with unknown layout `$layout'", E_USER_NOTICE);
+				trigger_error("Form class called with unknown layout `$layout'", E_USER_NOTICE);
 				$layout = new FormLayoutPlain();
 			}
 		} else if ( !$layout instanceof FormLayout ){
@@ -691,8 +691,8 @@ class FormInput implements FormField {
 
 	public function layout_hints(){
 		return
-			($this->tworow ? LAYOUT_TWOROWS : 0) |
-			($this->fill ? LAYOUT_FILL : 0 );
+			($this->tworow ? Form::LAYOUT_TWOROWS : 0) |
+			($this->fill   ? Form::LAYOUT_FILL : 0 );
 	}
 
 	protected function serialize_attr($data=null){

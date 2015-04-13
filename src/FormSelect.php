@@ -1,6 +1,6 @@
 <?php
 
-require_once('Form.php');
+namespace NitroXy\PHPForms;
 
 class FormSelect extends FormInput {
 	private $selected;

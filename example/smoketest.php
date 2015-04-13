@@ -1,5 +1,9 @@
 <?php
 
+require '../vendor/autoload.php';
+use NitroXy\PHPForms\Form;
+use NitroXy\PHPForms\FormSelect;
+
 $layout = isset($_GET['layout']) ? $_GET['layout'] : 'plain';
 $available = array(
 	'plain' => 'Plain',
