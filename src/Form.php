@@ -1,12 +1,6 @@
 <?php
 
-define('LAYOUT_TWOROWS', 1);
-define('LAYOUT_FILL', 2);
-
-require 'layout/layout.php';
-require 'layout/plain.php';
-require 'layout/table.php';
-require 'layout/bootstrap.php';
+namespace NitroXy\PHPForms;
 
 function serialize_attr_array($stem, $data){
 	$item = array();
@@ -55,6 +49,9 @@ function serialize_attr($data){
 }
 
 class Form extends FormContainer {
+	const LAYOUT_TWOROWS =  1;
+	const LAYOUT_FILL = 2;
+
 	static protected $base_options = array(
 		'method' => 'post',      /* form method (get or post) */
 		'action' => '',          /* form action */

@@ -1,5 +1,7 @@
 <?php
 
+namespace NitroXy\PHPForms;
+
 class FormLayoutTable implements FormLayout {
 	public $closed = true;
 
@@ -13,7 +15,7 @@ class FormLayoutTable implements FormLayout {
 		$hint = $field->get_hint();
 		$hints = $field->layout_hints();
 
-		if ( !($hints & LAYOUT_TWOROWS) ){
+		if ( !($hints & Form::LAYOUT_TWOROWS) ){
 			echo "		<tr>\n";
 			if ( $label !== false ){
 				echo "			<th class=\"form-label\">$label</th>\n";
@@ -24,7 +26,7 @@ class FormLayoutTable implements FormLayout {
 				echo "			<td class=\"form-field\" colspan=\"4\">$content</td>\n";
 			}
 			echo "		</tr>\n";
-		} else if ( $hints & LAYOUT_FILL ){
+		} else if ( $hints & Form::LAYOUT_FILL ){
 			echo "		<tr>\n";
 			echo "			<th class=\"form-label tworow\" colspan=\"2\" valign=\"top\">$label</th>\n";
 			echo "			<td class=\"form-hint\"  valign=\"top\">$hint</td>\n";

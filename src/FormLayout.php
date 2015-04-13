@@ -1,5 +1,7 @@
 <?php
 
+namespace NitroXy\PHPForms;
+
 interface FormLayout {
 	public function render_group($group, $res);
 	public function render_field($field, $error);
