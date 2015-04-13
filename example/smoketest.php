@@ -23,6 +23,9 @@ class Object {
 		<title>PHP-Forms Smoketest</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<style>
+			.form.table textarea { width: 100%; }
+		</style>
 	</head>
 	<body>
 		<div class="container">
