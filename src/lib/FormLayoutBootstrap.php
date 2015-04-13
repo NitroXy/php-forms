@@ -1,5 +1,7 @@
 <?php
 
+namespace NitroXy\PHPForms;
+
 class FormLayoutBootstrap implements FormLayout {
 	public function render_field($field, $error){
 		$id = $field->get_id();
@@ -8,13 +10,22 @@ class FormLayoutBootstrap implements FormLayout {
 		$hint = $field->get_hint();
 
 		$class = 'form-group';
-		if ( $field instanceof FormCheckbox ){
-			$class = 'checkbox';
-		}
-
 		if ( $error ){
 			$class .= ' has-error';
 			$hint = $hint ? "$hint<br/>$error" : $error;
+		}
+
+		if ( $field instanceof FormCheckbox ){
+			echo "<div class=\"checkbox\">";
+			echo "	<label for=\"$id\" class=\"control-label\">";
+			echo "		$content";
+			echo "		$label";
+			echo "	</label>";
+			if ( $hint ){
+				echo "	<span class=\"help-block\">$hint</span>";
+			}
+			echo '</div>';
+			return;
 		}
 
 		echo "<div class=\"$class\">";
@@ -67,7 +78,11 @@ class FormLayoutBootstrap implements FormLayout {
 	}
 
 	static private function field_content($field){
-		if ( $field instanceof FormUpload || $field instanceof FormCheckbox ){
+		if ( $field instanceof FormUpload ){
+			return $field->get_content();
+		}
+
+		if ( $field instanceof FormCheckbox ){
 			return $field->get_content();
 		}
 
@@ -101,7 +116,11 @@ class FormLayoutBootstrap implements FormLayout {
 		}
 		echo '	<div class="clearfix">';
 		foreach ( $group->children() as $field ){
-			echo static::field_content($field);
+			if ( $field instanceof FormCheckbox ){
+				echo $field->get_content(array(), array('class' => 'checkbox-inline'));
+			} else {
+				echo static::field_content($field);
+			}
 		}
 		echo '	</div>';
 		echo '</div>';
