@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6028a594c911fe9d58d5e74972ce069e",
+    "hash": "87e9335240abb8239daa72daa3a80151",
     "packages": [],
     "packages-dev": [
         {
@@ -60,6 +60,52 @@
                 "instantiate"
             ],
             "time": "2014-10-13 12:58:55"
+        },
+        {
+            "name": "easybook/geshi",
+            "version": "v1.0.8.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/easybook/geshi.git",
+                "reference": "a8d44a6e8434f9e7081010d7eea0bcfcca693d43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/easybook/geshi/zipball/a8d44a6e8434f9e7081010d7eea0bcfcca693d43",
+                "reference": "a8d44a6e8434f9e7081010d7eea0bcfcca693d43",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">4.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "./"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nigel McNie",
+                    "email": "nigel@geshi.org"
+                },
+                {
+                    "name": "Benny Baumann",
+                    "email": "BenBE@geshi.org"
+                }
+            ],
+            "description": "GeSHi - Generic Syntax Highlighter. This is an unmodified port of GeSHi project code found on SourceForge.",
+            "homepage": "http://qbnz.com/highlighter",
+            "keywords": [
+                "highlight",
+                "highlighter",
+                "syntax"
+            ],
+            "time": "2015-03-28 21:58:43"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
