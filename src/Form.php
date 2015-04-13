@@ -164,6 +164,9 @@ class Form extends FormContainer {
 	private function set_layout($options){
 		$layout = $options['layout'];
 
+		/* use layout class so it is possible to style a single layout */
+		$this->attr['class'] = array_merge($this->attr['class'], array($layout));
+
 		if ( is_string($layout) ){
 			switch ( $layout ){
 			case 'table': $layout = new FormLayoutTable(); break;
@@ -175,7 +178,7 @@ class Form extends FormContainer {
 				$layout = new FormLayoutPlain();
 			}
 		} else if ( !$layout instanceof FormLayout ){
-			trigger_error_caller("Layout must either be string or a class implementing FormLayout", E_USER_ERROR);
+			trigger_error("Layout must either be string or a class implementing FormLayout", E_USER_ERROR);
 		}
 
 		$this->layout = $layout;
@@ -351,6 +354,9 @@ class FormContainer {
 		default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
 		}
 
+		/* remember containing object */
+		$field->set_container($this);
+
 		if ( $this->unbuffered() ){
 			if($field->get_label() !== false) {
 				echo "<label for='{$field->get_id()}'>{$field->get_label()}</label>\n";
@@ -515,6 +521,7 @@ interface FormField {
 	public function get_content();
 	public function get_label();
 	public function get_id();
+	public function get_container();
 }
 
 class FormGroup extends FormContainer implements FormField {
@@ -563,6 +570,10 @@ class FormGroup extends FormContainer implements FormField {
 	}
 
 	public function get_id() { return false; }
+
+	public function get_container(){
+		return null;
+	}
 }
 
 class FormFieldset extends FormContainer implements FormField {
@@ -599,6 +610,10 @@ class FormFieldset extends FormContainer implements FormField {
 	public function get_label() { return false; }
 	public function get_content() { return false; }
 	public function get_id() { return false; }
+
+	public function get_container(){
+		return null;
+	}
 }
 
 class FormInput implements FormField {
@@ -609,6 +624,7 @@ class FormInput implements FormField {
 	protected $tworow = 0;
 	protected $fill = 0;
 	protected $icon = false;
+	protected $container = null;
 
 	/**
 	 * @param $key used when fetching value.
@@ -698,6 +714,14 @@ class FormInput implements FormField {
 	protected function serialize_attr($data=null){
 		return FormUtils::serialize_attr($data ?: $this->attr);
 	}
+
+	public function set_container($container){
+		$this->container = $container;
+	}
+
+	public function get_container(){
+		return $this->container;
+	}
 }
 
 class FormButton extends FormInput {
@@ -736,10 +760,14 @@ class FormCheckbox extends FormInput {
 	}
 
 
-	public function get_content(array $extra_attr = array()){
+	public function get_content(array $extra_attr = array(), array $label = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
 		$text = $this->label;
-		return "<label><input " . $this->serialize_attr($attr) . " />$text</label>";
+		if ( $this->get_container() instanceof FormGroup ){
+			return "<label " . FormUtils::serialize_attr($label) . "><input " . $this->serialize_attr($attr) . " />$text</label>";
+		} else {
+			return "<input " . $this->serialize_attr($attr) . " />";
+		}
 	}
 }
 
@@ -809,6 +837,7 @@ class HintField implements FormField {
 	private $text = null;
 	private $label = null;
 	private $attr = array('class' => 'form-hint');
+	protected $container = null;
 
 	public function __construct($text, $label, $attr){
 		$this->text = $text;
@@ -825,6 +854,8 @@ class HintField implements FormField {
 	public function get_label(){ return $this->label; }
 	public function layout_hints(){ return 0; }
 	public function get_id() { return false; }
+	public function set_container($container){ $this->container = $container; }
+	public function get_container(){ return $this->container; }
 }
 
 class ManualField implements FormField {
@@ -832,6 +863,7 @@ class ManualField implements FormField {
 	private $label = null;
 	private $content = null;
 	private $hint = null;
+	protected $container = null;
 
 	public function __construct($key, $label, $content, $hint){
 		$this->key = $key;
@@ -854,4 +886,6 @@ class ManualField implements FormField {
 	public function get_hint(){ return $this->hint; }
 	public function layout_hints(){ return 0; }
 	public function get_id() { return false; }
+	public function set_container($container){ $this->container = $container; }
+	public function get_container(){ return $this->container; }
 }
