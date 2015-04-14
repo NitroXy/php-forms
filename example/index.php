@@ -110,6 +110,8 @@ function display($filename){
 				<dt>Other</dt>
 				<dd>Form also accepts <code>style</code>, <code>class</code> and <code>data</code> which is just passed directly to the form.</dd>
 			</dl>
+			<p>Default options for forms can be set by extending <code>default_options</code>:</p>
+			<?php display('example_default_options.php'); ?>
 			<h3>Fields</h3>
 			<dl>
 				<dt>hint</dt>
