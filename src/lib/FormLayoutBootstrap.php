@@ -67,8 +67,7 @@ class FormLayoutBootstrap implements FormLayout {
 	}
 
 	static private function has_class($field, $pattern){
-		if ( !isset($field->attr['class']) ) return false;
-		$class = $field->attr['class'];
+		if ( !($class = $field->attribute('class')) ) return false;
 		if ( !is_array($class) ){
 			$class = explode(' ', $class);
 		}
