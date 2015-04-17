@@ -11,6 +11,7 @@ class FormInput implements FormField {
 	protected $fill = 0;
 	protected $icon = false;
 	protected $container = null;
+	protected $attr = array();
 
 	/**
 	 * @param $key used when fetching value.
@@ -94,6 +95,10 @@ class FormInput implements FormField {
 
 	public function get_hint(){
 		return $this->hint;
+	}
+
+	public function attribute($key, $default=false){
+		return array_key_exists($key, $this->attr) ? $this->attr[$key] : $default;
 	}
 
 	public function layout_hints(){

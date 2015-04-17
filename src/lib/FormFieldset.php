@@ -40,4 +40,8 @@ class FormFieldset extends FormContainer implements FormField {
 	public function get_container(){
 		return null;
 	}
+
+	public function attribute($key, $default=false){
+		return $default; /* for now, fieldsets has no attributes to read */
+	}
 }

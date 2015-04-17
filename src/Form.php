@@ -413,6 +413,10 @@ class HintField implements FormField {
 	public function get_id() { return false; }
 	public function set_container($container){ $this->container = $container; }
 	public function get_container(){ return $this->container; }
+
+	public function attribute($key, $default=false){
+		return array_key_exists($key, $this->attr) ? $this->attr[$key] : $default;
+	}
 }
 
 class ManualField implements FormField {
@@ -445,4 +449,8 @@ class ManualField implements FormField {
 	public function get_id() { return false; }
 	public function set_container($container){ $this->container = $container; }
 	public function get_container(){ return $this->container; }
+
+	public function attribute($key, $default=false){
+		return $default; /* no sane way to get attributes from manual fields */
+	}
 }
