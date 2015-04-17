@@ -8,6 +8,7 @@ class FormLayoutBootstrap implements FormLayout {
 		$label = $field->get_label();
 		$content = static::field_content($field);
 		$hint = $field->get_hint();
+		$required = $field->attribute('required') ? '<em>*</em>' : '';
 
 		$class = 'form-group';
 		if ( $error ){
@@ -30,7 +31,7 @@ class FormLayoutBootstrap implements FormLayout {
 
 		echo "<div class=\"$class\">";
 		if ( $label ){
-			echo "	<label for=\"$id\" class=\"control-label\">$label</label>";
+			echo "	<label for=\"$id\" class=\"control-label\">{$label}{$required}</label>";
 		}
 		echo "	$content";
 		if ( $hint ){
