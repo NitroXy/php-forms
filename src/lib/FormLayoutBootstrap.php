@@ -57,8 +57,17 @@ class FormLayoutBootstrap implements FormLayout {
 		echo '</div>';
 	}
 
+	public function render_hint($field){
+		if ( $field->get_label() ){
+			$this->render_static($field);
+			return;
+		}
+
+		$content = $field->get_content();
+		echo "<p>$content</p>";
+	}
+
 	public function render_fieldset($fieldset){}
-	public function render_hint($field){}
 	public function begin(){}
 	public function end(){}
 
