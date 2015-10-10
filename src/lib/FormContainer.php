@@ -98,16 +98,37 @@ class FormContainer {
 		}
 	}
 
+	/**
+	 * File upload field.
+	 *
+	 * @option remove If true a checkbox to remove the current value will be added.
+	 * @option current If set to non-false the content will be displayed as the
+	 *                 current value, e.g can be set to <img ..>  to display the
+	 *                 current uploaded image.
+	 */
 	public function upload_field($key, $label=null, array $attr=array()) {
 		$remove = false;
+		$current = false;
+
 		if ( array_key_exists('remove', $attr) ){
 			$remove = $attr['remove'];
 			unset($attr['remove']);
 		}
 
+		if ( array_key_exists('current', $attr) ){
+			$current = $attr['current'];
+			unset($attr['current']);
+		}
+
 		$attr['name'] = $key; /* fulhack för att PHP är CP */
 		$upload = $this->factory("file", $key, $label, $attr);
 		$this->fields[] = $upload;
+
+		if ( $current !== false ){
+			$attr = array();
+			list($id, $name, $value) = $this->generate_data($key . '_current', $attr);
+			$this->fields[] = new ManualField("{$key}_remove", '', "<label>$current</label>", false);
+		}
 
 		if ( $remove ){
 			$attr = array();
