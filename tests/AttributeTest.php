@@ -24,5 +24,8 @@ class AttributeTest extends PHPUnit_Framework_TestCase {
 
 		/* recursive */
 		$this->assertEquals('foo-a-spam="1" foo-a-ham="2"', FormUtils::serialize_attr(['foo' => ['a' => ['spam' => '1', 'ham' => '2']]]));
+
+		/* boolean */
+		$this->assertEquals('foo', FormUtils::serialize_attr(['foo' => true, 'bar' => false]));
 	}
 }

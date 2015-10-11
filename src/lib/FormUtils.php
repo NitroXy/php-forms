@@ -20,8 +20,14 @@ class FormUtils {
 					$attr[] = "{$sub[0]}=\"{$value}\"";
 				}
 			} else {
-				$value = htmlspecialchars($value);
-				$attr[] = "$key=\"$value\"";
+				if ( $value === true ){
+					$attr[] = "$key";
+				} else if ( $value === false ){
+					/* ignore */
+				} else {
+					$value = htmlspecialchars($value);
+					$attr[] = "$key=\"$value\"";
+				}
 			}
 		}
 		return implode(' ', $attr);
