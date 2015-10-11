@@ -8,7 +8,7 @@ class Form extends FormContainer {
 
 	static protected $base_options = array(
 		'method' => 'post',      /* form method (get or post) */
-		'action' => '',          /* form action */
+		'action' => '',          /* form action (if set to false no <form> wrapper will be generated (you must manually set it) */
 		'enctype' => false,      /* form encoding */
 		'layout' => 'table',     /* layout engine, one of {plain, table, bootstrap, unbuffered} or a class extending FormLayout. If unbuffered fields is written directly. */
 		'prefix' => false,       /* use a custom prefix in front of all names, default is nothing for arrays and class name for objects */
@@ -238,12 +238,13 @@ class Form extends FormContainer {
 	}
 
 	private function start() {
-		$attr = FormUtils::serialize_attr($this->attr);
-		echo "<form id=\"{$this->id}\" $attr>\n";
+		if ( $this->attr['action'] !== false ){
+			$attr = FormUtils::serialize_attr($this->attr);
+			echo "<form id=\"{$this->id}\" $attr>\n";
+		}
 	}
 
 	private function end() {
-
 		if(strtolower($this->attr['method']) != "get") {
 			$has_csrf = false;
 			foreach( $this->hidden as $field) {
@@ -259,7 +260,9 @@ class Form extends FormContainer {
 		}
 
 		if ( $this->unbuffered ){
-			echo "</form>\n";
+			if ( $this->attr['action'] !== false ){
+				echo "</form>\n";
+			}
 			return;
 		}
 
@@ -274,7 +277,9 @@ class Form extends FormContainer {
 		}
 		$this->layout->end();
 
-		echo "</form>\n";
+		if ( $this->attr['action'] !== false ){
+			echo "</form>\n";
+		}
 	}
 
 	private function get_value($key, array &$attr) {
