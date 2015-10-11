@@ -376,7 +376,7 @@ class LinkField extends StaticField {
 	public function get_content(array $extra_attr = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
 		$this->pop_attr('icon', $attr, $icon); /* layout reads icon data, puts html back into attr */
-		return "<a " . $this->serialize_attr($attr) . " />$icon{$this->text}</a>";
+		return "<a " . $this->serialize_attr($attr) . ">$icon{$this->text}</a>";
 	}
 
 	public function get_hint(){ return false; }
