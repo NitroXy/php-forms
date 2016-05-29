@@ -7,7 +7,7 @@
 		<style>
 			.form.table { margin-bottom: 0; /* override bootstrap */ }
 			.form.table textarea { width: 100%; }
-			.example { border: 1px dashed #ccc; padding: 15px; border-radius: 4px; }
+			.example { border: 1px dashed #ccc; padding: 15px; border-radius: 4px; margin-bottom: 10px; }
 		</style>
 	</head>
 	<body>
@@ -19,6 +19,7 @@
 				<li><a href="#usage">Usage</a></li>
 				<li><a href="#layout">Layout</a></li>
 				<li><a href="#csrf">CSRF</a></li>
+				<li><a href="#methods">Methods</a></li>
 				<li><a href="#persistent">Persistent values</a></li>
 				<li><a href="#controls">Supported controls</a></li>
 				<li><a href="#options">Options</a></li>
@@ -33,7 +34,7 @@
 			<pre class="php" style="font-family:monospace;">Form<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'example1'</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
 	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'My field name'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
-				<form id="example1" class="form table" method="post" action="">
+				<form id="example1" class="form table" method="POST" action="">
 	<table class="layout">
 		<tr>
 			<th class="form-label">My field name</th>
@@ -44,6 +45,17 @@
 	</table>
 </form>
 			</div>
+			<div class="example">
+				<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">form</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;example1&quot;</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form table&quot;</span> <span style="color: #000066;">method</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;POST&quot;</span> <span style="color: #000066;">action</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">table</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;layout&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">tr</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">th</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-label&quot;</span>&gt;</span>My field name<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">th</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">td</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-field&quot;</span>&gt;&lt;<span style="color: #000000; font-weight: bold;">input</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;example1_name&quot;</span> <span style="color: #000066;">name</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;name&quot;</span> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;text&quot;</span> <span style="color: #66cc66;">/</span>&gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">td</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">td</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-hint&quot;</span> &gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">td</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">td</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-error&quot;</span>&gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">td</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">tr</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">table</span>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">form</span>&gt;</span>			</div>
 
 			<h2 id="layout">Layout</h2>
 			<p>PHP-Forms supports a few default layout engines or you can create your own custom. The layout engines is used to render each field.</p>
@@ -52,7 +64,7 @@
 <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'layout'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #000088;">$layout</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<h3>Tables (default)</h3>
 			<p>The default layout is table-based and will put the labels and fields in columns. Quick-and-dirty way to get a form.</p>
 			<div class="example">
-				<form id="example2-table" class="form table" method="post" action="">
+				<form id="example2-table" class="form table" method="POST" action="">
 	<table class="layout">
 		<tr>
 			<th class="form-label">My field name</th>
@@ -66,7 +78,7 @@
 			<h3>Plain</h3>
 			<p>Plain layout is similar to tables but will instead use spans and divs.</p>
 			<div class="example">
-				<form id="example2-plain" class="form plain" method="post" action="">
+				<form id="example2-plain" class="form plain" method="POST" action="">
 <div class="form-row"><span class="form-label">My field name</span>
 <span class="form-field"><input id="example2-plain_name" name="name" type="text" /></span>
 <span class="form-hint"></span>
@@ -75,7 +87,7 @@
 			<h3>Bootstrap</h3>
 			<p>Outputs fields with bootstrap classes.</p>
 			<div class="example">
-				<form id="example2-bootstrap" class="form bootstrap" method="post" action="">
+				<form id="example2-bootstrap" class="form bootstrap" method="POST" action="">
 <div class="form-group">	<label for="example2-bootstrap_name" class="control-label">My field name</label>	<input class="form-control" id="example2-bootstrap_name" name="name" type="text" /></div></form>
 			</div>
 			<h3>Unbuffered</h3>
@@ -89,13 +101,35 @@
 	<span style="color: #009900;">&#125;</span>
 <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
 &nbsp;
-MyForm<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;example3&quot;</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
-	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'My field name'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
-<span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'layout'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'bootstrap'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
-				<form id="example3" class="form bootstrap" method="post" action="">
-	<input value="my-current-csrf-token" name="csrf_token" type="hidden" />
-<div class="form-group">	<label for="example3_name" class="control-label">My field name</label>	<input class="form-control" id="example3_name" name="name" type="text" /></div></form>
-			</div>
+MyForm<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;example_csrf&quot;</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	<span style="color: #666666; font-style: italic;">/* ... */</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
+				<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">form</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;example_csrf&quot;</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form table&quot;</span> <span style="color: #000066;">method</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;POST&quot;</span> <span style="color: #000066;">action</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">input</span> <span style="color: #000066;">value</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;my-current-csrf-token&quot;</span> <span style="color: #000066;">name</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;csrf_token&quot;</span> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;hidden&quot;</span> <span style="color: #66cc66;">/</span>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">form</span>&gt;</span>			</div>
+
+			<h2 id="methods">Methods</h2>
+			<p>To support other methods than <tt>GET</tt> and <tt>POST</tt> <code>Form</code> inserts a hidden field <code>_method</code> and uses POST to submit.</p>
+			<pre class="php" style="font-family:monospace;">Form<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;example_method&quot;</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	<span style="color: #666666; font-style: italic;">/* ... */</span>
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'method'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'patch'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
+				<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">form</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;example_method&quot;</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form table&quot;</span> <span style="color: #000066;">method</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;POST&quot;</span> <span style="color: #000066;">action</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;&quot;</span>&gt;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">input</span> <span style="color: #000066;">value</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;PATCH&quot;</span> <span style="color: #000066;">name</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;_method&quot;</span> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;hidden&quot;</span> <span style="color: #66cc66;">/</span>&gt;</span><br />
+<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">form</span>&gt;</span>			</div>
+			<table class="table table-striped table-condensed" style="width: auto;">
+				<thead>
+					<tr><th>Method</th><th>Submitted as</th><th>_method</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>GET</td><td>GET</td><td>unset</td></tr>
+					<tr><td>POST</td><td>POST</td><td>unset</td></tr>
+					<tr><td>PATCH</td><td>POST</td><td>PATCH</td></tr>
+					<tr><td>DELETE</td><td>POST</td><td>DELETE</td></tr>
+				</tbody>
+				<tfoot>
+					<tr><td colspan="4">... and so on.</td></tr>
+				</tfoot>
+			</table>
 
 			<h2 id="persistent">Persistent values</h2>
 			<p>By utilizing either <code>from_array</code> or <code>from_object</code> values can be stored and automatically filled into the form.</p>
@@ -118,7 +152,7 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">select</span><span style="color: #009900;">&#40;</span>FormSelect<span style="color: #339933;">::</span><span style="color: #004000;">from_array</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'role'</span><span style="color: #339933;">,</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">''</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Manager'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Frobnicator'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Developer'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Role'</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">textarea</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'description'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Description'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'layout'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'bootstrap'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
-				<form id="MyCustomClass" class="form bootstrap MyCustomClass" method="post" action="">
+				<form id="MyCustomClass" class="form bootstrap MyCustomClass" method="POST" action="">
 <div class="form-group">	<label for="MyCustomClass_name" class="control-label">Name</label>	<input class="form-control" value="John Doe" id="MyCustomClass_name" name="MyCustomClass[name]" type="text" /></div><div class="form-group">	<label for="MyCustomClass_age" class="control-label">Age</label>	<input class="form-control" type="number" min="1" value="46" id="MyCustomClass_age" name="MyCustomClass[age]" /></div><div class="form-group">	<label for="MyCustomClass_role" class="control-label">Role</label>	<select class="form-control" id="MyCustomClass_role" name="MyCustomClass[role]">
 <option value="0"></option>
 <option value="1">Manager</option>
@@ -160,7 +194,7 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 		<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'text3'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Input 3'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 	<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'layout'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'bootstrap'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
-				<form id="example5" class="form bootstrap" method="post" action="">
+				<form id="example5" class="form bootstrap" method="POST" action="">
 	<input value="Hidden (this wont show at all)" name="name" type="hidden" />
 	<input value="0" name="checkbox" type="hidden" />
 <div class="form-group">	<label for="example5_text_field" class="control-label">Text</label>	<input class="form-control" id="example5_text_field" name="text_field" type="text" />	<span class="help-block">Use the "type" option to use custom type such as number.</span></div><div class="form-group">	<label for="example5_password_field" class="control-label">Password</label>	<input class="form-control" autocomplete="off" id="example5_password_field" name="password_field" type="password" />	<span class="help-block">Passwords are not persistent if autocomplete is off</span></div><div class="form-group">	<label for="example5_custom_field" class="control-label">Email</label>	<input class="form-control" placeholder="email@example.net" id="example5_custom_field" name="custom_field" type="email" />	<span class="help-block">Another way to add custom input fields (same as using text_field with type).</span></div><div class="form-group">	<label for="example5_textarea" class="control-label">Textarea</label>	<textarea class="form-control" id="example5_textarea" name="textarea" ></textarea></div><div class="form-group">	<label for="example5_select" class="control-label">Select</label>	<select class="form-control" id="example5_select" name="select">
@@ -168,7 +202,7 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 <option value="1">B</option>
 <option value="2">C</option>
 </select>
-</div><div class="form-group">	<label for="" class="control-label">Static text</label>	<p class="form-control-static"></p></div><div class="form-group">	<label for="" class="control-label">Static link</label>	<p class="form-control-static"><a href="https://example.net" />link</a></p></div><div class="form-group">	<label for="example5_upload" class="control-label">File upload</label>	<input class="form-control" id="example5_upload" name="upload" type="file" /></div><div class="form-group">	<label><input type='checkbox' name='upload_remove' id='example5_upload_remove' value='1' />Ta bort</label></div><div class="checkbox">	<label for="example5_checkbox" class="control-label">		<input type="checkbox" id="example5_checkbox" name="checkbox" value="1" />		Checkbox	</label></div><div class="form-group">	<label for="" class="control-label">Manual</label>	<em>Custom html</em></div><div class="form-group">	<button class="btn btn-primary" id="example5_Submit button" name="Submit button" type="submit">submit</button></div><div class="form-group">	<button class="btn btn-success" id="example5_Generic button" name="Generic button" type="button">button</button></div><div class="form-group">	<label>Inline group</label>	<div class="clearfix"><button class="btn btn-default" id="example5_b1" name="b1" type="button">Button 1</button><button class="btn btn-danger" id="example5_b2" name="b2" type="button">Button 2</button><button class="btn btn-primary" id="example5_b3" name="b3" type="button">Button 3</button>	</div></div>	<fieldset>
+</div><div class="form-group">	<label for="" class="control-label">Static text</label>	<p class="form-control-static"></p></div><div class="form-group">	<label for="" class="control-label">Static link</label>	<p class="form-control-static"><a href="https://example.net">link</a></p></div><div class="form-group">	<label for="" class="control-label">Lorem ipsum dot sit amet.</label>	<p class="form-control-static">static</p></div><div class="form-group">	<label for="example5_upload" class="control-label">File upload</label>	<input class="form-control" id="example5_upload" name="upload" type="file" /></div><div class="form-group">	<label><input type='checkbox' name='upload_remove' id='example5_upload_remove' value='1' />Ta bort</label></div><div class="checkbox">	<label for="example5_checkbox" class="control-label">		<input type="checkbox" id="example5_checkbox" name="checkbox" value="1" />		Checkbox	</label></div><div class="form-group">	<label for="" class="control-label">Manual</label>	<em>Custom html</em></div><div class="form-group">	<button class="btn btn-primary" id="example5_Submit button" name="Submit button" type="submit">submit</button></div><div class="form-group">	<button class="btn btn-success" id="example5_Generic button" name="Generic button" type="button">button</button></div><div class="form-group">	<label>Inline group</label>	<div class="clearfix"><button class="btn btn-default" id="example5_b1" name="b1" type="button">Button 1</button><button class="btn btn-danger" id="example5_b2" name="b2" type="button">Button 2</button><button class="btn btn-primary" id="example5_b3" name="b3" type="button">Button 3</button>	</div></div>	<fieldset>
 		<legend>Fieldset</legend>
 <div class="form-group">	<label for="example5_text1" class="control-label">Input 1</label>	<input class="form-control" id="example5_text1" name="text1" type="text" /></div><div class="form-group">	<label for="example5_text2" class="control-label">Input 2</label>	<input class="form-control" id="example5_text2" name="text2" type="text" /></div><div class="form-group">	<label for="example5_text3" class="control-label">Input 3</label>	<input class="form-control" id="example5_text3" name="text3" type="text" /></div>	</fieldset>
 </form>
@@ -179,6 +213,8 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 			<dl>
 				<dt>method</dt>
 				<dd>Form method (default: post)</dd>
+				<dt>method_field_name</dt>
+				<dd>Name of the special method field when using methods other than <tt>GET</tt> and <tt>POST</tt></dd>
 				<dt>action</dt>
 				<dd>Form action (default: "")</dd>
 				<dt>enctype</dt>
@@ -190,7 +226,18 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 				<dt>Other</dt>
 				<dd>Form also accepts <code>style</code>, <code>class</code> and <code>data</code> which is just passed directly to the form.</dd>
 			</dl>
-			<h3>Fields</h3>
+			<p>Default options for forms can be set by extending <code>default_options</code>:</p>
+			<pre class="php" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> MyForm <span style="color: #000000; font-weight: bold;">extends</span> Form <span style="color: #009900;">&#123;</span>
+	static <span style="color: #000000; font-weight: bold;">protected</span> <span style="color: #000000; font-weight: bold;">function</span> default_options<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+		<span style="color: #b1b100;">return</span> <a href="http://www.php.net/array"><span style="color: #990000;">array</span></a><span style="color: #009900;">&#40;</span>
+			<span style="color: #0000ff;">'layout'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'bootstrap'</span><span style="color: #339933;">,</span>
+		<span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
+&nbsp;
+MyForm<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;example_default_options&quot;</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'My field name'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<h3>Fields</h3>
 			<dl>
 				<dt>hint</dt>
 				<dd>Description of the field</dd>
@@ -226,7 +273,7 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">create<
 		<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Name'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 	<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">&#125;</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'layout'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'bootstrap'</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
-				<form id="example6" class="form bootstrap" method="post" action="">
+				<form id="example6" class="form bootstrap" method="POST" action="">
 <div class="form-group">	<label for="A_name" class="control-label">Name</label>	<input class="form-control" value="Name A" id="A_name" name="A[name]" type="text" /></div><div class="form-group">	<label for="B_name" class="control-label">Name</label>	<input class="form-control" value="Name B" id="B_name" name="B[name]" type="text" /></div></form>
 			</div>
 		</div>
