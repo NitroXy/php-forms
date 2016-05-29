@@ -61,7 +61,11 @@ class FormInput implements FormField {
 	}
 
 	public function render($layout, $res) {
-		$layout->render_field($this, $this->get_error($res));
+		if ( !(array_key_exists('type', $this->attr) && $this->attr['type'] === 'hidden') ){
+			$layout->render_field($this, $this->get_error($res));
+		} else {
+			$layout->render_hidden($this);
+		}
 	}
 
 	public function get_id() {

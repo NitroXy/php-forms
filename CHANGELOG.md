@@ -2,6 +2,7 @@
 
 Breaking changes:
   - Layout classes must now implement `preamble` and `postamble` functions.
+  - Layout classes must now implement `render_hidden` function.
 
 Bugfixes:
   - Fixed layout being instance instead of string.

@@ -11,4 +11,8 @@ abstract class FormLayoutBase implements FormLayout {
 	public function postamble($form){
 		echo "</form>\n";
 	}
+
+	public function render_hidden($field){
+		echo "\t{$field->get_content()}\n";
+	}
 }

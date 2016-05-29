@@ -302,7 +302,7 @@ class Form extends FormContainer {
 
 		/* output all hidden fields */
 		foreach ( $this->hidden as $field ){
-			echo "	" . $field->get_content() . "\n";
+			$field->render($this->layout, $this->res);
 		}
 
 		/* output regular fields */
