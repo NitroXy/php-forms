@@ -212,7 +212,7 @@ class Form extends FormContainer {
 		return $this->unbuffered;
 	}
 
-	private function render(){
+	protected function render(){
 		$cb = $this->callback;
 
 		$this->start();
@@ -265,7 +265,7 @@ class Form extends FormContainer {
 		$this->hidden_field($this->options['method_field_name'], strtoupper($this->options['method']));
 	}
 
-	private function start() {
+	protected function start() {
 		if ( $this->unbuffered ){
 			if ( $this->attr['action'] !== false ){
 				$attr = FormUtils::serialize_attr($this->attr);
@@ -279,7 +279,7 @@ class Form extends FormContainer {
 		}
 	}
 
-	private function end() {
+	protected function end() {
 		$method = strtoupper($this->options['method']);
 		if ( $method !== "GET" ) {
 			$has_csrf = false;

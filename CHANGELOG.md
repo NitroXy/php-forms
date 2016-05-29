@@ -3,6 +3,7 @@
 ## Features
 
  - Checkbox using labels in table layout.
+ - Exposed `start`, `end` and `render` as protected.
 
 # 1.2.0 (2016-05-30)
 
