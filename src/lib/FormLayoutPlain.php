@@ -20,6 +20,10 @@ class FormLayoutPlain extends FormLayoutBase {
 		$this->render_field($field, false);
 	}
 
+	public function render_static($field){
+		$this->render_field($field, false);
+	}
+
 	public function render_group($group, $res){
 		$label = $group->get_label();
 

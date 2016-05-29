@@ -78,6 +78,10 @@ class FormLayoutTable extends FormLayoutBase {
 		$this->render_field($field, false);
 	}
 
+	public function render_static($field){
+		$this->render_field($field, false);
+	}
+
 	public function begin(){
 		$this->closed = false;
 		echo "	<table class=\"layout\">\n";

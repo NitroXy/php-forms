@@ -34,6 +34,10 @@ class MockLayout implements NitroXy\PHPForms\FormLayout {
 
 	}
 
+	public function render_static($field){
+		$this->field[$field->get_name()] = $field;
+	}
+
 	public function begin(){
 
 	}
