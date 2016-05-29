@@ -1,3 +1,8 @@
+## 1.1.1
+
+Bugfixes:
+  - Unbuffered output regression fix since 1.1.0
+
 ## 1.1.0
 
 Breaking changes:

@@ -266,6 +266,14 @@ class Form extends FormContainer {
 	}
 
 	private function start() {
+		if ( $this->unbuffered ){
+			if ( $this->attr['action'] !== false ){
+				$attr = FormUtils::serialize_attr($this->attr);
+				echo "<form id=\"{$this->id}\" $attr>\n";
+			}
+			return;
+		}
+
 		if ( $this->attr['action'] !== false ){
 			$this->layout->preamble($this);
 		}
