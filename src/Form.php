@@ -179,9 +179,7 @@ class Form extends FormContainer {
 
 	private function set_layout($options){
 		$layout = $options['layout'];
-
-		/* use layout class so it is possible to style a single layout */
-		$this->attr['class'] = array_merge($this->attr['class'], array($layout));
+		$class = $layout;
 
 		if ( is_string($layout) ){
 			switch ( $layout ){
@@ -195,7 +193,16 @@ class Form extends FormContainer {
 			}
 		} else if ( !$layout instanceof FormLayout ){
 			trigger_error("Layout must either be string or a class implementing FormLayout", E_USER_ERROR);
+		} else {
+			if ( method_exists($layout, 'layout_name') ){
+				$class = $layout->layout_name();
+			} else {
+				$class = get_class($layout);
+			}
 		}
+
+		/* use layout class so it is possible to style a single layout */
+		$this->attr['class'] = array_merge($this->attr['class'], array($class));
 
 		$this->layout = $layout;
 	}

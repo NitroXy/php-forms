@@ -9,4 +9,7 @@ interface FormLayout {
 	public function render_hint($field);
 	public function begin();
 	public function end();
+
+	/* optional functions */
+	// public function layout_name();
 }
