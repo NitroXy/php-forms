@@ -84,6 +84,10 @@ class FormInput implements FormField {
 		return $this->icon;
 	}
 
+	public function get_value(){
+		return array_key_exists('value', $this->attr) ? $this->attr['value'] : null;
+	}
+
 	public function get_content(array $extra_attr = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
 		if ( $attr['type'] == 'password' && isset($attr['autocomplete']) && $attr['autocomplete'] == 'off' ){
