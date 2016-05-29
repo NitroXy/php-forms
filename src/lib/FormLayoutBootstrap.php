@@ -20,7 +20,7 @@ class FormLayoutBootstrap extends FormLayoutBase {
 			echo "<div class=\"checkbox\">";
 			echo "	<label for=\"$id\" class=\"control-label\">";
 			echo "		$content";
-			echo "		$label";
+			echo "		{$field->get_text()}";
 			echo "	</label>";
 			if ( $hint ){
 				echo "	<span class=\"help-block\">$hint</span>";

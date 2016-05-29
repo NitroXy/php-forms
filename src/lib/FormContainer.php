@@ -191,7 +191,8 @@ class FormContainer {
 
 	public function checkbox($key, $text, $label=null, array $attr=array()) {
 		$this->hidden_field($key, '0');
-		$this->fields[] = $this->factory('checkbox', $key, $text, $attr);
+		$attr['text'] = $text;
+		$this->fields[] = $this->factory('checkbox', $key, $label, $attr);
 	}
 
 	public function fields_for($id, $obj, $method){

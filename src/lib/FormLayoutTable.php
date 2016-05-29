@@ -10,10 +10,25 @@ class FormLayoutTable extends FormLayoutBase {
 			$this->begin();
 		}
 
+		$id = $field->get_id();
 		$label = $field->get_label();
 		$content = $field->get_content();
 		$hint = $field->get_hint();
 		$hints = $field->layout_hints();
+
+		if ( $field instanceof FormCheckbox ){
+			echo "		<tr>\n";
+			if ( $label !== false ){
+				echo "			<th class=\"form-label\">{$field->get_text()}</th>\n";
+				echo "			<td class=\"form-field\">$content</td>\n";
+				echo "			<td class=\"form-hint\" >$hint</td>\n";
+				echo "			<td class=\"form-error\">$error</td>\n";
+			} else {
+				echo "			<td class=\"form-field\" colspan=\"4\">{$content} {$field->get_text()}</td>\n";
+			}
+			echo "		</tr>\n";
+			return;
+		}
 
 		if ( !($hints & Form::LAYOUT_TWOROWS) ){
 			echo "		<tr>\n";

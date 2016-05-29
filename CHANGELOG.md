@@ -3,11 +3,16 @@
 ## Breaking changes
 
   - Layout classes must now implement `render_static`.
+  - Layout for checkboxes changed, label is now called `text`.
 
 ## Bugfixes
 
   - Unbuffered output regression fix since 1.1.0
   - Support static fields for all layouts.
+
+## Features
+
+  - Checkboxes support label=false the same way other fields does.
 
 # 1.1.0 (2016-05-29)
 
