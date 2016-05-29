@@ -3,6 +3,8 @@
 namespace NitroXy\PHPForms;
 
 interface FormLayout {
+	public function preamble($form);
+	public function postamble($form);
 	public function render_group($group, $res);
 	public function render_field($field, $error);
 	public function render_fieldset($fieldset);

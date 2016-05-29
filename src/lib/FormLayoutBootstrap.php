@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class FormLayoutBootstrap implements FormLayout {
+class FormLayoutBootstrap extends FormLayoutBase {
 	public function render_field($field, $error){
 		$id = $field->get_id();
 		$label = $field->get_label();

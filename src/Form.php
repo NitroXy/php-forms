@@ -18,12 +18,13 @@ class Form extends FormContainer {
 		'data' => array(),                   /* extra data attributes */
 	);
 
-	private $id="";
+	public $id = "";
+	public $attr = array('class' => array('form'));
+
 	private $res = null;
 	private $name_pattern = '%s';
 	private $layout = null;
 	private $callback = null;
-	private $attr = array('class' => array('form'));
 	private $options = null;
 	private $unbuffered = false;
 
@@ -266,8 +267,7 @@ class Form extends FormContainer {
 
 	private function start() {
 		if ( $this->attr['action'] !== false ){
-			$attr = FormUtils::serialize_attr($this->attr);
-			echo "<form id=\"{$this->id}\" $attr>\n";
+			$this->layout->preamble($this);
 		}
 	}
 
@@ -312,7 +312,7 @@ class Form extends FormContainer {
 		$this->layout->end();
 
 		if ( $this->attr['action'] !== false ){
-			echo "</form>\n";
+			$this->layout->postamble($this);
 		}
 	}
 

@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class FormLayoutTable implements FormLayout {
+class FormLayoutTable extends FormLayoutBase {
 	public $closed = true;
 
 	public function render_field($field, $error){
