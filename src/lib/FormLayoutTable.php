@@ -19,12 +19,12 @@ class FormLayoutTable extends FormLayoutBase {
 		if ( $field instanceof FormCheckbox ){
 			echo "		<tr>\n";
 			if ( $label !== false ){
-				echo "			<th class=\"form-label\">{$field->get_text()}</th>\n";
+				echo "			<th class=\"form-label\"><label for=\"$id\">{$field->get_text()}</label></th>\n";
 				echo "			<td class=\"form-field\">$content</td>\n";
 				echo "			<td class=\"form-hint\" >$hint</td>\n";
 				echo "			<td class=\"form-error\">$error</td>\n";
 			} else {
-				echo "			<td class=\"form-field\" colspan=\"4\">{$content} {$field->get_text()}</td>\n";
+				echo "			<td class=\"form-field\" colspan=\"4\"><label>{$content} {$field->get_text()}</label></td>\n";
 			}
 			echo "		</tr>\n";
 			return;

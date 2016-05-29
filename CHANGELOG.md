@@ -1,3 +1,9 @@
+# 1.2.1
+
+## Features
+
+ - Checkbox using labels in table layout.
+
 # 1.2.0 (2016-05-30)
 
 ## Breaking changes
