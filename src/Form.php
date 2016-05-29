@@ -7,14 +7,15 @@ class Form extends FormContainer {
 	const LAYOUT_FILL = 2;
 
 	static protected $base_options = array(
-		'method' => 'post',      /* form method (get or post) */
-		'action' => '',          /* form action (if set to false no <form> wrapper will be generated (you must manually set it) */
-		'enctype' => false,      /* form encoding */
-		'layout' => 'table',     /* layout engine, one of {plain, table, bootstrap, unbuffered} or a class extending FormLayout. If unbuffered fields is written directly. */
-		'prefix' => false,       /* use a custom prefix in front of all names, default is nothing for arrays and class name for objects */
-		'style' => '',           /* add custom style to form, e.g. width */
-		'class' => array(),      /* additional classes (accepts string or array) */
-		'data' => array(),       /* extra data attributes */
+		'method' => 'post',                  /* form method (get or post) */
+		'method_field_name' => '_method',    /* name of the method field when method isn't GET or POST. */
+		'action' => '',                      /* form action (if set to false no <form> wrapper will be generated (you must manually set it) */
+		'enctype' => false,                  /* form encoding */
+		'layout' => 'table',                 /* layout engine, one of {plain, table, bootstrap, unbuffered} or a class extending FormLayout. If unbuffered fields is written directly. */
+		'prefix' => false,                   /* use a custom prefix in front of all names, default is nothing for arrays and class name for objects */
+		'style' => '',                       /* add custom style to form, e.g. width */
+		'class' => array(),                  /* additional classes (accepts string or array) */
+		'data' => array(),                   /* extra data attributes */
 	);
 
 	private $id="";
@@ -23,6 +24,7 @@ class Form extends FormContainer {
 	private $layout = null;
 	private $callback = null;
 	private $attr = array('class' => array('form'));
+	private $options = null;
 	private $unbuffered = false;
 
 	/**
@@ -148,8 +150,11 @@ class Form extends FormContainer {
 			$options['class'] = explode(' ', $options['class']);
 		}
 
+		/* store raw options */
+		$this->options = $options;
+
 		/* required */
-		$this->attr['method'] = $options['method'];
+		$this->attr['method'] = static::parse_method($options['method']);
 		$this->attr['action'] = $options['action'];
 
 		/* optional */
@@ -159,6 +164,17 @@ class Form extends FormContainer {
 		if (   $options['prefix'] ) $this->name_pattern = $options['prefix'] . '[%s]';
 		if (  $options['enctype'] ) $this->attr['enctype'] = $options['enctype'];
 		if (     $options['data'] ) $this->attr['data'] =  $options['data'];
+	}
+
+	private function parse_method($method){
+		$method = strtoupper($method);
+		switch ( $method ){
+			case 'GET':
+			case 'POST':
+				return $method;
+			default:
+				return 'POST';
+		}
 	}
 
 	private function set_layout($options){
@@ -237,6 +253,10 @@ class Form extends FormContainer {
 		$this->hidden[] = $this->factory("hidden", $key, false, $attr);
 	}
 
+	public function method_field() {
+		$this->hidden_field($this->options['method_field_name'], strtoupper($this->options['method']));
+	}
+
 	private function start() {
 		if ( $this->attr['action'] !== false ){
 			$attr = FormUtils::serialize_attr($this->attr);
@@ -245,7 +265,8 @@ class Form extends FormContainer {
 	}
 
 	private function end() {
-		if(strtolower($this->attr['method']) != "get") {
+		$method = strtoupper($this->options['method']);
+		if ( $method !== "GET" ) {
 			$has_csrf = false;
 			foreach( $this->hidden as $field) {
 				if($field->get_name() == "csrf_token") {
@@ -256,6 +277,12 @@ class Form extends FormContainer {
 
 			if ( !$has_csrf && ($csrf_token=$this->csrf_token()) ) {
 				$this->hidden_field("csrf_token", $csrf_token);
+			}
+
+			/* use a special _method field to allow using other HTTP methods
+			 * such as PATCH and DELETE. */
+			if ( $method !== 'POST' ){
+				$this->method_field();
 			}
 		}
 
@@ -311,9 +338,10 @@ class Form extends FormContainer {
 			return $name;
 		}
 
-		/* special case for CSRF token, should always be named as such (no prefix) */
-		if ( $key == 'csrf_token' ){
-			return 'csrf_token';
+		/* special cases for fields (like CSRF token) which should always
+		 * be named as such (no prefix) */
+		if ( $key === 'csrf_token' || $key === $this->options['method_field_name'] ){
+			return $key;
 		}
 
 		if ( empty($key) ) return null;

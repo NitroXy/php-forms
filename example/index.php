@@ -11,6 +11,17 @@ function display($filename){
 	echo $geshi->parse_code();
 }
 
+function htmlify($filename){
+	ob_start();
+	include($filename);
+	$html = ob_get_contents();
+	ob_end_clean();
+	$geshi = new GeSHi(trim($html), 'html5');
+	$geshi->set_header_type(GESHI_HEADER_NONE);
+	$geshi->enable_keyword_links(false);
+	echo $geshi->parse_code();
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +32,7 @@ function display($filename){
 		<style>
 			.form.table { margin-bottom: 0; /* override bootstrap */ }
 			.form.table textarea { width: 100%; }
-			.example { border: 1px dashed #ccc; padding: 15px; border-radius: 4px; }
+			.example { border: 1px dashed #ccc; padding: 15px; border-radius: 4px; margin-bottom: 10px; }
 		</style>
 	</head>
 	<body>
@@ -33,6 +44,7 @@ function display($filename){
 				<li><a href="#usage">Usage</a></li>
 				<li><a href="#layout">Layout</a></li>
 				<li><a href="#csrf">CSRF</a></li>
+				<li><a href="#methods">Methods</a></li>
 				<li><a href="#persistent">Persistent values</a></li>
 				<li><a href="#controls">Supported controls</a></li>
 				<li><a href="#options">Options</a></li>
@@ -47,6 +59,9 @@ function display($filename){
 			<?php display('example1.php'); ?>
 			<div class="example">
 				<?php include('example1.php'); ?>
+			</div>
+			<div class="example">
+				<?php htmlify('example1.php'); ?>
 			</div>
 
 			<h2 id="layout">Layout</h2>
@@ -74,8 +89,29 @@ function display($filename){
 			<p>To enable CSRF protection you need to extend <code>Form</code>. This will ensure the token is present on all forms (using a special hidden called <code>csrf_token</code>). The developer must validate the token when POSTing the form.</p>
 			<?php display('example3.php'); ?>
 			<div class="example">
-				<?php include('example3.php'); ?>
+				<?php htmlify('example3.php'); ?>
 			</div>
+
+			<h2 id="methods">Methods</h2>
+			<p>To support other methods than <tt>GET</tt> and <tt>POST</tt> <code>Form</code> inserts a hidden field <code>_method</code> and uses POST to submit.</p>
+			<?php display('example_methods.php'); ?>
+			<div class="example">
+				<?php htmlify('example_methods.php'); ?>
+			</div>
+			<table class="table table-striped table-condensed" style="width: auto;">
+				<thead>
+					<tr><th>Method</th><th>Submitted as</th><th>_method</th></tr>
+				</thead>
+				<tbody>
+					<tr><td>GET</td><td>GET</td><td>unset</td></tr>
+					<tr><td>POST</td><td>POST</td><td>unset</td></tr>
+					<tr><td>PATCH</td><td>POST</td><td>PATCH</td></tr>
+					<tr><td>DELETE</td><td>POST</td><td>DELETE</td></tr>
+				</tbody>
+				<tfoot>
+					<tr><td colspan="4">... and so on.</td></tr>
+				</tfoot>
+			</table>
 
 			<h2 id="persistent">Persistent values</h2>
 			<p>By utilizing either <code>from_array</code> or <code>from_object</code> values can be stored and automatically filled into the form.</p>
@@ -99,6 +135,8 @@ function display($filename){
 			<dl>
 				<dt>method</dt>
 				<dd>Form method (default: post)</dd>
+				<dt>method_field_name</dt>
+				<dd>Name of the special method field when using methods other than <tt>GET</tt> and <tt>POST</tt></dd>
 				<dt>action</dt>
 				<dd>Form action (default: "")</dd>
 				<dt>enctype</dt>
