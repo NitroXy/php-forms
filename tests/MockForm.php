@@ -1,21 +1,32 @@
 <?php
 
+/**
+ * @codeCoverageIgnore
+ */
 class MockLayout implements NitroXy\PHPForms\FormLayout {
 	public $form_id;
 	public $form_attr;
+	public $group = [];
 	public $field = [];
+	public $opened = 0;
+	public $closed = 0;
 
 	public function preamble($form){
 		$this->form_id = $form;
 		$this->form_attr = $form->attr;
+		$this->opened++;
 	}
 
 	public function postamble($form){
-
+		$this->closed++;
 	}
 
 	public function render_group($group, $res){
-
+		$children = [];
+		foreach ( $group->children() as $child ){
+			$children[$child->get_name()] = $child;
+		}
+		$this->group[$group->get_label()] = $children;
 	}
 
 	public function render_hidden($field){

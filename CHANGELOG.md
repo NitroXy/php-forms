@@ -1,5 +1,9 @@
 # 1.2.1
 
+## Bugfixes
+
+ - `begin` is now always called, fixes issues with forms containing only groups.
+	
 ## Features
 
  - Checkbox using labels in table layout.

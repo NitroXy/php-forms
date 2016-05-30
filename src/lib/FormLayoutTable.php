@@ -6,10 +6,6 @@ class FormLayoutTable extends FormLayoutBase {
 	public $closed = true;
 
 	public function render_field($field, $error){
-		if ( $this->closed ){
-			$this->begin();
-		}
-
 		$id = $field->get_id();
 		$label = $field->get_label();
 		$content = $field->get_content();
@@ -98,13 +94,16 @@ class FormLayoutTable extends FormLayoutBase {
 	}
 
 	public function begin(){
-		$this->closed = false;
-		echo "	<table class=\"layout\">\n";
+		if ( $this->closed ){
+			$this->closed = false;
+			echo "	<table class=\"layout\">\n";
+		}
 	}
 
 	public function end(){
-		if ( $this->closed ) return;
-		$this->closed = true;
-		echo "	</table>\n";
+		if ( !$this->closed ){
+			$this->closed = true;
+			echo "	</table>\n";
+		}
 	}
 }

@@ -19,7 +19,7 @@ Form::create('example5', function($f){
 	$f->manual('manual', 'Manual', '<em>Custom html</em>', false);
 	$f->submit('submit', 'Submit button');
 	$f->button('button', 'Generic button', ['class' => 'btn-success']);
-	
+
 	/* groups allows you to put multiple fields inline (label is optional) */
 	$f->group('Inline group', function($f){
 		$f->button('Button 1', 'b1', ['class' => 'btn-default']);

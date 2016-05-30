@@ -2,7 +2,7 @@
 
 use NitroXy\PHPForms\Form;
 
-require 'MockForm.php';
+require_once 'MockForm.php';
 
 class FormTest extends PHPUnit_Framework_TestCase {
 	public function testHttpMethodDefault(){

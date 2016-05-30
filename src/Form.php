@@ -314,6 +314,7 @@ class Form extends FormContainer {
 		}
 
 		/* output regular fields */
+		$this->layout->begin();
 		foreach ( $this->fields as $field ){
 			$field->render($this->layout, $this->res);
 		}
