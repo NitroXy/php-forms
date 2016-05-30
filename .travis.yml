@@ -8,4 +8,6 @@ php:
 install:
   - composer install
 script:
-  - phpunit --bootstrap vendor/autoload.php --coverage-text tests
+  - phpunit --bootstrap vendor/autoload.php --coverage-clover clover.xml tests
+after_success:
+  - travis_retry php vendor/bin/coveralls
