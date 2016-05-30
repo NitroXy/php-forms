@@ -7,7 +7,16 @@ php:
   - hhvm
 install:
   - composer install
+  - composer require satooshi/php-coveralls
 script:
   - phpunit --bootstrap vendor/autoload.php --coverage-clover clover.xml tests
+
+matrix:
+  exclude:
+    - php: 5.4
+      install:
+        - composer install
+      after_success:
+
 after_success:
   - travis_retry php vendor/bin/coveralls
