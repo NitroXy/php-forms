@@ -54,4 +54,18 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$mock->expects($this->once())->method('end');
 		$form = Form::create('id', function($f){}, ['layout' => $mock]);
 	}
+
+	public function testFromPrePostAmble(){
+		$mock = $this->getMockBuilder('MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
+		$mock->expects($this->once())->method('preamble');
+		$mock->expects($this->once())->method('postamble');
+		$form = Form::create('id', function($f){}, ['layout' => $mock]);
+	}
+
+	public function testFromPrePostAmbleNoAction(){
+		$mock = $this->getMockBuilder('MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
+		$mock->expects($this->never())->method('preamble');
+		$mock->expects($this->never())->method('postamble');
+		$form = Form::create('id', function($f){}, ['layout' => $mock, 'action' => false]);
+	}
 }
