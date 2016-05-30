@@ -48,4 +48,10 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('PUT', $mock->field['foobar']->get_value());
 	}
 
+	public function testFromBeginEnd(){
+		$mock = $this->getMockBuilder('MockLayout')->setMethods(['begin', 'end'])->getMock();
+		$mock->expects($this->once())->method('begin');
+		$mock->expects($this->once())->method('end');
+		$form = Form::create('id', function($f){}, ['layout' => $mock]);
+	}
 }
