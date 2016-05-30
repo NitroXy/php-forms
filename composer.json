@@ -18,7 +18,8 @@
 	"require-dev": {
 		"phpunit/phpunit": "4.6.*",
 		"easybook/geshi": "~1.0",
-		"satooshi/php-coveralls": "^1.0"
+		"satooshi/php-coveralls": "^1.0",
+		"symfony/config": "^2.1"
 	},
 	"autoload": {
 		"psr-4": { "NitroXy\\PHPForms\\": ["src/", "src/lib/"] }

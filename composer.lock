@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "260f0fcbdb9b32a8e777ee1bb72ed4a2",
-    "content-hash": "5c45d9a43b726cec667fd3abf707172b",
+    "hash": "4279e991392afb42e2b037402b85143e",
+    "content-hash": "b2915a38dc3c50d1e77ed8231b00e4d2",
     "packages": [],
     "packages-dev": [
         {
@@ -1154,38 +1154,32 @@
         },
         {
             "name": "symfony/config",
-            "version": "v3.1.0",
+            "version": "v2.2.11",
+            "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "048dc47e07f92333203c3b7045868bbc864fc40e"
+                "reference": "6952d55b2c51f0dd62b2c43a1449069c19c9b80e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/048dc47e07f92333203c3b7045868bbc864fc40e",
-                "reference": "048dc47e07f92333203c3b7045868bbc864fc40e",
+                "url": "https://api.github.com/repos/symfony/config/zipball/6952d55b2c51f0dd62b2c43a1449069c19c9b80e",
+                "reference": "6952d55b2c51f0dd62b2c43a1449069c19c9b80e",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9",
-                "symfony/filesystem": "~2.8|~3.0"
-            },
-            "suggest": {
-                "symfony/yaml": "To use the yaml reference dumper"
+                "php": ">=5.3.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
-                "psr-4": {
+                "psr-0": {
                     "Symfony\\Component\\Config\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1193,17 +1187,17 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
                 },
                 {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Symfony Config Component",
-            "homepage": "https://symfony.com",
-            "time": "2016-05-20 11:48:17"
+            "homepage": "http://symfony.com",
+            "time": "2013-11-25 08:44:14"
         },
         {
             "name": "symfony/console",
