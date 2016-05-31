@@ -4,9 +4,9 @@ use NitroXy\PHPForms\Form;
 <?php
 class MyForm extends Form {
 	static protected function default_options(){
-		return array(
+		return [
 			'layout' => 'bootstrap',
-		);
+		];
 	}
 };
 

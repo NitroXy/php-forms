@@ -10,6 +10,7 @@
           <li><a href="layout_bootstrap.php">Bootstrap</a></li>
         </ul>
       </li>
+      <li><a href="options.php">Options</a></li>
     </ul>
   </div>
 </nav>

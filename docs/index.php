@@ -30,7 +30,6 @@ use NitroXy\PHPForms\FormSelect;
 				<li><a href="#methods">HTTP Methods (REST verbs)</a></li>
 				<li><a href="#persistent">Persistent values</a></li>
 				<li><a href="#controls">Supported controls</a></li>
-				<li><a href="#options">Options</a></li>
 				<li><a href="#nested">Nested data/"forms"</a></li>
 			</ol>
 
@@ -106,46 +105,6 @@ use NitroXy\PHPForms\FormSelect;
 			<div class="example">
 				<?php include('overview/controls.php'); ?>
 			</div>
-
-			<h2 id="options">Options</h2>
-			<h3>Form options</h3>
-			<dl>
-				<dt>method</dt>
-				<dd>Form method (default: post)</dd>
-				<dt>method_field_name</dt>
-				<dd>Name of the special method field when using methods other than <tt>GET</tt> and <tt>POST</tt></dd>
-				<dt>action</dt>
-				<dd>Form action (default: "")</dd>
-				<dt>enctype</dt>
-				<dd>Form enctype</dd>
-				<dt>layout</dt>
-				<dd>Form layout ("plain", "table", "bootstrap" or an instance of <code>FormLayout</code>)</dd>
-				<dt>prefix</dt>
-				<dd>Use custom prefix when generating names and ID</dd>
-				<dt>Other</dt>
-				<dd>Form also accepts <code>style</code>, <code>class</code> and <code>data</code> which is just passed directly to the form.</dd>
-			</dl>
-			<p>Default options for forms can be set by extending <code>default_options</code>:</p>
-			<?php display('overview/options.php'); ?>
-			<h3>Fields</h3>
-			<dl>
-				<dt>hint</dt>
-				<dd>Description of the field</dd>
-				<dt>confirm</dt>
-				<dd>Buttons: adds a javascript confirmation prompt before submit/click</dd>
-				<dt>remove</dt>
-				<dd>Upload: adds a removal checkbox (e.g. a user avatar which is set if file is uploaded but retained if nothing is sent and removed if checkbox is checked)</dd>
-				<dt>Other</dt>
-				<dd>All other attributes is passed directly to field, allowing custom attributes such as <code>placeholder</code>, <code>title</code>, etc.</dd>
-			</dl>
-
-			<h3>Serialization</h3>
-			<p>Most attributes is serialized using these rules:</p>
-			<ul>
-				<li><code>['foo' => 'bar']</code> becomes <tt>foo="bar"</tt></li>
-				<li><code>['foo' => ['a', 'b', 'c']]</code> becomes <tt>foo="a b c"</tt> (order preserved)</li>
-				<li><code>['foo' => ['spam => 'ham']]</code> becomes <tt>foo-spam="ham"</tt> (deeper nesting is ok)</li>
-			</ul>
 
 			<h2 id="nested" >Nested data/"forms"</h2>
 			<p>Forms can be nested by using <code>fields_for</code> to allow either sending to unrelated objects or multiple instances of the same class.</p>
