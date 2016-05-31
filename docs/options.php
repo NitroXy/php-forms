@@ -62,6 +62,8 @@ use NitroXy\PHPForms\Form;
 				<li><code>['foo' => ['spam => 'ham']]</code> becomes <code>foo-spam="ham"</code> (deeper nesting is ok)</li>
 			</ul>
 		</div>
+		
+		<?php include('badge.php'); ?>
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	</body>
