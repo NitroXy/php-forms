@@ -17,6 +17,6 @@ dist:
 
 %.html: dist force-rebuild
 	@echo Writing $@
-	@php $(basename $(notdir $@)).php | sed -e 's/\.php/.html/g' -e 's#index\.html#/#' > $@
+	@php $(basename $(notdir $@)).php | sed -e 's/\.php/.html/g' -e 's#index\.html#/php-forms#' > $@
 
 force-rebuild:
