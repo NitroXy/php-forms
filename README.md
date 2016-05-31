@@ -6,6 +6,14 @@
 ## Installation
 <code>composer require nitroxy/php-forms</code>
 
+## Features
+
+* Create HTML5 forms easily.
+* Layout engine (supports tables, divs and bootstrap out-of-the-box).
+* Bind forms to PHP objects for reading/data and presenting validation errors.
+* CSRF protection.
+* Supports REST-verbs such as `PATCH`, `PUT`, `DELETE` or even custom if desired.
+
 ## Example 
 
 ```html
