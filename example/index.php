@@ -1,26 +1,8 @@
 <?php
 require '../vendor/autoload.php';
+require 'utils.php';
 use NitroXy\PHPForms\Form;
 use NitroXy\PHPForms\FormSelect;
-
-function display($filename){
-	/* get source code but remove boilerplate */
-	$code = file_get_contents($filename);
-	$code = preg_replace('#<\?php( /\*~\*/.*\?>)?#ims', '', $code);
-	$geshi = new GeSHi(trim($code), 'php');
-	echo $geshi->parse_code();
-}
-
-function htmlify($filename){
-	ob_start();
-	include($filename);
-	$html = ob_get_contents();
-	ob_end_clean();
-	$geshi = new GeSHi(trim($html), 'html5');
-	$geshi->set_header_type(GESHI_HEADER_NONE);
-	$geshi->enable_keyword_links(false);
-	echo $geshi->parse_code();
-}
 
 ?>
 <!DOCTYPE html>
@@ -60,9 +42,7 @@ function htmlify($filename){
 			<div class="example">
 				<?php include('example1.php'); ?>
 			</div>
-			<div class="example">
-				<?php htmlify('example1.php'); ?>
-			</div>
+			<?php htmlify('example1.php'); ?>
 
 			<h2 id="layout">Layout</h2>
 			<p>PHP-Forms supports a few default layout engines or you can create your own custom. The layout engines is used to render each field.</p>
@@ -88,16 +68,12 @@ function htmlify($filename){
 			<h2 id="csrf">CSRF</h2>
 			<p>To enable CSRF protection you need to extend <code>Form</code>. This will ensure the token is present on all forms (using a special hidden called <code>csrf_token</code>). The developer must validate the token when POSTing the form.</p>
 			<?php display('example3.php'); ?>
-			<div class="example">
-				<?php htmlify('example3.php'); ?>
-			</div>
+			<?php htmlify('example3.php'); ?>
 
 			<h2 id="methods">Methods</h2>
 			<p>To support other methods than <tt>GET</tt> and <tt>POST</tt> <code>Form</code> inserts a hidden field <code>_method</code> and uses POST to submit.</p>
 			<?php display('example_methods.php'); ?>
-			<div class="example">
-				<?php htmlify('example_methods.php'); ?>
-			</div>
+			<?php htmlify('example_methods.php'); ?>
 			<table class="table table-striped table-condensed" style="width: auto;">
 				<thead>
 					<tr><th>Method</th><th>Submitted as</th><th>_method</th></tr>
