@@ -6,6 +6,8 @@ class FormLayoutTable extends FormLayoutBase {
 	public $closed = true;
 
 	public function render_field($field, $error){
+		$this->begin();
+
 		$id = $field->get_id();
 		$label = $field->get_label();
 		$content = $field->get_content();
@@ -79,10 +81,6 @@ class FormLayoutTable extends FormLayoutBase {
 			echo "			<td class=\"form-error\"></td>\n";
 		}
 		echo "		</tr>\n";
-	}
-
-	public function render_fieldset($fieldset){
-
 	}
 
 	public function render_hint($field){

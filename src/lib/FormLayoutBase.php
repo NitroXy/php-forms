@@ -15,4 +15,19 @@ abstract class FormLayoutBase implements FormLayout {
 	public function render_hidden($field){
 		echo "\t{$field->get_content()}\n";
 	}
+
+	public function render_fieldset($fieldset, $children_cb){
+		$this->end();
+		echo "	<fieldset>\n";
+
+		$label = $fieldset->get_label();
+		if ( $label ){
+			echo "		<legend>{$label}</legend>\n";
+		}
+
+		$children_cb();
+		$this->end();
+
+		echo "	</fieldset>\n";
+	}
 }

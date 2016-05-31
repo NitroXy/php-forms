@@ -17,23 +17,19 @@ class FormFieldset extends FormContainer implements FormField {
 			return;
 		}
 
-		echo "	<fieldset>\n";
-		if ( $this->label ){
-			echo "		<legend>{$this->label}</legend>\n";
-		}
-		foreach ( $this->fields as $field){
-			$field->render($layout, $res);
-		}
-		$layout->end();
-
-		echo "	</fieldset>\n";
+		$children = $this->fields;
+		$layout->render_fieldset($this, function() use ($children, $layout, $res) {
+			foreach ( $children as $field){
+				$field->render($layout, $res);
+			}
+		});
 	}
 
 	public function layout_hints(){
 		return 0;
 	}
 
-	public function get_label() { return false; }
+	public function get_label() { return $this->label; }
 	public function get_content() { return false; }
 	public function get_id() { return false; }
 

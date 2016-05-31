@@ -49,13 +49,15 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFromBeginEnd(){
+		/* it should always (try to) close layout */
 		$mock = $this->getMockBuilder('MockLayout')->setMethods(['begin', 'end'])->getMock();
-		$mock->expects($this->once())->method('begin');
+		$mock->expects($this->never())->method('begin');
 		$mock->expects($this->once())->method('end');
 		$form = Form::create('id', function($f){}, ['layout' => $mock]);
 	}
 
 	public function testFromPrePostAmble(){
+		/* pre- and postamble should always be written ... */
 		$mock = $this->getMockBuilder('MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
 		$mock->expects($this->once())->method('preamble');
 		$mock->expects($this->once())->method('postamble');
@@ -63,6 +65,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testFromPrePostAmbleNoAction(){
+		/* ... unless action is explicitly disabled */
 		$mock = $this->getMockBuilder('MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
 		$mock->expects($this->never())->method('preamble');
 		$mock->expects($this->never())->method('postamble');

@@ -1,13 +1,26 @@
+# 1.2.2
+
+## Breaking changes
+
+  - Layout `render_fieldset` changed prototype, now includes
+    `$children_cb` which must be called to render all the content
+    inside the fieldset.
+
+## Bugfixes
+
+  - Fieldset rendering now works correctly when mixing fields inside
+    and outside fieldsets.
+
 # 1.2.1
 
 ## Bugfixes
 
- - `begin` is now always called, fixes issues with forms containing only groups.
-	
+  - `begin` is now always called, fixes issues with forms containing only groups.
+
 ## Features
 
- - Checkbox using labels in table layout.
- - Exposed `start`, `end` and `render` as protected.
+  - Checkbox using labels in table layout.
+  - Exposed `start`, `end` and `render` as protected.
 
 # 1.2.0 (2016-05-30)
 

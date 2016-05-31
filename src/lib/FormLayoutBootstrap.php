@@ -67,7 +67,6 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		echo "<p>$content</p>";
 	}
 
-	public function render_fieldset($fieldset){}
 	public function begin(){}
 	public function end(){}
 

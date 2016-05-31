@@ -35,10 +35,6 @@ class FormLayoutPlain extends FormLayoutBase {
 		echo '</div>';
 	}
 
-	public function render_fieldset($fieldset){
-
-	}
-
 	public function begin(){
 
 	}
