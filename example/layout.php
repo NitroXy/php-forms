@@ -24,7 +24,8 @@ require 'utils.php';
 	</head>
 	<body>
 		<div class="container">
-			<h1>PHP Forms &gt; <?=ucfirst($layout)?> layout</h1>
+			<h1>PHP Forms  <small><?=ucfirst($layout)?> layout</small></h1>
+			<?php include('menu.php') ?>
 
 			<?php $n = 0; ?>
 			<?php foreach ( $examples as $filename => $title ): $n++; ?>

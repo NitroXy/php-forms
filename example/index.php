@@ -20,6 +20,7 @@ use NitroXy\PHPForms\FormSelect;
 	<body>
 		<div class="container">
 			<h1>PHP Forms</h1>
+			<?php include('menu.php') ?>
 
 			<h2>Table of contents</h2>
 			<ol>
