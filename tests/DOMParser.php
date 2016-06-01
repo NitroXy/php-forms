@@ -29,12 +29,12 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 	}
 
 	protected function validate($nodes){
-		preg_match_all('#(</?(\w+).*?/?[>])([^<]*)#', $this->html, $matches, PREG_SET_ORDER);
+		preg_match_all('#(</?(\w+)(.*?)/?[>])([^<]*)#', $this->html, $matches, PREG_SET_ORDER);
 
 		foreach ( $matches as $match ){
 			$string = $match[1];
 			$tag = $match[2];
-			$content = trim($match[3]);
+			$content = trim($match[4]);
 
 			$this->assertTrue(count($nodes) > 0, "Expected no more elements, got '{$string}'");
 			$expected = array_shift($nodes);
@@ -43,6 +43,17 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 			$event = static::event_name($tag, $type);
 
 			$this->assertEquals($expected[0], $event, "Matching tags");
+
+			/* match attributes */
+			if ( isset($expected[1]) ){
+				preg_match_all('#([a-z]+)="([^"]+)"#', $match[3], $raw, PREG_PATTERN_ORDER);
+				$actual = array_combine($raw[1], $raw[2]);
+
+				foreach ( $expected[1] as $key => $value ){
+					$this->assertArrayHasKey($key, $actual, "Must contain attribute");
+					$this->assertEquals($value, $actual[$key], "Attribute must be");
+				}
+			}
 
 			if ( !empty($content) ){
 				$this->assertTrue(count($nodes) > 0, "Expected no more elements, got '{$string}'");
