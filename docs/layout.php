@@ -3,6 +3,7 @@ preg_match('/layout_([a-z]+).php/', basename($_SERVER['SCRIPT_FILENAME']), $matc
 $layout = $match[1];
 $examples = [
 	'Simple form' => 'example_layout1.php',
+	'Hints' => 'layout/hints.php',
 	'Fieldsets' => 'example_layout2.php',
 	'Groups' => [
 		'bootstrap' => 'layout/groups_bootstrap.php',
