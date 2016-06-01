@@ -5,6 +5,34 @@ use NitroXy\PHPForms\Form;
 require_once 'MockForm.php';
 
 class FormTest extends PHPUnit_Framework_TestCase {
+	public function testClassString(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){}, ['layout' => $mock, 'class' => 'foo bar']);
+		$this->assertEquals('POST', $mock->form_attr['method']);
+		$this->assertEquals(['form', 'mock', 'foo', 'bar'], $mock->form_attr['class']);
+	}
+
+	public function testClassArray(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){}, ['layout' => $mock, 'class' => ['foo', 'bar']]);
+		$this->assertEquals('POST', $mock->form_attr['method']);
+		$this->assertEquals(['form', 'mock', 'foo', 'bar'], $mock->form_attr['class']);
+	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Notice
+	 */
+	public function testLayoutMissing(){
+		$form = Form::create('id', function($f){}, ['layout' => 'foobar']);
+	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error
+	 */
+	public function testLayoutInvalidClass(){
+		$form = Form::create('id', function($f){}, ['layout' => new stdClass]);
+	}
+
 	public function testHttpMethodDefault(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){}, ['layout' => $mock]);

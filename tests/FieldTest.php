@@ -15,6 +15,26 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('1', $mock->field['foo']->attribute('value'));
 	}
 
+	public function testExplicitId(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){
+			$f->text_field('foo', 'Label', ['id' => 'explicit_set_id']);
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('foo', $mock->field);
+		$this->assertEquals('explicit_set_id', $mock->field['foo']->attribute('id'));
+	}
+
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error
+	 */
+	public function testInvalidLabel(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){
+			$f->text_field('foo', 5);
+		}, ['layout' => $mock]);
+	}
+
 	public function testInputFields(){
 		$mock = new MockLayout();
 		$matrix = [
