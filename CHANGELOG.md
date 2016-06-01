@@ -1,3 +1,9 @@
+# 1.2.3
+
+## Bugfixes
+
+  - Table: fixed group rendering for forms with only groups.
+
 # 1.2.2
 
 ## Breaking changes

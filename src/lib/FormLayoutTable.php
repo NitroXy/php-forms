@@ -61,6 +61,8 @@ class FormLayoutTable extends FormLayoutBase {
 	}
 
 	public function render_group($group, $res){
+		$this->begin();
+
 		$label = $group->get_label();
 
 		echo "		<tr>\n";

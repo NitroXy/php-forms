@@ -77,4 +77,30 @@ class LayoutTableTest extends DOMParser_TestCase {
 		]);
 	}
 
+	public function testGroup(){
+		$this->generate(function($f){
+			$f->group('Group', function($f){
+				$f->text_field('foo', 'Field 1');
+				$f->text_field('bar', 'Field 2');
+				$f->text_field('baz', 'Field 3');
+			});
+		});
+		$this->validate([
+			['form_start'],
+			['table_start'],
+			['tr_start'],
+			['th_start'], ['content', 'Group'], ['th_end'],
+			['td_start'],
+			['input', ['type' => 'text', 'name' => 'foo']],
+			['input', ['type' => 'text', 'name' => 'bar']],
+			['input', ['type' => 'text', 'name' => 'baz']],
+			['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
 }
