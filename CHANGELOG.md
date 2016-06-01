@@ -4,6 +4,11 @@
 
   - Bootstrap: improved group rendering using grid, will autobalance
     by default but column classes can be set manually on fields.
+  - Hints: cleaner row- and field-level hints.
+
+## Bugfixes
+
+  - Table: fixed group rendering for forms with only groups.
 
 # 1.2.2
 

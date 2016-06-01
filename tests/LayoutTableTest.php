@@ -34,11 +34,20 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testHint(){
 		$this->generate(function($f){
+			$f->hint('Lorem ipsum', false);
+			$f->hint('Lorem ipsum', 'Hint field');
 			$f->text_field('foo', 'Test field', ['hint' => 'Lorem ipsum']);
 		});
 		$this->validate([
 			['form_start'],
 			['table_start'],
+			['tr_start'],
+			['td_start', ['colspan' => '4']], ['content', 'Lorem ipsum'], ['td_end'],
+			['tr_end'],
+			['tr_start'],
+			['th_start'], ['content', 'Hint field'], ['th_end'],
+			['td_start', ['colspan' => '3']], ['content', 'Lorem ipsum'],	['td_end'],
+			['tr_end'],
 			['tr_start'],
 			['th_start'], ['content', 'Test field'], ['th_end'],
 			['td_start'], ['input', ['type' => 'text', 'name' => 'foo']],	['td_end'],

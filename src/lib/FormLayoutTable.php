@@ -86,7 +86,19 @@ class FormLayoutTable extends FormLayoutBase {
 	}
 
 	public function render_hint($field){
-		$this->render_field($field, false);
+		$this->begin();
+
+		$label = $field->get_label();
+		$content = $field->get_content();
+
+		echo "		<tr>\n";
+		if ( $label !== false ){
+			echo "			<th class=\"form-label\">$label</th>\n";
+			echo "			<td class=\"form-field\" colspan=\"3\">$content</td>\n";
+		} else {
+			echo "			<td class=\"form-field\" colspan=\"4\">$content</td>\n";
+		}
+		echo "		</tr>\n";
 	}
 
 	public function render_static($field){
