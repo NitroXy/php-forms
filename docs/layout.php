@@ -4,6 +4,7 @@ $layout = $match[1];
 $examples = [
 	'example_layout1.php' => 'Simple form',
 	'example_layout2.php' => 'Fieldsets',
+	'layout/groups.php' => 'Groups',
 ];
 
 require '../vendor/autoload.php';
