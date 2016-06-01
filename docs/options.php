@@ -9,11 +9,7 @@ use NitroXy\PHPForms\Form;
 		<title>PHP-Forms - Options</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-		<style>
-			.form.table { margin-bottom: 0; /* override bootstrap */ }
-			.form.table textarea { width: 100%; }
-			.example { border: 1px dashed #ccc; padding: 15px; border-radius: 4px; margin-bottom: 10px; }
-		</style>
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
 		<div class="container">
@@ -41,7 +37,7 @@ use NitroXy\PHPForms\Form;
 			<h3>Default options</h3>
 			<p>Default options for forms can be set by extending <code>default_options</code>:</p>
 			<?php display('overview/options.php'); ?>
-			
+
 			<h2>Field options</h2>
 			<dl>
 				<dt>hint</dt>
@@ -62,7 +58,7 @@ use NitroXy\PHPForms\Form;
 				<li><code>['foo' => ['spam => 'ham']]</code> becomes <code>foo-spam="ham"</code> (deeper nesting is ok)</li>
 			</ul>
 		</div>
-		
+
 		<?php include('badge.php'); ?>
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

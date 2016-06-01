@@ -20,12 +20,7 @@ require 'utils.php';
 		<title>PHP-Forms - <?=ucfirst($layout)?> layout</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-		<style>
-			.form.table { margin-bottom: 0; /* override bootstrap */ }
-			.form.table textarea { width: 100%; }
-			.example { border: 1px dashed #ccc; padding: 15px; border-radius: 4px; margin-bottom: 10px; }
-			.panel-title a { display: block; }
-		</style>
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
 		<div class="container">
