@@ -40,20 +40,30 @@ use NitroXy\PHPForms\Form;
 
 			<h2>Field options</h2>
 			<dl>
-				<dt>hint</dt>
-				<dd>Description of the field</dd>
-				<dt>confirm</dt>
-				<dd>Buttons: adds a javascript confirmation prompt before submit/click</dd>
+				<dt>hint <span class="label label-default">string</span></dt>
+				<dd>Description of the field. (default: none)</dd>
 				<dt>Other</dt>
 				<dd>All other attributes is passed directly to field, allowing custom attributes such as <code>placeholder</code>, <code>title</code>, etc.</dd>
 			</dl>
 
 			<h3 id="upload-field">Upload field</h3>
 			<dl>
-				<dt>remove</dt>
-				<dd>Adds a removal checkbox (e.g. a user avatar which is set if file is uploaded but retained if nothing is sent and removed if checkbox is checked)</dd>
-				<dt>current</dt>
-				<dd>HTML to preview the current uploaded data, e.g. <code>&lt;img src="/user/123/avatar.png"/&gt;</code></dd>
+				<dt>remove <span class="label label-default">boolean</span></dt>
+				<dd>Adds a removal checkbox (e.g. a user avatar which is set if file is uploaded but retained if nothing is sent and removed if checkbox is checked) (default: false)</dd>
+				<dt>current <span class="label label-default">html</span></dt>
+				<dd>HTML to preview the current uploaded data, e.g. <code>&lt;img src="/user/123/avatar.png"/&gt;</code>. (default: none)</dd>
+			</dl>
+
+			<h3 id="button">Button</h3>
+			<dl>
+				<dt>confirm <span class="label label-default">string</span></dt>
+				<dd>Adds a javascript confirmation prompt before submit/click. (default: none)</dd>
+			</dl>
+
+			<h3 id="select">Select</h3>
+			<dl>
+				<dt>postback <span class="label label-default">boolean</span></dt>
+				<dd>Automatically submit form when value changes. (default: false)</dd>
 			</dl>
 
 			<h2>Serialization</h2>
