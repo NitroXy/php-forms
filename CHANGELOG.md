@@ -1,8 +1,9 @@
 # 1.2.3
 
-## Bugfixes
+## Features
 
-  - Table: fixed group rendering for forms with only groups.
+  - Bootstrap: improved group rendering using grid, will autobalance
+    by default but column classes can be set manually on fields.
 
 # 1.2.2
 

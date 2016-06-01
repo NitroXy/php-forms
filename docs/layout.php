@@ -2,9 +2,12 @@
 preg_match('/layout_([a-z]+).php/', basename($_SERVER['SCRIPT_FILENAME']), $match);
 $layout = $match[1];
 $examples = [
-	'example_layout1.php' => 'Simple form',
-	'example_layout2.php' => 'Fieldsets',
-	'layout/groups.php' => 'Groups',
+	'Simple form' => 'example_layout1.php',
+	'Fieldsets' => 'example_layout2.php',
+	'Groups' => [
+		'bootstrap' => 'layout/groups_bootstrap.php',
+		'*'         => 'layout/groups.php',
+	],
 ];
 
 require '../vendor/autoload.php';
@@ -29,7 +32,16 @@ require 'utils.php';
 			<?php include('menu.php') ?>
 
 			<?php $n = 0; ?>
-			<?php foreach ( $examples as $filename => $title ): $n++; ?>
+			<?php foreach ( $examples as $title => $filename ): $n++; ?>
+				<?php
+				if ( is_array($filename) ){
+					if ( array_key_exists($layout, $filename) ){
+						$filename = $filename[$layout];
+					} else {
+						$filename = $filename['*'];
+					}
+				}
+				?>
 				<h2><?=$title ?></h2>
 				<div class="row">
 					<div class="col-sm-6">

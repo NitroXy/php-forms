@@ -112,25 +112,77 @@ class FormLayoutBootstrap extends FormLayoutBase {
 			return $field->get_content(array('class' => $class, 'icon' => $icon));
 		}
 
-		return $field->get_content(array('class' => 'form-control'));
+		return $field->get_content(['class' => 'form-control']);
+	}
+
+	static private function column_class($columns){
+		switch ($columns){
+			case 1:
+				return 'col-xs-12';
+			case 2:
+				return 'col-xs-6';
+			case 3:
+				return 'col-xs-4';
+			case 4:
+				return 'col-xs-3';
+			case 5:
+			case 6:
+				return 'col-xs-2';
+			default:
+				return 'col-xs-1';
+		}
+	}
+
+	static private function field_has_class($field, $needle){
+		$class = $field->attribute('class', []);
+		if ( is_string($class) ){
+			$class = explode(' ', $class);
+		}
+		foreach ( $class as $haystack ){
+			if ( preg_match($needle, $haystack, $match) ){
+				return $match[0];
+			}
+		}
+		return false;
 	}
 
 	public function render_group($group, $res){
 		$label = $group->get_label();
+		$children = $group->children();
+		$column_class = static::column_class(count($children));
+		$inline_only = array_reduce($children, function($all, $x){
+			return $all ? ($x instanceof FormButton || $x instanceof FormCheckbox) : false;
+		}, true);
 
-		echo '<div class="form-group">';
+		echo "<div class=\"form-group\">\n";
 		if ( $label ){
-			echo "	<label>$label</label>";
+			echo "	<label>$label</label>\n";
 		}
-		echo '	<div class="clearfix">';
-		foreach ( $group->children() as $field ){
-			if ( $field instanceof FormCheckbox ){
-				echo $field->get_content(array(), array('class' => 'checkbox-inline'));
-			} else {
-				echo static::field_content($field);
+
+		/* special case when there is only inline elements in the group (buttons or checkboxes) */
+		if ( $inline_only ){
+			echo "	<div class=\"clearfix\">\n";
+			foreach ( $group->children() as $field ){
+				if ( $field instanceof FormCheckbox ){
+					echo "		" . $field->get_content(array(), array('class' => 'checkbox-inline')) . "\n";
+				} else {
+					echo "		" . static::field_content($field) . "\n";
+				}
 			}
+			echo "	</div>\n";
+			echo "</div>\n";
+			return;
 		}
-		echo '	</div>';
-		echo '</div>';
+
+		/* output row with balanced columns */
+		echo "	<div class=\"row\">\n";
+		foreach ( $group->children() as $field ){
+			$class = static::field_has_class($field, '/col-(xs|sm|md|lg)-[0-9]+/') ?: $column_class;
+			echo "		<div class=\"{$class}\">\n";
+			echo "			" . static::field_content($field) . "\n";
+			echo "		</div>\n";
+		}
+		echo "	</div>\n";
+		echo "</div>\n";
 	}
 }
