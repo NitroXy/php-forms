@@ -5,6 +5,7 @@
   - Bootstrap: improved group rendering using grid, will autobalance
     by default but column classes can be set manually on fields.
   - Hints: cleaner row- and field-level hints.
+  - Table: using labels with `for` on all variants.
 
 ## Bugfixes
 

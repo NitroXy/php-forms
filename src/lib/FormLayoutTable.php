@@ -31,7 +31,7 @@ class FormLayoutTable extends FormLayoutBase {
 		if ( !($hints & Form::LAYOUT_TWOROWS) ){
 			echo "		<tr>\n";
 			if ( $label !== false ){
-				echo "			<th class=\"form-label\">$label</th>\n";
+				echo "			<th class=\"form-label\"><label for=\"$id\">$label</label></th>\n";
 				echo "			<td class=\"form-field\">$content</td>\n";
 				echo "			<td class=\"form-hint\" >$hint</td>\n";
 				echo "			<td class=\"form-error\">$error</td>\n";
@@ -41,7 +41,7 @@ class FormLayoutTable extends FormLayoutBase {
 			echo "		</tr>\n";
 		} else if ( $hints & Form::LAYOUT_FILL ){
 			echo "		<tr>\n";
-			echo "			<th class=\"form-label tworow\" colspan=\"2\" valign=\"top\">$label</th>\n";
+			echo "			<th class=\"form-label tworow\" colspan=\"2\" valign=\"top\"><label for=\"$id\">$label</label></th>\n";
 			echo "			<td class=\"form-hint\"  valign=\"top\">$hint</td>\n";
 			echo "			<td class=\"form-error\" valign=\"top\">$error</td>\n";
 			echo "		</tr>\n";
@@ -50,7 +50,7 @@ class FormLayoutTable extends FormLayoutBase {
 			echo "		</tr>\n";
 		} else {
 			echo "		<tr>\n";
-			echo "			<th class=\"form-label tworow\" colspan=\"4\">$label</th>\n";
+			echo "			<th class=\"form-label tworow\" colspan=\"4\"><label for=\"$id\">$label</label></th>\n";
 			echo "		</tr>\n";
 			echo "		<tr>\n";
 			echo "			<td class=\"form-field\" valign=\"top\" colspan=\"2\">$content</td>\n";
