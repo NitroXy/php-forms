@@ -44,10 +44,16 @@ use NitroXy\PHPForms\Form;
 				<dd>Description of the field</dd>
 				<dt>confirm</dt>
 				<dd>Buttons: adds a javascript confirmation prompt before submit/click</dd>
-				<dt>remove</dt>
-				<dd>Upload: adds a removal checkbox (e.g. a user avatar which is set if file is uploaded but retained if nothing is sent and removed if checkbox is checked)</dd>
 				<dt>Other</dt>
 				<dd>All other attributes is passed directly to field, allowing custom attributes such as <code>placeholder</code>, <code>title</code>, etc.</dd>
+			</dl>
+
+			<h3 id="upload-field">Upload field</h3>
+			<dl>
+				<dt>remove</dt>
+				<dd>Adds a removal checkbox (e.g. a user avatar which is set if file is uploaded but retained if nothing is sent and removed if checkbox is checked)</dd>
+				<dt>current</dt>
+				<dd>HTML to preview the current uploaded data, e.g. <code>&lt;img src="/user/123/avatar.png"/&gt;</code></dd>
 			</dl>
 
 			<h2>Serialization</h2>

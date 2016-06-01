@@ -486,6 +486,7 @@ class ManualField implements FormField {
 		return ucfirst($res->errors[$this->key][0]); /* get first error only */
 	}
 
+	public function get_name(){ return $this->key; }
 	public function get_label(){ return $this->label; }
 	public function get_content(){ return $this->content; }
 	public function get_hint(){ return $this->hint; }

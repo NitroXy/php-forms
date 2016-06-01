@@ -127,7 +127,7 @@ class FormContainer {
 		if ( $current !== false ){
 			$attr = array();
 			list($id, $name, $value) = $this->generate_data($key . '_current', $attr);
-			$this->fields[] = new ManualField("{$key}_remove", '', "<label>$current</label>", false);
+			$this->fields[] = new ManualField("{$key}_current", '', "<label>$current</label>", false);
 		}
 
 		if ( $remove ){

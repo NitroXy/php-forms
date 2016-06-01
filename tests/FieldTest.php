@@ -39,4 +39,23 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey('foo', $mock->field);
 		$this->assertEquals('email', $mock->field['foo']->attribute('type'));
 	}
+
+	public function testUploadField(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){
+			$f->upload_field('foo', 'Label');
+			$f->upload_field('bar', 'Label', ['remove' => true]);
+			$f->upload_field('baz', 'Label', ['current' => 'Preview']);
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('foo', $mock->field);
+		$this->assertArrayNotHasKey('foo_remove', $mock->field);
+		$this->assertArrayNotHasKey('foo_current', $mock->field);
+		$this->assertArrayHasKey('bar', $mock->field);
+		$this->assertArrayHasKey('bar_remove', $mock->field);
+		$this->assertArrayNotHasKey('bar_current', $mock->field);
+		$this->assertArrayHasKey('baz', $mock->field);
+		$this->assertArrayNotHasKey('baz_remove', $mock->field);
+		$this->assertArrayHasKey('baz_current', $mock->field);
+		$this->assertEquals('file', $mock->field['foo']->attribute('type'));
+	}
 }

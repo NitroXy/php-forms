@@ -9,6 +9,7 @@
 
 ## Bugfixes
 
+  - File upload: `current` option using correct key.
   - Table: fixed group rendering for forms with only groups.
 
 # 1.2.2
