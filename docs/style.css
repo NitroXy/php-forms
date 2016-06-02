@@ -35,3 +35,15 @@
 .panel-title a {
 	display: block;
 }
+
+h2[id]:hover .link,
+h3[id]:hover .link,
+h4[id]:hover .link {
+	display: inline-block;
+	margin-left: -20px;
+	width: 20px;
+}
+
+.link {
+	display: none;
+}

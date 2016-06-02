@@ -5,7 +5,9 @@ FILES = \
 	dist/layout_table.html \
 	dist/layout_plain.html \
 	dist/layout_bootstrap.html \
+	dist/usage.html \
 	dist/options.html \
+	dist/autolink.js \
 	dist/style.css
 
 all: $(FILES)
