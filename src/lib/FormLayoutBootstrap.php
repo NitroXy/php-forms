@@ -1,6 +1,7 @@
 <?php
 
 namespace NitroXy\PHPForms;
+use NitroXy\PHPForms\FormUtils;
 
 class FormLayoutBootstrap extends FormLayoutBase {
 	public function render_field($field, $error){
@@ -8,13 +9,19 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		$label = $field->get_label();
 		$content = static::field_content($field);
 		$hint = $field->get_hint();
-		$required = $field->attribute('required') ? '<em>*</em>' : '';
+		$required = $field->attribute('required');
 
-		$class = 'form-group';
+		$class = ['form-group'];
 		if ( $error ){
-			$class .= ' has-error';
+			$class[] = 'has-error';
 			$hint = $hint ? "$hint<br/>$error" : $error;
 		}
+
+		if ( $required ){
+			$class[] = 'required';
+		}
+
+		$group_attr = FormUtils::serialize_attr(['class' => $class]);
 
 		if ( $field instanceof FormCheckbox ){
 			echo "<div class=\"checkbox\">";
@@ -29,9 +36,9 @@ class FormLayoutBootstrap extends FormLayoutBase {
 			return;
 		}
 
-		echo "<div class=\"$class\">";
+		echo "<div {$group_attr}>";
 		if ( $label ){
-			echo "	<label for=\"$id\" class=\"control-label\">{$label}{$required}</label>";
+			echo "	<label for=\"$id\" class=\"control-label\">{$label}</label>";
 		}
 		echo "	$content";
 		if ( $hint ){

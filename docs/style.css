@@ -25,6 +25,16 @@
 	width: 100%;
 }
 
+.required label:after {
+	content: '*';
+	color: #a00;
+	margin-left: 5px;
+}
+
+dt > code {
+	font-weight: normal;
+}
+
 .example {
 	border: 1px dashed #ccc;
 	padding: 15px;

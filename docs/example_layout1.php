@@ -7,5 +7,5 @@ $data = ['a' => 'Value 1', 'b' => 'Value 2', 'c' => 'Value 3'];
 Form::from_array('example5', $data, function($f){
 	$f->text_field('a', 'Text 1');
 	$f->text_field('b', 'Text 2');
-	$f->text_field('c', 'Text 3');
+	$f->text_field('c', 'Text 3', ['required' => true, 'hint' => 'Required field']);
 }, ['layout' => $layout]);

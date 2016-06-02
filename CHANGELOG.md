@@ -1,3 +1,9 @@
+# 1.2.4
+
+## Features
+
+  - Styling: required fields get a `required` class.
+
 # 1.2.3
 
 ## Features

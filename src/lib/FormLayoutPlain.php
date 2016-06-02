@@ -7,8 +7,17 @@ class FormLayoutPlain extends FormLayoutBase {
 		$label = $field->get_label();
 		$content = $field->get_content();
 		$hint = $field->get_hint();
+		$required = $field->attribute('required');
 
-		echo '<div class="form-row">';
+		$class = ['form-row'];
+
+		if ( $required ){
+			$class[] = 'required';
+		}
+
+		$row_attr = FormUtils::serialize_attr(['class' => $class]);
+
+		echo "<div {$row_attr}>\n";
 		if ( $label !== false )  echo "<span class=\"form-label\">$label</span>\n";
 		if ( $content !== false) echo "<span class=\"form-field\">$content</span>\n";
 		if($error !== false)     echo "<span class=\"form-error\">$error</span>\n";

@@ -18,3 +18,8 @@ function display($filename){
 	$geshi = new GeSHi(trim($code), 'php');
 	echo $geshi->parse_code();
 }
+
+function code($code, $lang){
+	$geshi = new GeSHi(trim($code), $lang);
+	echo $geshi->parse_code();
+}

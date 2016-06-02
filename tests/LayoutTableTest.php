@@ -130,4 +130,29 @@ class LayoutTableTest extends DOMParser_TestCase {
 		]);
 	}
 
+	public function testRequired(){
+		$this->generate(function($f){
+			$f->text_field('foo', 'Test field', ['required' => false]);
+			$f->text_field('bar', 'Test field', ['required' => true]);
+		});
+		$this->validate([
+			['form_start'],
+			['table_start'],
+			['tr_start', ['class' => null]],
+			['th_start'], ['label_start', ['for' => 'id_foo']], ['content', 'Test field'], ['label_end'], ['th_end'],
+			['td_start'], ['input', ['type' => 'text', 'name' => 'foo', 'id' => 'id_foo']],	['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['tr_start', ['class' => 'required']],
+			['th_start'], ['label_start', ['for' => 'id_bar']], ['content', 'Test field'], ['label_end'], ['th_end'],
+			['td_start'], ['input', ['type' => 'text', 'name' => 'bar', 'id' => 'id_bar']],	['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
 }

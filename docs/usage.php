@@ -35,6 +35,30 @@ class Form extends NitroXy\PHPForms\Form {
 				<div class="col-sm-6"><?php display('usage/object.php'); ?></div>
 				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
 			</div>
+
+			<h2 id="styling">Styling</h2>
+			<table class="table table-striped">
+				<thead>
+					<th>Selector</th>
+					<th>Description</th>
+					<th>Sample style</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td><code>.required</code></td>
+						<td>Class added to row wrapper for all required fields.</td>
+						<td><?php code(<<<EOT
+/* adds a red asterisk after the label */
+.required label:after {
+	content: '*';
+	color: #a00;
+	margin-left: 5px;
+}
+EOT
+, 'css'); ?></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<?php include('badge.php'); ?>

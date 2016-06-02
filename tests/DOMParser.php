@@ -50,8 +50,12 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 				$actual = array_combine($raw[1], $raw[2]);
 
 				foreach ( $expected[1] as $key => $value ){
-					$this->assertArrayHasKey($key, $actual, "Must contain attribute");
-					$this->assertEquals($value, $actual[$key], "Attribute must be");
+					if ( $value !== null ){
+						$this->assertArrayHasKey($key, $actual, "Must contain attribute");
+						$this->assertEquals($value, $actual[$key], "Attribute must be");
+					} else {
+						$this->assertArrayNotHasKey($key, $actual, "Must not contain attribute");
+					}
 				}
 			}
 

@@ -1,6 +1,7 @@
 <?php
 
 namespace NitroXy\PHPForms;
+use NitroXy\PHPForms\FormUtils;
 
 class FormLayoutTable extends FormLayoutBase {
 	public $closed = true;
@@ -13,9 +14,11 @@ class FormLayoutTable extends FormLayoutBase {
 		$content = $field->get_content();
 		$hint = $field->get_hint();
 		$hints = $field->layout_hints();
+		$required = $field->attribute('required');
+		$tr_class = FormUtils::serialize_attr($required ? ['class' => 'required'] : []);
 
 		if ( $field instanceof FormCheckbox ){
-			echo "		<tr>\n";
+			echo "		<tr {$tr_class}>\n";
 			if ( $label !== false ){
 				echo "			<th class=\"form-label\"><label for=\"$id\">{$field->get_text()}</label></th>\n";
 				echo "			<td class=\"form-field\">$content</td>\n";
@@ -29,7 +32,7 @@ class FormLayoutTable extends FormLayoutBase {
 		}
 
 		if ( !($hints & Form::LAYOUT_TWOROWS) ){
-			echo "		<tr>\n";
+			echo "		<tr {$tr_class}>\n";
 			if ( $label !== false ){
 				echo "			<th class=\"form-label\"><label for=\"$id\">$label</label></th>\n";
 				echo "			<td class=\"form-field\">$content</td>\n";
@@ -40,19 +43,19 @@ class FormLayoutTable extends FormLayoutBase {
 			}
 			echo "		</tr>\n";
 		} else if ( $hints & Form::LAYOUT_FILL ){
-			echo "		<tr>\n";
+			echo "		<tr {$tr_class}>\n";
 			echo "			<th class=\"form-label tworow\" colspan=\"2\" valign=\"top\"><label for=\"$id\">$label</label></th>\n";
 			echo "			<td class=\"form-hint\"  valign=\"top\">$hint</td>\n";
 			echo "			<td class=\"form-error\" valign=\"top\">$error</td>\n";
 			echo "		</tr>\n";
-			echo "		<tr>\n";
+			echo "		<tr {$tr_class}>\n";
 			echo "			<td class=\"form-field\" colspan=\"4\">$content</td>\n";
 			echo "		</tr>\n";
 		} else {
-			echo "		<tr>\n";
+			echo "		<tr {$tr_class}>\n";
 			echo "			<th class=\"form-label tworow\" colspan=\"4\"><label for=\"$id\">$label</label></th>\n";
 			echo "		</tr>\n";
-			echo "		<tr>\n";
+			echo "		<tr {$tr_class}>\n";
 			echo "			<td class=\"form-field\" valign=\"top\" colspan=\"2\">$content</td>\n";
 			echo "			<td class=\"form-hint\"  valign=\"top\">$hint</td>\n";
 			echo "			<td class=\"form-error\" valign=\"top\">$error</td>\n";
