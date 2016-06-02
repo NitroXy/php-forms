@@ -99,4 +99,12 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$mock->expects($this->never())->method('postamble');
 		$form = Form::create('id', function($f){}, ['layout' => $mock, 'action' => false]);
 	}
+
+	public function testEmptyFieldset(){
+		$mock = $this->getMockBuilder('MockLayout')->setMethods(['render_fieldset'])->getMock();
+		$mock->expects($this->never())->method('render_fieldset');
+		$form = Form::create('id', function($f){
+			$f->fieldset(false, function($f){});
+		}, ['layout' => $mock]);
+	}
 }
