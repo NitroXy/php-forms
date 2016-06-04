@@ -22,7 +22,8 @@ dist:
 	@echo Writing $@
 	@php $(basename $(notdir $@)).php | sed -e 's/\.php/.html/g' -e 's#index\.html#/php-forms#' > $@
 
-%.css: dist force-rebuild
+%.css %.js: dist force-rebuild
+	@echo Copying $@
 	@cp $(notdir $@) dist
 
 force-rebuild:
