@@ -33,7 +33,7 @@ class FormCheckbox extends FormInput {
 	public function get_content(array $extra_attr = array(), array $label = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
 		if ( $this->get_container() instanceof FormGroup ){
-			return "<label " . FormUtils::serialize_attr($label) . "><input " . $this->serialize_attr($attr) . " />{$this->text}</label>";
+			return "<label class=\"form-checkbox\" " . FormUtils::serialize_attr($label) . "><input " . $this->serialize_attr($attr) . " /> {$this->text}</label>";
 		} else {
 			return "<input " . $this->serialize_attr($attr) . " />";
 		}

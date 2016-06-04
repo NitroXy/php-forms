@@ -9,6 +9,7 @@
 .form.table .form-label {
 	min-width: 80px;
 	padding-right: 10px;
+	vertical-align: top;
 }
 
 .form.table .form-field {
@@ -29,6 +30,10 @@
 	content: '*';
 	color: #a00;
 	margin-left: 5px;
+}
+
+.form-group .form-checkbox {
+	margin-right: 15px;
 }
 
 dt > code {

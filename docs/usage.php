@@ -45,6 +45,22 @@ class Form extends NitroXy\PHPForms\Form {
 				</thead>
 				<tbody>
 					<tr>
+						<td><code>.form-checkbox</code></td>
+						<td>Class added to all checkbox labels (wrapping the input field).</td>
+						<td><?php code(<<<EOT
+/* add some margin to checkboxes (useful in groups) */
+.form-checkbox {
+	margin-right: 15px;
+}
+EOT
+, 'css'); ?></td>
+					</tr>
+					<tr>
+						<td><code>.form-group</code></td>
+						<td>Class added to row wrapper for for groups.</td>
+						<td></td>
+					</tr>
+					<tr>
 						<td><code>.required</code></td>
 						<td>Class added to row wrapper for all required fields.</td>
 						<td><?php code(<<<EOT

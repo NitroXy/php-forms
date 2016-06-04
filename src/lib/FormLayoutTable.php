@@ -68,7 +68,7 @@ class FormLayoutTable extends FormLayoutBase {
 
 		$label = $group->get_label();
 
-		echo "		<tr>\n";
+		echo "		<tr class=\"form-group\">\n";
 		if ( $label !== false ){
 			echo "			<th class=\"form-label\">$label</th>\n";
 			echo "			<td class=\"form-field\">";

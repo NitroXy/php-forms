@@ -9,6 +9,7 @@ $examples = [
 		'bootstrap' => 'layout/groups_bootstrap.php',
 		'*'         => 'layout/groups.php',
 	],
+	'Checkboxes' => 'layout/checkboxes.php',
 ];
 
 require '../vendor/autoload.php';
