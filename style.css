@@ -40,6 +40,10 @@ dt > code {
 	font-weight: normal;
 }
 
+table code {
+	white-space: nowrap;
+}
+
 .example {
 	border: 1px dashed #ccc;
 	padding: 15px;
@@ -61,4 +65,29 @@ h4[id]:hover .link {
 
 .link {
 	display: none;
+}
+
+.doc-table pre {
+	display: inline-block;
+}
+
+.doc-table strong {
+	display: block;
+	margin-top: 5px;
+}
+
+.doc-table .label {
+	background-color: #777;
+}
+
+.doc-table .type-string {
+	background-color: #700;
+}
+
+.doc-table .type-boolean {
+	background-color: #070;
+}
+
+.doc-table .type-html {
+	background-color: #007;
 }
