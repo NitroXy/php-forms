@@ -10,6 +10,10 @@ $examples = [
 		'*'         => 'layout/groups.php',
 	],
 	'Checkboxes' => 'layout/checkboxes.php',
+	'Layout hints' => [
+		'table'     => 'layout/layout_hints.php',
+		'*'         => false,
+	],
 ];
 
 require '../vendor/autoload.php';
@@ -38,6 +42,7 @@ require 'utils.php';
 						$filename = $filename['*'];
 					}
 				}
+				if ( $filename === false ) continue;
 				?>
 				<h2><?=$title ?></h2>
 				<div class="row">
