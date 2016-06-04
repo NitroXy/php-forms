@@ -4,11 +4,7 @@
 		<title>PHP-Forms Examples</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-		<style>
-			.form.table { margin-bottom: 0; /* override bootstrap */ }
-			.form.table textarea { width: 100%; }
-			.example { border: 1px dashed #ccc; padding: 15px; border-radius: 4px; margin-bottom: 10px; }
-		</style>
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
 		<div class="container">
@@ -25,6 +21,7 @@
           <li><a href="layout_bootstrap.html">Bootstrap</a></li>
         </ul>
       </li>
+      <li><a href="usage.html">Usage</a></li>
       <li><a href="options.html">Options</a></li>
     </ul>
   </div>
@@ -51,8 +48,8 @@
 <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>			<div class="example">
 				<form id="example1" class="form table" method="POST" action="">
 	<table class="layout">
-		<tr>
-			<th class="form-label">My field name</th>
+		<tr >
+			<th class="form-label"><label for="example1_name">My field name</label></th>
 			<td class="form-field"><input id="example1_name" name="name" type="text" /></td>
 			<td class="form-hint" ></td>
 			<td class="form-error"></td>
@@ -62,8 +59,8 @@
 			</div>
 			<pre class="html5" style="font-family:monospace;"><span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">form</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;example1&quot;</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form table&quot;</span> <span style="color: #000066;">method</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;POST&quot;</span> <span style="color: #000066;">action</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;&quot;</span>&gt;</span>
 	<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">table</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;layout&quot;</span>&gt;</span>
-		<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">tr</span>&gt;</span>
-			<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">th</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-label&quot;</span>&gt;</span>My field name<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">th</span>&gt;</span>
+		<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">tr</span> &gt;</span>
+			<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">th</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-label&quot;</span>&gt;&lt;<span style="color: #000000; font-weight: bold;">label</span> <span style="color: #000066;">for</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;example1_name&quot;</span>&gt;</span>My field name<span style="color: #009900;">&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">label</span>&gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">th</span>&gt;</span>
 			<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">td</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-field&quot;</span>&gt;&lt;<span style="color: #000000; font-weight: bold;">input</span> <span style="color: #000066;">id</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;example1_name&quot;</span> <span style="color: #000066;">name</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;name&quot;</span> <span style="color: #000066;">type</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;text&quot;</span> <span style="color: #66cc66;">/</span>&gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">td</span>&gt;</span>
 			<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">td</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-hint&quot;</span> &gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">td</span>&gt;</span>
 			<span style="color: #009900;">&lt;<span style="color: #000000; font-weight: bold;">td</span> <span style="color: #000066;">class</span><span style="color: #66cc66;">=</span><span style="color: #ff0000;">&quot;form-error&quot;</span>&gt;&lt;<span style="color: #66cc66;">/</span><span style="color: #000000; font-weight: bold;">td</span>&gt;</span>
@@ -79,8 +76,8 @@
 			<div class="example">
 				<form id="example2-table" class="form table" method="POST" action="">
 	<table class="layout">
-		<tr>
-			<th class="form-label">My field name</th>
+		<tr >
+			<th class="form-label"><label for="example2-table_name">My field name</label></th>
 			<td class="form-field"><input id="example2-table_name" name="name" type="text" /></td>
 			<td class="form-hint" ></td>
 			<td class="form-error"></td>
@@ -92,7 +89,8 @@
 			<p>Plain layout is similar to tables but will instead use spans and divs.</p>
 			<div class="example">
 				<form id="example2-plain" class="form plain" method="POST" action="">
-<div class="form-row"><span class="form-label">My field name</span>
+<div class="form-row">
+<span class="form-label">My field name</span>
 <span class="form-field"><input id="example2-plain_name" name="name" type="text" /></span>
 <span class="form-hint"></span>
 </div></form>
@@ -211,7 +209,15 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 <option value="1">B</option>
 <option value="2">C</option>
 </select>
-</div><div class="form-group">	<label for="" class="control-label">Static text</label>	<p class="form-control-static"></p></div><div class="form-group">	<label for="" class="control-label">Static link</label>	<p class="form-control-static"><a href="https://example.net">link</a></p></div><div class="form-group">	<label for="" class="control-label">Lorem ipsum dot sit amet.</label>	<p class="form-control-static">static</p></div><div class="form-group">	<label for="example5_upload" class="control-label">File upload</label>	<input class="form-control" id="example5_upload" name="upload" type="file" /></div><div class="form-group">	<label><input type='checkbox' name='upload_remove' id='example5_upload_remove' value='1' />Ta bort</label></div><div class="checkbox">	<label for="example5_checkbox" class="control-label">		<input type="checkbox" id="example5_checkbox" name="checkbox" value="1" />		Checkbox	</label></div><div class="form-group">	<label for="" class="control-label">Manual</label>	<em>Custom html</em></div><div class="form-group">	<button class="btn btn-primary" id="example5_Submit button" name="Submit button" type="submit">submit</button></div><div class="form-group">	<button class="btn btn-success" id="example5_Generic button" name="Generic button" type="button">button</button></div><div class="form-group">	<label>Inline group</label>	<div class="clearfix"><button class="btn btn-default" id="example5_b1" name="b1" type="button">Button 1</button><button class="btn btn-danger" id="example5_b2" name="b2" type="button">Button 2</button><button class="btn btn-primary" id="example5_b3" name="b3" type="button">Button 3</button>	</div></div>	<fieldset>
+</div><div class="form-group">	<label for="" class="control-label">Static text</label>	<p class="form-control-static"></p></div><div class="form-group">	<label for="" class="control-label">Static link</label>	<p class="form-control-static"><a href="https://example.net">link</a></p></div><div class="form-group">	<label for="" class="control-label">Lorem ipsum dot sit amet.</label>	<p class="form-control-static">static</p></div><div class="form-group">	<label for="example5_upload" class="control-label">File upload</label>	<input class="form-control" id="example5_upload" name="upload" type="file" /></div><div class="form-group">	<label><input type='checkbox' name='upload_remove' id='example5_upload_remove' value='1' />Ta bort</label></div><div class="checkbox">	<label for="example5_checkbox" class="control-label">		<input type="checkbox" id="example5_checkbox" name="checkbox" value="1" />		Checkbox	</label></div><div class="form-group">	<label for="" class="control-label">Manual</label>	<em>Custom html</em></div><div class="form-group">	<button class="btn btn-primary" id="example5_Submit button" name="Submit button" type="submit">submit</button></div><div class="form-group">	<button class="btn btn-success" id="example5_Generic button" name="Generic button" type="button">button</button></div><div class="form-group">
+	<label>Inline group</label>
+	<div class="clearfix">
+		<button class="btn btn-default" id="example5_b1" name="b1" type="button">Button 1</button>
+		<button class="btn btn-danger" id="example5_b2" name="b2" type="button">Button 2</button>
+		<button class="btn btn-primary" id="example5_b3" name="b3" type="button">Button 3</button>
+	</div>
+</div>
+	<fieldset>
 		<legend>Fieldset</legend>
 <div class="form-group">	<label for="example5_text1" class="control-label">Input 1</label>	<input class="form-control" id="example5_text1" name="text1" type="text" /></div><div class="form-group">	<label for="example5_text2" class="control-label">Input 2</label>	<input class="form-control" id="example5_text2" name="text2" type="text" /></div><div class="form-group">	<label for="example5_text3" class="control-label">Input 3</label>	<input class="form-control" id="example5_text3" name="text3" type="text" /></div>	</fieldset>
 </form>
@@ -241,5 +247,6 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">create<
 		<a href="https://github.com/NitroXy/php-forms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="autolink.js"></script>
 	</body>
 </html>
