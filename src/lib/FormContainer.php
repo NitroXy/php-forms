@@ -11,9 +11,15 @@ class FormContainer {
 	}
 
 	/**
-	 * Common options:
+	 * Generates any kind of input, used by most other fields. Note that
+   * this function should not be called directly, use
+   * <code>custom_field()</code> instead. Common options for all
+   * fields:
 	 *
-	 * @option 'value' If value is set as an attribute it forces the value (irregardless of the object)
+	 * @option 'value' {string} If value is set as an attribute it
+	 *         forces the value (irregardless of the object).
+   * @option 'required' {boolean} Set field to required (using HTML
+	 *         <code>required</code> attribute).
 	 */
 	public function factory($type, $key, $label=null, array $attr=array()){
 		if ( $label && !is_string($label) ){
@@ -51,26 +57,41 @@ class FormContainer {
 	}
 
 	/**
-	 * Add hidden field (to parent container).
+	 * Add hidden field. All hiddens are placed at the beginning of the form no matter where used.
 	 *
-	 * @param $value If set it overrides regular value.
+	 * @param $value If set the value is used instead of reading from the resource.
 	 */
 	public function hidden_field($key, $value=null, array $attr=array()){
 		$this->form->hidden_field($key, $value, $attr);
 	}
 
+	/**
+	 * Regular "text" input.
+	 *
+	 * @option 'type' {string} HTML type attribute, e.g. <code>email</code> or <code>tel</code>.
+	 */
 	public function text_field($key, $label=null, array $attr=array()){
 		$this->fields[] = $this->factory("text", $key, $label, $attr);
 	}
 
+
+	/**
+	 * Password field.
+	 */
 	public function password_field($key, $label=null, array $attr=array()) {
 		$this->fields[] = $this->factory("password", $key, $label, $attr);
 	}
 
+	/**
+	 * Wrapper around <code>factory</code>.
+	 */
 	public function custom_field($key, $type, $label=null, array $attr=array()) {
 		$this->fields[] = $this->factory($type, $key, $label, $attr);
 	}
 
+	/**
+	 * Select (dropdown) field. Used in conjunction with <code>FormSelect</code>.
+	 */
 	public function select($sel){
 		$this->fields[] = $sel;
 
@@ -89,6 +110,11 @@ class FormContainer {
 		$this->fields[] = $this->factory("hint", $text, $label, $attr);
 	}
 
+	/**
+	 * Create a manual field from HTML.
+	 *
+	 * @param $content Any HTML.
+	 */
 	public function manual($key, $label, $content, $hint){
 		$field = new ManualField($key, $label, $content, $hint);
 		$this->fields[] = $field;
@@ -101,8 +127,8 @@ class FormContainer {
 	/**
 	 * File upload field.
 	 *
-	 * @option remove If true a checkbox to remove the current value will be added.
-	 * @option current If set to non-false the content will be displayed as the
+	 * @option remove {boolean} If true a checkbox to remove the current value will be added.
+	 * @option current {html} If set to non-false the content will be displayed as the
 	 *                 current value, e.g can be set to <img ..>  to display the
 	 *                 current uploaded image.
 	 */
@@ -138,8 +164,10 @@ class FormContainer {
 	}
 
 	/**
-	 * Create a button group where the buttons is aligned horizontaly.
-	 * @param label If === false, diable label and have buttons occupy the space.
+	 * Create a field group where all fields is aligned horizontaly,
+   * useful for buttons, checkboxes and radiobuttons.
+	 *
+	 * @param $callback A new rendering context.
 	 */
 	public function group($label, $callback, array $attr=array()){
 		if ( $this->unbuffered() ){
@@ -148,6 +176,11 @@ class FormContainer {
 		$this->fields[] = new FormGroup($this, $label, $callback, $attr);
 	}
 
+	/**
+	 * Form fieldset.
+	 *
+	 * @param $callback A new rendering context.
+	 */
 	public function fieldset($label, $callback){
 		if ( $this->unbuffered() ){
 			trigger_error("Cannot use Form fieldsets in unbuffered mode", E_USER_ERROR);
@@ -158,7 +191,7 @@ class FormContainer {
 	/**
 	 * Submit button.
 	 *
-	 * @option 'confirm' adds onclick="return confirm(..);"
+	 * @option 'confirm' {string} adds <code>onclick="return confirm(...);"</code>
 	 */
 	public function submit($text, $key=null, array $attr=array()) {
 		$this->fields[] = $this->factory('submit', $key, $text, $attr);
@@ -166,15 +199,24 @@ class FormContainer {
 
 	/**
 	 * Generic button.
+	 *
+	 * @option 'type' {string} Should be a valid HTML button value
+   *         (e.g. <code>submit</code> or <code>button</code>).
 	 */
 	public function button($text, $key=null, array $attr=array()) {
 		$this->fields[] = $this->factory('button', $key, $text, $attr);
 	}
 
+	/**
+	 * Display a value from the resource but provides no editable field.
+	 */
 	public function static_value($key, $label=false, array $attr=array()){
 		$this->fields[] = $this->factory('static', $key, $label, $attr);
 	}
 
+	/**
+	 * Similar to static but provides a link as well.
+	 */
 	public function link($text, $href, $label=false, array $attr=array()){
 		$this->fields[] = $this->factory('link', false, $label, array_merge(array('text' => $text, 'href' => $href), $attr));
 	}
@@ -182,24 +224,37 @@ class FormContainer {
 	/**
 	 * Create textarea.
 	 *
-	 * @option 'tworow' if true the label appears above the textfield.
-	 * @option 'fill' when using tworow layout this fills the entire row (not just label + content)
+	 * @option 'tworow' {boolean} Layout hint to use two rows having the
+   *          label on one row label and the textfield below.
+	 * @option 'fill' {boolean} Layout hint used together with
+   *         <code>'tworow'</code> to fill the entire row (not just
+   *         label + content).
 	 */
 	public function textarea($key, $label=null, array $attr=array()){
 		$this->fields[] = $this->factory('textarea', $key, $label, $attr);
 	}
 
+	/**
+	 * Checkbox field.
+	 */
 	public function checkbox($key, $text, $label=null, array $attr=array()) {
 		$this->hidden_field($key, '0');
 		$attr['text'] = $text;
 		$this->fields[] = $this->factory('checkbox', $key, $label, $attr);
 	}
 
-	public function fields_for($id, $obj, $method){
-		$this->form->fields_for($id, $obj, $method, $this);
+	/**
+	 * Changes the resource object to another object. Used to generate
+   * forms for multiple object at the same times. Objects doesn't have
+   * to be of the same type but ID must be unique.
+	 *
+	 * @param $callback A new rendering context.
+	 */
+	public function fields_for($id, $obj, $callback){
+		$this->form->fields_for($id, $obj, $callback, $this);
 	}
 
-	public function generate_data($key, array &$attr){
+	protected function generate_data($key, array &$attr){
 		return $this->form->generate_data($key, $attr);
 	}
 }

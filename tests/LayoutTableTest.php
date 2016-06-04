@@ -166,4 +166,79 @@ class LayoutTableTest extends DOMParser_TestCase {
 		]);
 	}
 
+	public function testCheckboxShouldGenerateHidden(){
+		$this->generate(function($f){
+			$f->checkbox('foo', 'Text');
+		});
+		$this->validate([
+			['form_start'],
+			['input', ['name' => 'foo', 'value' => '0', 'type' => 'hidden']],
+			['table_start'],
+			['tr_start', ['class' => null]],
+			['th_start'], ['label_start'], ['content', 'Text'], ['label_end'], ['th_end'],
+			['td_start'], ['input', ['type' => 'checkbox', 'name' => 'foo', 'id' => 'id_foo']],	['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
+	public function testCheckboxWithHint(){
+		$this->generate(function($f){
+			$f->checkbox('foo', 'Text', null, ['hint' => 'Lorem ipsum']);
+		});
+		$this->validate([
+			['form_start'],
+			['input', ['name' => 'foo', 'value' => '0', 'type' => 'hidden']],
+			['table_start'],
+			['tr_start', ['class' => null]],
+			['th_start'], ['label_start'], ['content', 'Text'], ['label_end'], ['th_end'],
+			['td_start'], ['input', ['type' => 'checkbox', 'name' => 'foo', 'id' => 'id_foo']],	['td_end'],
+			['td_start'], ['content', 'Lorem ipsum'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
+	public function testCheckboxWithoutLabel(){
+		$this->generate(function($f){
+			$f->checkbox('foo', 'Text', false);
+		});
+		$this->validate([
+			['form_start'],
+			['input', ['name' => 'foo', 'value' => '0', 'type' => 'hidden']],
+			['table_start'],
+			['tr_start', ['class' => null]],
+			['td_start'], ['label_start'], ['input', ['type' => 'checkbox', 'name' => 'foo', 'id' => 'id_foo']], ['content', 'Text'], ['label_end'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
+	public function testCheckboxInGroup(){
+		$this->generate(function($f){
+			$f->group('Group label', function($f){
+				$f->checkbox('foo', 'Field label');
+			});
+		});
+		$this->validate([
+			['form_start'],
+			['input', ['name' => 'foo', 'value' => '0', 'type' => 'hidden']],
+			['table_start'],
+			['tr_start'],
+			['th_start'], ['content', 'Group label'], ['th_end'],
+			['td_start'], ['label_start'], ['input', ['type' => 'checkbox', 'name' => 'foo', 'id' => 'id_foo']],	['content', 'Field label'], ['label_end'], ['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
 }

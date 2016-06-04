@@ -21,5 +21,13 @@ function display($filename){
 
 function code($code, $lang){
 	$geshi = new GeSHi(trim($code), $lang);
+	$geshi->enable_keyword_links(false);
 	echo $geshi->parse_code();
+}
+
+function prototype($method){
+	$args = implode(', ', array_map(function($arg){
+		return '$' . $arg->name;
+	}, $method->getParameters()));
+	return "{$method->name}({$args})";
 }
