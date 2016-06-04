@@ -106,23 +106,34 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testGroup(){
 		$this->generate(function($f){
-			$f->group('Group', function($f){
+			$f->group('Group 1', function($f){
 				$f->text_field('foo', 'Field 1');
 				$f->text_field('bar', 'Field 2');
 				$f->text_field('baz', 'Field 3');
 			});
+			$f->group('Group 2', function($f){
+				$f->text_field('ham', 'Field 1');
+			}, ['hint' => 'Lorem ipsum']);
 		});
 		$this->validate([
 			['form_start'],
 			['table_start'],
 			['tr_start'],
-			['th_start'], ['content', 'Group'], ['th_end'],
+			['th_start'], ['content', 'Group 1'], ['th_end'],
 			['td_start'],
 			['input', ['type' => 'text', 'name' => 'foo', 'id' => 'id_foo']],
 			['input', ['type' => 'text', 'name' => 'bar', 'id' => 'id_bar']],
 			['input', ['type' => 'text', 'name' => 'baz', 'id' => 'id_baz']],
 			['td_end'],
 			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['tr_start'],
+			['th_start'], ['content', 'Group 2'], ['th_end'],
+			['td_start'],
+			['input', ['type' => 'text', 'name' => 'ham', 'id' => 'id_ham']],
+			['td_end'],
+			['td_start'], ['content', 'Lorem ipsum'], ['td_end'],
 			['td_start'], ['td_end'],
 			['tr_end'],
 			['table_end'],

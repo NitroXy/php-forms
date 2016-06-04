@@ -4,11 +4,16 @@
 
   - Layout: empty groups are no longer rendered
 
+## Bugfixes
+
+  - Table: group hint rendering fixed
+
 ## Features
 
   - Styling: checkboxes uses `form-checkbox` class.
   - Styling: all layouts now adds `form-group` class.
   - Styling: required fields get a `required` class.
+
 
 # 1.2.3
 

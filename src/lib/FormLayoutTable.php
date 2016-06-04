@@ -67,6 +67,7 @@ class FormLayoutTable extends FormLayoutBase {
 		$this->begin();
 
 		$label = $group->get_label();
+		$hint = $group->get_hint();
 
 		echo "		<tr class=\"form-group\">\n";
 		if ( $label !== false ){
@@ -82,7 +83,7 @@ class FormLayoutTable extends FormLayoutBase {
 
 		echo "			</td>\n";
 		if ( $label !== false ){
-			echo "			<td class=\"form-hint\" ></td>\n";
+			echo "			<td class=\"form-hint\" >$hint</td>\n";
 			echo "			<td class=\"form-error\"></td>\n";
 		}
 		echo "		</tr>\n";

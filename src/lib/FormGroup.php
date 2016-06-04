@@ -35,6 +35,10 @@ class FormGroup extends FormContainer implements FormField {
 		return $this->label;
 	}
 
+	public function get_hint(){
+		return $this->hint;
+	}
+
 	public function get_error($res){
 		foreach ( $this->fields as $field ){
 			if ( ($error=$field->get_error($res)) ){
