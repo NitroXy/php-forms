@@ -241,4 +241,43 @@ class LayoutTableTest extends DOMParser_TestCase {
 		]);
 	}
 
+	public function testLayoutHintTworow(){
+		$this->generate(function($f){
+			$f->textarea('foo', 'Field label', ['tworow' => true, 'hint' => 'Lorem ipsum']);
+		});
+		$this->validate([
+			['form_start'],
+			['table_start'],
+			['tr_start'],
+			['th_start', ['colspan' => 4]], ['label_start', ['for' => 'id_foo']], ['content', 'Field label'], ['label_end'], ['th_end'],
+			['tr_end'],
+			['tr_start'],
+			['td_start', ['colspan' => 2]], ['textarea_start', ['name' => 'foo', 'id' => 'id_foo']],	['textarea_end'], ['td_end'],
+			['td_start'], ['content', 'Lorem ipsum'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
+	public function testLayoutHintTworowFill(){
+		$this->generate(function($f){
+			$f->textarea('foo', 'Field label', ['tworow' => true, 'fill' => true, 'hint' => 'Lorem ipsum']);
+		});
+		$this->validate([
+			['form_start'],
+			['table_start'],
+			['tr_start'],
+			['th_start', ['colspan' => 2]], ['label_start', ['for' => 'id_foo']], ['content', 'Field label'], ['label_end'], ['th_end'],
+			['td_start'], ['content', 'Lorem ipsum'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['tr_start'],
+			['td_start', ['colspan' => 4]], ['textarea_start', ['name' => 'foo', 'id' => 'id_foo']],	['textarea_end'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
 }
