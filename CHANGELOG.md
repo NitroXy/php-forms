@@ -1,5 +1,9 @@
 # 1.2.4
 
+## Breaking changes
+
+  - Layout: empty groups are no longer rendered
+
 ## Features
 
   - Styling: checkboxes uses `form-checkbox` class.

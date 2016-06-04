@@ -23,6 +23,11 @@ class FormGroup extends FormContainer implements FormField {
 	}
 
 	public function render($layout, $res){
+		/* do nothing if there is no fields */
+		if ( count($this->fields) == 0 ){
+			return;
+		}
+
 		$layout->render_group($this, $res);
 	}
 

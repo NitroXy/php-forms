@@ -107,4 +107,12 @@ class FormTest extends PHPUnit_Framework_TestCase {
 			$f->fieldset(false, function($f){});
 		}, ['layout' => $mock]);
 	}
+
+	public function testEmptyGroup(){
+		$mock = $this->getMockBuilder('MockLayout')->setMethods(['render_group'])->getMock();
+		$mock->expects($this->never())->method('render_group');
+		$form = Form::create('id', function($f){
+			$f->group(false, function($f){});
+		}, ['layout' => $mock]);
+	}
 }
