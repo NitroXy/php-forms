@@ -14,6 +14,17 @@ class LayoutTableTest extends DOMParser_TestCase {
 		]);
 	}
 
+	public function testFormArbitraryAttribute(){
+		$this->generate(function($f){
+			$f->hidden_field('foo', '1');
+		}, ['attr' => ['foo' => 'bar']]);
+		$this->validate([
+			['form_start', ['foo' => 'bar']],
+			['input', ['type' => 'hidden', 'name' => 'foo', 'value' => 1]],
+			['form_end'],
+		]);
+	}
+
 	public function testTextField(){
 		$this->generate(function($f){
 			$f->text_field('foo', 'Test field');

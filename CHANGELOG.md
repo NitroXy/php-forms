@@ -10,10 +10,10 @@
 
 ## Features
 
+  - Form: allow arbitrary attributes to be passed to form.
   - Styling: checkboxes uses `form-checkbox` class.
   - Styling: all layouts now adds `form-group` class.
   - Styling: required fields get a `required` class.
-
 
 # 1.2.3
 

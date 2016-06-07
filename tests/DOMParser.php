@@ -21,9 +21,9 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 		throw $e;
 	}
 
-	protected function generate($func){
+	protected function generate($func, array $options=[]){
 		ob_start();
-		Form::create('id', $func, ['layout' => 'table']);
+		Form::create('id', $func, array_merge(['layout' => 'table'], $options));
 		$this->html = ob_get_contents();
 		ob_end_clean();
 	}

@@ -14,12 +14,13 @@ class Form extends FormContainer {
 		'layout' => 'table',                 /* layout engine, one of {plain, table, bootstrap, unbuffered} or a class extending FormLayout. If unbuffered fields is written directly. */
 		'prefix' => false,                   /* use a custom prefix in front of all names, default is nothing for arrays and class name for objects */
 		'style' => '',                       /* add custom style to form, e.g. width */
-		'class' => array(),                  /* additional classes (accepts string or array) */
-		'data' => array(),                   /* extra data attributes */
+		'class' => [],                       /* additional classes (accepts string or array) */
+		'data' => [],                        /* extra data attributes */
+		'attr' => [],                        /* extra arbitrary attributes */
 	);
 
 	public $id = "";
-	public $attr = array('class' => array('form'));
+	public $attr = ['class' => ['form']];
 
 	private $res = null;
 	private $name_pattern = '%s';
@@ -165,6 +166,11 @@ class Form extends FormContainer {
 		if (   $options['prefix'] ) $this->name_pattern = $options['prefix'] . '[%s]';
 		if (  $options['enctype'] ) $this->attr['enctype'] = $options['enctype'];
 		if (     $options['data'] ) $this->attr['data'] =  $options['data'];
+
+		/* arbitrary options */
+		if ( $options['attr'] ){
+			$this->attr = array_merge($this->attr, $options['attr']);
+		}
 	}
 
 	private function parse_method($method){
