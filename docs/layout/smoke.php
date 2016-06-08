@@ -1,10 +1,11 @@
 <?php /*~*/
 use NitroXy\PHPForms\Form;
 use NitroXy\PHPForms\FormSelect;
+global $layout;
 ?>
 <?php
 
-Form::create('example5', function($f){
+Form::create('smoketest', function($f){
 	$f->hidden_field('name', 'Hidden (this wont show at all)', ['value' => '8']);
 	$f->text_field('text_field', 'Text', ['hint' => 'Use the "type" option to use custom type such as number.']);
 	$f->password_field('password_field', 'Password', ['hint' => 'Passwords are not persistent if autocomplete is off', 'autocomplete' => 'off']);
@@ -33,4 +34,4 @@ Form::create('example5', function($f){
 		$f->text_field('text2', 'Input 2');
 		$f->text_field('text3', 'Input 3');
 	});
-}, ['layout' => 'bootstrap']);
+}, ['layout' => $layout]);

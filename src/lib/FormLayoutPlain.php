@@ -17,9 +17,22 @@ class FormLayoutPlain extends FormLayoutBase {
 
 		$row_attr = FormUtils::serialize_attr(['class' => $class]);
 
+		if ( $field instanceof FormInput ){
+			list($prefix, $suffix) = $field->get_addons();
+			$have_addon = (boolean)($prefix || $suffix);
+			if ( $prefix ) $prefix = "<span class=\"form-prefix\">{$prefix}</span>";
+			if ( $suffix ) $suffix = "<span class=\"form-suffix\">{$suffix}</span>";
+		} else {
+			$have_addon = false;
+		}
+
 		echo "<div {$row_attr}>\n";
 		if ( $label !== false )  echo "<span class=\"form-label\">$label</span>\n";
-		if ( $content !== false) echo "<span class=\"form-field\">$content</span>\n";
+		if ( $have_addon ){
+			echo "<span class=\"form-field\"><span class=\"form-addon\">{$prefix}{$content}{$suffix}</span></span>\n";
+		} else if ( $content !== false ){
+			echo "<span class=\"form-field\">$content</span>\n";
+		}
 		if($error !== false)     echo "<span class=\"form-error\">$error</span>\n";
 		if($hint !== false)      echo "<span class=\"form-hint\">$hint</span>\n";
 		echo '</div>';

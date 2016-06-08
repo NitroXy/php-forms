@@ -17,6 +17,12 @@ class FormLayoutTable extends FormLayoutBase {
 		$required = $field->attribute('required');
 		$tr_class = FormUtils::serialize_attr($required ? ['class' => 'required'] : []);
 
+		/* addons */
+		list($prefix, $suffix) = $field->get_addons();
+		$have_addon = (boolean)($prefix || $suffix);
+		if ( $prefix ) $prefix = "<span class=\"form-prefix\">{$prefix}</span>";
+		if ( $suffix ) $suffix = "<span class=\"form-suffix\">{$suffix}</span>";
+
 		if ( $field instanceof FormCheckbox ){
 			echo "		<tr {$tr_class}>\n";
 			if ( $label !== false ){
@@ -35,7 +41,11 @@ class FormLayoutTable extends FormLayoutBase {
 			echo "		<tr {$tr_class}>\n";
 			if ( $label !== false ){
 				echo "			<th class=\"form-label\"><label for=\"$id\">$label</label></th>\n";
-				echo "			<td class=\"form-field\">$content</td>\n";
+				if ( $have_addon ){
+					echo "			<td class=\"form-field\"><div class=\"form-addon\">{$prefix}{$content}{$suffix}</div></td>\n";
+				} else {
+					echo "			<td class=\"form-field\">$content</td>\n";
+				}
 				echo "			<td class=\"form-hint\" >$hint</td>\n";
 				echo "			<td class=\"form-error\">$error</td>\n";
 			} else {
