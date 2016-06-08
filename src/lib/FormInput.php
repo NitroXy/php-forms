@@ -10,6 +10,8 @@ class FormInput implements FormField {
 	protected $tworow = 0;
 	protected $fill = 0;
 	protected $icon = false;
+	protected $prefix = false;
+	protected $suffix = false;
 	protected $container = null;
 	protected $attr = array();
 
@@ -34,6 +36,8 @@ class FormInput implements FormField {
 		$this->pop_attr('tworow', $attr, $this->tworow);
 		$this->pop_attr('fill', $attr, $this->fill);
 		$this->pop_attr('icon', $attr, $this->icon);
+		$this->pop_attr('prefix', $attr, $this->prefix);
+		$this->pop_attr('suffix', $attr, $this->suffix);
 
 		if ( $value !== null ) $attr['value'] = $value;
 		if (    $id != null ) $attr['id'] = $id;
@@ -82,6 +86,10 @@ class FormInput implements FormField {
 
 	public function get_icon(){
 		return $this->icon;
+	}
+
+	public function get_addons(){
+		return [$this->prefix, $this->suffix];
 	}
 
 	public function get_value(){

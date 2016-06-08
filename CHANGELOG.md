@@ -1,3 +1,9 @@
+# 1.3.0
+
+## Features
+
+  - Form: support addons: prefix and suffix.
+
 # 1.2.4
 
 ## Breaking changes

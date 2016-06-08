@@ -10,6 +10,7 @@ $examples = [
 		'*'         => 'layout/groups.php',
 	],
 	'Checkboxes' => 'layout/checkboxes.php',
+	'Addons' => 'layout/addons.php',
 	'Layout hints' => [
 		'table'     => 'layout/layout_hints.php',
 		'*'         => false,

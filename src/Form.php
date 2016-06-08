@@ -496,6 +496,7 @@ class ManualField implements FormField {
 	public function get_label(){ return $this->label; }
 	public function get_content(){ return $this->content; }
 	public function get_hint(){ return $this->hint; }
+	public function get_addons(){ return [false, false]; }
 	public function layout_hints(){ return 0; }
 	public function get_id() { return false; }
 	public function set_container($container){ $this->container = $container; }

@@ -14,6 +14,11 @@
 
 .form.table .form-field {
 	padding-right: 10px;
+	width: 200px;
+}
+
+.form.table input:not([type="radio"]):not([type="checkbox"]) {
+	width: 100%;
 }
 
 .form.table .form-hint {
@@ -24,6 +29,17 @@
 
 .form.table textarea {
 	width: 100%;
+}
+
+.form.table .form-addon {
+	display: inline-table;
+}
+
+.form.table .form-suffix, .form.table .form-prefix {
+	display: table-cell;
+	width: auto;
+	background: #eee;
+	padding: 0 8px;
 }
 
 .required label:after {

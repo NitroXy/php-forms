@@ -11,6 +11,12 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		$hint = $field->get_hint();
 		$required = $field->attribute('required');
 
+		/* addons */
+		list($prefix, $suffix) = $field->get_addons();
+		$have_addon = (boolean)($prefix || $suffix);
+		if ( $prefix ) $prefix = "<div class=\"input-group-addon\">{$prefix}</div>";
+		if ( $suffix ) $suffix = "<div class=\"input-group-addon\">{$suffix}</div>";
+
 		$class = ['form-group'];
 		if ( $error ){
 			$class[] = 'has-error';
@@ -40,7 +46,11 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		if ( $label ){
 			echo "	<label for=\"$id\" class=\"control-label\">{$label}</label>";
 		}
-		echo "	$content";
+		if ( $have_addon ){
+			echo "	<div class=\"input-group\">{$prefix}{$content}{$suffix}</div>";
+		} else {
+			echo "	$content";
+		}
 		if ( $hint ){
 			echo "	<span class=\"help-block\">$hint</span>";
 		}

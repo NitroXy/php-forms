@@ -252,6 +252,54 @@ class LayoutTableTest extends DOMParser_TestCase {
 		]);
 	}
 
+	public function testAddons(){
+		$this->generate(function($f){
+			$f->text_field('a', 'Text 1', ['prefix' => 'Prefix']);
+			$f->text_field('b', 'Text 2', ['suffix' => 'Suffix']);
+			$f->text_field('c', 'Text 3', ['prefix' => 'Prefix', 'suffix' => 'Suffix']);
+		});
+		$this->validate([
+			['form_start'],
+			['table_start'],
+			['tr_start'],
+			['th_start'], ['label_start'], ['content', 'Text 1'], ['label_end'], ['th_end'],
+			['td_start'],
+			['div_start', ['class' => 'form-addon']],
+			['span_start', ['class' => 'form-prefix']], ['content', 'Prefix'], ['span_end'],
+			['input', ['type' => 'text', 'name' => 'a']],
+			['div_end'],
+			['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['tr_start'],
+			['th_start'], ['label_start'], ['content', 'Text 2'], ['label_end'], ['th_end'],
+			['td_start'],
+			['div_start', ['class' => 'form-addon']],
+			['input', ['type' => 'text', 'name' => 'b']],
+			['span_start', ['class' => 'form-suffix']], ['content', 'Suffix'], ['span_end'],
+			['div_end'],
+			['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['tr_start'],
+			['th_start'], ['label_start'], ['content', 'Text 3'], ['label_end'], ['th_end'],
+			['td_start'],
+			['div_start', ['class' => 'form-addon']],
+			['span_start', ['class' => 'form-prefix']], ['content', 'Prefix'], ['span_end'],
+			['input', ['type' => 'text', 'name' => 'c']],
+			['span_start', ['class' => 'form-suffix']], ['content', 'Suffix'], ['span_end'],
+			['div_end'],
+			['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
 	public function testLayoutHintTworow(){
 		$this->generate(function($f){
 			$f->textarea('foo', 'Field label', ['tworow' => true, 'hint' => 'Lorem ipsum']);

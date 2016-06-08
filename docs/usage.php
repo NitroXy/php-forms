@@ -95,6 +95,34 @@ EOT
 						<td></td>
 					</tr>
 					<tr>
+						<td><code>.form-addon</code></td>
+						<td>Class wrapping addons and field when addons are used.</td>
+						<td><?php code(<<<EOT
+/* suggested structural style */
+.form-addon {
+	display: inline-table;
+}
+EOT
+, 'css'); ?></td>
+					</tr>
+					<tr>
+						<td><code>.form-prefix, .form-suffix</code></td>
+						<td>Class added to addons.</td>
+						<td><?php code(<<<EOT
+/* suggested structural style */
+.form-prefix, .form-suffix {
+	display: table-cell;
+	width: auto;
+}
+EOT
+, 'css'); ?></td>
+					</tr>
+					<tr>
+						<td><code>.form-group</code></td>
+						<td>Class added to row wrapper for for groups.</td>
+						<td></td>
+					</tr>
+					<tr>
 						<td><code>.required</code></td>
 						<td>Class added to row wrapper for all required fields.</td>
 						<td><?php code(<<<EOT

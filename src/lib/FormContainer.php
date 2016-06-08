@@ -12,14 +12,16 @@ class FormContainer {
 
 	/**
 	 * Generates any kind of input, used by most other fields. Note that
-   * this function should not be called directly, use
-   * <code>custom_field()</code> instead. Common options for all
-   * fields:
+	 * this function should not be called directly, use
+	 * <code>custom_field()</code> instead. Common options for all
+	 * fields:
 	 *
 	 * @option 'value' {string} If value is set as an attribute it
 	 *         forces the value (irregardless of the object).
-   * @option 'required' {boolean} Set field to required (using HTML
+	 * @option 'required' {boolean} Set field to required (using HTML
 	 *         <code>required</code> attribute).
+	 * @option 'prefix' {string} Add a prefix addon.
+	 * @option 'suffix' {string} Add a suffix addon.
 	 */
 	public function factory($type, $key, $label=null, array $attr=array()){
 		if ( $label && !is_string($label) ){
@@ -129,7 +131,7 @@ class FormContainer {
 	 *
 	 * @option remove {boolean} If true a checkbox to remove the current value will be added.
 	 * @option current {html} If set to non-false the content will be displayed as the
-	 *                 current value, e.g can be set to <img ..>  to display the
+	 *                 current value, e.g can be set to &lt;img ..&gt; to display the
 	 *                 current uploaded image.
 	 */
 	public function upload_field($key, $label=null, array $attr=array()) {
@@ -225,10 +227,10 @@ class FormContainer {
 	 * Create textarea.
 	 *
 	 * @option 'tworow' {boolean} Layout hint to use two rows having the
-   *          label on one row label and the textfield below.
+	 *          label on one row label and the textfield below.
 	 * @option 'fill' {boolean} Layout hint used together with
-   *         <code>'tworow'</code> to fill the entire row (not just
-   *         label + content).
+	 *         <code>'tworow'</code> to fill the entire row (not just
+	 *         label + content).
 	 */
 	public function textarea($key, $label=null, array $attr=array()){
 		$this->fields[] = $this->factory('textarea', $key, $label, $attr);
