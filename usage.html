@@ -51,7 +51,9 @@
 Generates any kind of input, used by most other fields. Note that this function should not be called directly, use <code>custom_field()</code> instead. Common options for all fields:
 
 
-<strong>Attribute options</strong><ul class="option"><li><code>value</code> <span class="label type-string">string</span> If value is set as an attribute it forces the value (irregardless of the object).</li><li><code>required</code> <span class="label type-boolean">boolean</span> Set field to required (using HTML <code>required</code> attribute). </li></ul></td>
+
+
+<strong>Attribute options</strong><ul class="option"><li><code>value</code> <span class="label type-string">string</span> If value is set as an attribute it forces the value (irregardless of the object).</li><li><code>required</code> <span class="label type-boolean">boolean</span> Set field to required (using HTML <code>required</code> attribute).</li><li><code>prefix</code> <span class="label type-string">string</span> Add a prefix addon.</li><li><code>suffix</code> <span class="label type-string">string</span> Add a suffix addon. </li></ul></td>
 						</tr>
 																	<tr>
 							<td><pre class="php" style="font-family:monospace;">hidden_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$value</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
@@ -100,7 +102,7 @@ Create a manual field from HTML.
 File upload field.
 
 
-<strong>Attribute options</strong><ul class="option"><li><code>remove</code> <span class="label type-boolean">boolean</span> If true a checkbox to remove the current value will be added.</li><li><code>current</code> <span class="label type-html">html</span> If set to non-false the content will be displayed as the current value, e.g can be set to <img ..>  to display the current uploaded image. </li></ul></td>
+<strong>Attribute options</strong><ul class="option"><li><code>remove</code> <span class="label type-boolean">boolean</span> If true a checkbox to remove the current value will be added.</li><li><code>current</code> <span class="label type-html">html</span> If set to non-false the content will be displayed as the current value, e.g can be set to &lt;img ..&gt; to display the current uploaded image. </li></ul></td>
 						</tr>
 																	<tr>
 							<td><pre class="php" style="font-family:monospace;">group<span style="color: #009900;">&#40;</span><span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$callback</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
@@ -213,6 +215,28 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 						<td><pre class="css" style="font-family:monospace;"><span style="color: #808080; font-style: italic;">/* add some margin to checkboxes (useful in groups) */</span>
 <span style="color: #6666ff;">.form-checkbox</span> <span style="color: #00AA00;">&#123;</span>
 	<span style="color: #000000; font-weight: bold;">margin-right</span><span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span></pre></td>
+					</tr>
+					<tr>
+						<td><code>.form-group</code></td>
+						<td>Class added to row wrapper for for groups.</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><code>.form-addon</code></td>
+						<td>Class wrapping addons and field when addons are used.</td>
+						<td><pre class="css" style="font-family:monospace;"><span style="color: #808080; font-style: italic;">/* suggested structural style */</span>
+<span style="color: #6666ff;">.form-addon</span> <span style="color: #00AA00;">&#123;</span>
+	<span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">inline-table</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span></pre></td>
+					</tr>
+					<tr>
+						<td><code>.form-prefix, .form-suffix</code></td>
+						<td>Class added to addons.</td>
+						<td><pre class="css" style="font-family:monospace;"><span style="color: #808080; font-style: italic;">/* suggested structural style */</span>
+<span style="color: #6666ff;">.form-prefix</span><span style="color: #00AA00;">,</span> <span style="color: #6666ff;">.form-suffix</span> <span style="color: #00AA00;">&#123;</span>
+	<span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">table-cell</span><span style="color: #00AA00;">;</span>
+	<span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">auto</span><span style="color: #00AA00;">;</span>
 <span style="color: #00AA00;">&#125;</span></pre></td>
 					</tr>
 					<tr>
