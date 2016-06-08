@@ -15,6 +15,7 @@ $examples = [
 		'table'     => 'layout/layout_hints.php',
 		'*'         => false,
 	],
+	'Supported controls' => 'layout/smoke.php',
 ];
 
 require '../vendor/autoload.php';

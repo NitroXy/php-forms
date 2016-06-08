@@ -95,13 +95,6 @@ use NitroXy\PHPForms\FormSelect;
 				<?php include('overview/objects.php'); ?>
 			</div>
 
-			<h2 id="controls">Supported controls</h2>
-			<p>The basic form of all fields is <code>$f->field($key, $label, $options);</code></p>
-			<?php display('overview/controls.php'); ?>
-			<div class="example">
-				<?php include('overview/controls.php'); ?>
-			</div>
-
 			<h2 id="nested" >Nested data/"forms"</h2>
 			<p>Forms can be nested by using <code>fields_for</code> to allow either sending to unrelated objects or multiple instances of the same class.</p>
 			<?php display('overview/nested.php'); ?>
