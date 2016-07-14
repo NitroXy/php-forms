@@ -160,7 +160,7 @@ class FormContainer {
 
 		if ( $remove ){
 			$attr = array();
-			list($id, $name, $value) = $this->generate_data($key . '_remove', $attr);
+			list($id, $name,) = $this->generate_data($key . '_remove', $attr);
 			$this->fields[] = new ManualField("{$key}_remove", '', "<label><input type='checkbox' name='$name' id='$id' value='1' />Ta bort</label>", false);
 		}
 	}
