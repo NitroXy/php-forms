@@ -14,9 +14,9 @@ class FormCheckbox extends FormInput {
 		$this->pop_attr('hint', $attr, $this->hint);
 		$this->pop_attr('text', $attr, $this->text);
 
-		if (  $type != null  ) $attr['type'] = $type;
-		if (    $id != null  ) $attr['id'] = $id;
-		if (  $name != null  ) $attr['name'] = $name;
+		if (  $type !== null  ) $attr['type'] = $type;
+		if (    $id !== null  ) $attr['id'] = $id;
+		if (  $name !== null  ) $attr['name'] = $name;
 
 		$attr['value'] = '1';
 		if ( $value ){

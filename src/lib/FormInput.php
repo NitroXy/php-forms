@@ -40,8 +40,8 @@ class FormInput implements FormField {
 		$this->pop_attr('suffix', $attr, $this->suffix);
 
 		if ( $value !== null ) $attr['value'] = $value;
-		if (    $id != null ) $attr['id'] = $id;
-		if (  $name != null ) $attr['name'] = $name;
+		if (    $id !== null ) $attr['id'] = $id;
+		if (  $name !== null ) $attr['name'] = $name;
 
 		/* allow customizing type (e.g. html5 types such as number) */
 		if ( !array_key_exists('type', $attr) && $type !== null ) {
