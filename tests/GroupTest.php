@@ -2,8 +2,6 @@
 
 use NitroXy\PHPForms\Form;
 
-require_once 'MockForm.php';
-
 class GroupTest extends PHPUnit_Framework_TestCase {
 	public function testGroup(){
 		$mock = new MockLayout();

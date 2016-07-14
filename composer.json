@@ -29,6 +29,10 @@
 		"psr-4": { "NitroXy\\PHPForms\\": ["src/", "src/lib/"] }
 	},
 	"autoload-dev": {
-		"psr-4": { "NitroXy\\PHPForms\\Tests\\": "tests/" }
+		"psr-4": { "NitroXy\\PHPForms\\Tests\\": "tests/" },
+		"classmap": [
+			"tests/DOMParser.php",
+			"tests/MockForm.php"
+		]
 	}
 }

@@ -2,8 +2,6 @@
 
 use NitroXy\PHPForms\Form;
 
-require_once 'MockForm.php';
-
 class FieldTest extends PHPUnit_Framework_TestCase {
 	public function testHiddenField(){
 		$mock = new MockLayout();

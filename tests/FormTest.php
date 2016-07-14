@@ -2,8 +2,6 @@
 
 use NitroXy\PHPForms\Form;
 
-require_once 'MockForm.php';
-
 class FormTest extends PHPUnit_Framework_TestCase {
 	public function testClassString(){
 		$mock = new MockLayout();

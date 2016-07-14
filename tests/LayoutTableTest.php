@@ -1,7 +1,5 @@
 <?php
 
-require_once 'DOMParser.php';
-
 class LayoutTableTest extends DOMParser_TestCase {
 	public function testHiddenField(){
 		$this->generate(function($f){
