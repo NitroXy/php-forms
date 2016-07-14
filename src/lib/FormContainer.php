@@ -94,7 +94,7 @@ class FormContainer {
 	/**
 	 * Select (dropdown) field. Used in conjunction with <code>FormSelect</code>.
 	 */
-	public function select($sel){
+	public function select(FormSelect $sel){
 		$this->fields[] = $sel;
 
 		if ( $this->unbuffered() ){
