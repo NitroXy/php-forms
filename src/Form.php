@@ -129,7 +129,7 @@ class Form extends FormContainer {
 		$this->parse_options($options);
 		$this->callback = $callback;
 
-		if($id instanceof BasicObject) {
+		if($id instanceof \BasicObject) {
 			$this->id=get_class($id);
 			$this->res = $id;
 			$this->hidden_field("id");

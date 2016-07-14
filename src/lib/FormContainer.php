@@ -154,7 +154,7 @@ class FormContainer {
 
 		if ( $current !== false ){
 			$attr = array();
-			list($id, $name, $value) = $this->generate_data($key . '_current', $attr);
+			list($id, $name,) = $this->generate_data($key . '_current', $attr);
 			$this->fields[] = new ManualField("{$key}_current", '', "<label>$current</label>", false);
 		}
 
