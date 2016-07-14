@@ -27,37 +27,6 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
 			<h1>PHP Forms <small>Usage</small></h1>
 			<?php include('menu.php') ?>
 
-			<h2 id="generic">Generic usage</h2>
-			<p>The general prototype is:</p>
-			<?=code('xyz_field($key, $label=null, array $attr=[])', 'php')?>
-
-			<ul class="param">
-				<li><code>$key</code> is the name of the data inside the resource object, i.e. array key or member name. If the key isn't found in the resource it is assumed to be <code>''</code>.</li>
-				<li><code>$label</code> is the textual label describing the field. Setting to <code>false</code> disables the label. Both <code>null</code> and <code>''</code> are legal values which retains the space for the label but blank.</li>
-				<li><code>$attr</code> is an array with optional attributes. Most of these are serialized and passed as-is to the input-field (e.g. passing <code>['data-foo' => 'bar']</code> results in <code>&lt;input&nbsp;data-foo="bar"&gt;</code>. Some fields have special options (see table below) which are consumed and not serialized.</li>
-			</ul>
-
-			<h2 id="fields">Fields</h2>
-			<table class="table table-striped doc-table">
-				<thead>
-					<tr>
-						<th>Field</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ( $reflection_form->getMethods(ReflectionMethod::IS_PUBLIC) as $method ): ?>
-						<?php if ( $method->name === '__construct' ) continue; ?>
-						<tr>
-							<td><?=code(prototype($method), 'php')?></td>
-<td>
-<?=phpdoc($method)?>
-</td>
-						</tr>
-					<?php endforeach; ?>
-				</tbody>
-			</table>
-
 			<h2 id="unbound">Simple form (unbound)</h2>
 			<?=code('Form::create(string $id, callable $callback, [array $options])', 'php')?>
 			<dl class="doc-table">
@@ -107,6 +76,37 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
 				<div class="col-sm-6"><?php display('usage/object.php'); ?></div>
 				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
 			</div>
+
+			<h2 id="generic">Fields</h2>
+			<p>The general prototype is:</p>
+			<?=code('xyz_field($key, $label=null, array $attr=[])', 'php')?>
+
+			<ul class="param">
+				<li><code>$key</code> is the name of the data inside the resource object, i.e. array key or member name. If the key isn't found in the resource it is assumed to be <code>''</code>.</li>
+				<li><code>$label</code> is the textual label describing the field. Setting to <code>false</code> disables the label. Both <code>null</code> and <code>''</code> are legal values which retains the space for the label but blank.</li>
+				<li><code>$attr</code> is an array with optional attributes. Most of these are serialized and passed as-is to the input-field (e.g. passing <code>['data-foo' => 'bar']</code> results in <code>&lt;input&nbsp;data-foo="bar"&gt;</code>. Some fields have special options (see table below) which are consumed and not serialized.</li>
+			</ul>
+
+			<h2 id="fields">Available fields</h2>
+			<table class="table table-striped doc-table">
+				<thead>
+					<tr>
+						<th>Field</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $reflection_form->getMethods(ReflectionMethod::IS_PUBLIC) as $method ): ?>
+						<?php if ( $method->name === '__construct' ) continue; ?>
+						<tr>
+							<td><?=code(prototype($method), 'php')?></td>
+<td>
+<?=phpdoc($method)?>
+</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
 
 			<h2 id="styling">Styling</h2>
 			<table class="table table-striped">
