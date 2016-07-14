@@ -24,16 +24,12 @@ use NitroXy\PHPForms\Form;
 				<dd>Name of the special method field when using methods other than <tt>GET</tt> and <tt>POST</tt></dd>
 				<dt>action</dt>
 				<dd>Form action (default: "")</dd>
-				<dt>enctype</dt>
-				<dd>Form enctype</dd>
 				<dt>layout</dt>
 				<dd>Form layout ("plain", "table", "bootstrap" or an instance of <code>FormLayout</code>)</dd>
 				<dt>prefix</dt>
 				<dd>Use custom prefix when generating names and ID</dd>
-				<dt>attr</dt>
-				<dd>Array with arbitrary attributes to pass directly to form.</dd>
 				<dt>Other</dt>
-				<dd>Form also accepts <code>style</code>, <code>class</code> and <code>data</code> which is just passed directly to the form.</dd>
+				<dd>All other options are passed directly to the form as attributes. Use it to specify attributes such as <code>name</code>, <code>class</code>, etc.</dd>
 			</dl>
 
 			<h3>Default options</h3>

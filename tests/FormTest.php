@@ -115,4 +115,10 @@ class FormTest extends PHPUnit_Framework_TestCase {
 			$f->group(false, function($f){});
 		}, ['layout' => $mock]);
 	}
+
+	public function testArbitraryAttr(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){}, ['layout' => $mock, 'foobar' => 'spam']);
+		$this->assertEquals('spam', $mock->form_attr['foobar']);
+	}
 }
