@@ -1,5 +1,7 @@
 <?php
 
+use NitroXy\PHPForms\FormSelect;
+
 class LayoutTableTest extends DOMParser_TestCase {
 	public function testHiddenField(){
 		$this->generate(function($f){
@@ -33,6 +35,30 @@ class LayoutTableTest extends DOMParser_TestCase {
 			['tr_start'],
 			['th_start'], ['label_start', ['for' => 'id_foo']], ['content', 'Test field'], ['label_end'], ['th_end'],
 			['td_start'], ['input', ['type' => 'text', 'name' => 'foo', 'id' => 'id_foo']],	['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
+	public function testSelectField(){
+		$this->generate(function($f){
+			$f->select(FormSelect::from_array($f, 'foo', ['a', 'b', 'c'], 'Test field'));
+		});
+		$this->validate([
+			['form_start'],
+			['table_start'],
+			['tr_start'],
+			['th_start'], ['label_start', ['for' => 'id_foo']], ['content', 'Test field'], ['label_end'], ['th_end'],
+			['td_start'],
+			['select_start', ['name' => 'foo', 'id' => 'id_foo']],
+			['option_start', ['value' => 0]], ['content', 'a'], ['option_end'],
+			['option_start', ['value' => 1]], ['content', 'b'], ['option_end'],
+			['option_start', ['value' => 2]], ['content', 'c'], ['option_end'],
+			['select_end'],
+			['td_end'],
 			['td_start'], ['td_end'],
 			['td_start'], ['td_end'],
 			['tr_end'],
