@@ -10,7 +10,7 @@ class FormSelectTest extends PHPUnit_Framework_TestCase {
 			$f->select(FormSelect::from_array($f, 'foo', ['a', 'b', 'c'], 'label'));
 		}, ['layout' => $mock]);
 		$this->assertArrayHasKey('foo', $mock->field);
-		$this->assertInstanceOf(FormSelect::class, $mock->field['foo']);
+		$this->assertInstanceOf('NitroXy\PHPForms\FormSelect', $mock->field['foo']);
 		$options = $mock->field['foo']->get_options();
 		$this->assertCount(3, $options);
 		$this->assertEquals(['attr' => ['value' => 0, 'selected' => 'selected'], 'label' => 'a'], (array)$options[0]);
