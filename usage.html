@@ -27,7 +27,83 @@
   </div>
 </nav>
 
-			<h2 id="generic">Generic usage</h2>
+			<h2 id="unbound">Simple form (unbound)</h2>
+			<pre class="php" style="font-family:monospace;">Form<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span>string <span style="color: #000088;">$id</span><span style="color: #339933;">,</span> callable <span style="color: #000088;">$callback</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #990000;">array</span> <span style="color: #000088;">$options</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre>			<dl class="doc-table">
+				<dt><code>$id</code>  <span class="label type-string">string</span></dt>
+				<dd>Form id (prefix).</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.html#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
+			<div class="row">
+				<div class="col-sm-6"><pre class="php" style="font-family:monospace;">Form<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'login'</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'username'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Username'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">password_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'password'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Password'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div>
+				<div class="col-sm-6"><form id="login" class="form bootstrap" method="POST" action="">
+<div class="form-group">	<label for="login_username" class="control-label">Username</label>	<input class="form-control" id="login_username" name="username" type="text" /></div><div class="form-group">	<label for="login_password" class="control-label">Password</label>	<input class="form-control" id="login_password" name="password" type="password" /></div></form>
+</div>
+			</div>
+
+			<h2 id="array">Array binding</h2>
+			<pre class="php" style="font-family:monospace;">Form<span style="color: #339933;">::</span><span style="color: #004000;">from_array</span><span style="color: #009900;">&#40;</span>string <span style="color: #000088;">$id</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$array</span><span style="color: #339933;">,</span> callable <span style="color: #000088;">$callback</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #990000;">array</span> <span style="color: #000088;">$options</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre>			<dl class="doc-table">
+				<dt><code>$id</code>  <span class="label type-string">string</span></dt>
+				<dd>Form id (prefix).</dd>
+				<dt><code>$array</code>  <span class="label type-array">array</span></dt>
+				<dd>Array to bind data from.</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.html#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
+			<div class="row">
+				<div class="col-sm-6"><pre class="php" style="font-family:monospace;"><span style="color: #000088;">$data</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span>
+	<span style="color: #0000ff;">'name'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'Fred Flintstone'</span><span style="color: #339933;">,</span>
+	<span style="color: #0000ff;">'age'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">31</span><span style="color: #339933;">,</span>
+<span style="color: #009900;">&#93;</span><span style="color: #339933;">;</span>
+&nbsp;
+Form<span style="color: #339933;">::</span><span style="color: #004000;">from_array</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;User&quot;</span><span style="color: #339933;">,</span> <span style="color: #000088;">$data</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Name'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'age'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Age'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'number'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'min'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div>
+				<div class="col-sm-6"><form id="User" class="form bootstrap" method="POST" action="">
+<div class="form-group required">	<label for="User_name" class="control-label">Name</label>	<input class="form-control" required value="Fred Flintstone" id="User_name" name="name" type="text" /></div><div class="form-group required">	<label for="User_age" class="control-label">Age</label>	<input class="form-control" type="number" min="1" required value="31" id="User_age" name="age" /></div></form>
+</div>
+			</div>
+
+			<h2 id="object">Object binding</h2>
+			<pre class="php" style="font-family:monospace;">Form<span style="color: #339933;">::</span><span style="color: #004000;">from_object</span><span style="color: #009900;">&#40;</span>object <span style="color: #000088;">$obj</span><span style="color: #339933;">,</span> callable <span style="color: #000088;">$callback</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #990000;">array</span> <span style="color: #000088;">$options</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre>			<dl class="doc-table">
+				<dt><code>$object</code>  <span class="label type-object">object</span></dt>
+				<dd>Object to bind data from.</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.html#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
+			<div class="row">
+				<div class="col-sm-6"><pre class="php" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> User <span style="color: #009900;">&#123;</span>
+	<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000088;">$name</span><span style="color: #339933;">;</span>
+	<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000088;">$age</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
+&nbsp;
+<span style="color: #000088;">$user</span> <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> User<span style="color: #339933;">;</span>
+<span style="color: #000088;">$user</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span> <span style="color: #339933;">=</span> <span style="color: #0000ff;">'Fred Flintstone'</span><span style="color: #339933;">,</span>
+<span style="color: #000088;">$user</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">age</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">31</span><span style="color: #339933;">;</span>
+&nbsp;
+Form<span style="color: #339933;">::</span><span style="color: #004000;">from_object</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$user</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Name'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'age'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Age'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'number'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'min'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div>
+				<div class="col-sm-6"><form id="User" class="form bootstrap" method="POST" action="">
+<div class="form-group required">	<label for="User_name" class="control-label">Name</label>	<input class="form-control" required value="Fred Flintstone" id="User_name" name="name" type="text" /></div><div class="form-group required">	<label for="User_age" class="control-label">Age</label>	<input class="form-control" type="number" min="1" required value="31" id="User_age" name="age" /></div></form>
+</div>
+			</div>
+
+			<h2 id="generic">Fields</h2>
 			<p>The general prototype is:</p>
 			<pre class="php" style="font-family:monospace;">xyz_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">=</span><span style="color: #009900; font-weight: bold;">null</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span><span style="color: #339933;">=</span><span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre>
 			<ul class="param">
@@ -36,7 +112,7 @@
 				<li><code>$attr</code> is an array with optional attributes. Most of these are serialized and passed as-is to the input-field (e.g. passing <code>['data-foo' => 'bar']</code> results in <code>&lt;input&nbsp;data-foo="bar"&gt;</code>. Some fields have special options (see table below) which are consumed and not serialized.</li>
 			</ul>
 
-			<h2 id="fields">Fields</h2>
+			<h2 id="fields">Available fields</h2>
 			<table class="table table-striped doc-table">
 				<thead>
 					<tr>
@@ -164,42 +240,6 @@ Changes the resource object to another object. Used to generate forms for multip
 						</tr>
 									</tbody>
 			</table>
-
-			<h2 id="array">Array binding</h2>
-			<div class="row">
-				<div class="col-sm-6"><pre class="php" style="font-family:monospace;"><span style="color: #000088;">$data</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span>
-	<span style="color: #0000ff;">'name'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'Fred Flintstone'</span><span style="color: #339933;">,</span>
-	<span style="color: #0000ff;">'age'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">31</span><span style="color: #339933;">,</span>
-<span style="color: #009900;">&#93;</span><span style="color: #339933;">;</span>
-&nbsp;
-Form<span style="color: #339933;">::</span><span style="color: #004000;">from_array</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;User&quot;</span><span style="color: #339933;">,</span> <span style="color: #000088;">$data</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
-	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Name'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
-	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'age'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Age'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'number'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'min'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
-<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div>
-				<div class="col-sm-6"><form id="User" class="form bootstrap" method="POST" action="">
-<div class="form-group required">	<label for="User_name" class="control-label">Name</label>	<input class="form-control" required value="Fred Flintstone" id="User_name" name="name" type="text" /></div><div class="form-group required">	<label for="User_age" class="control-label">Age</label>	<input class="form-control" type="number" min="1" required value="31" id="User_age" name="age" /></div></form>
-</div>
-			</div>
-
-			<h2 id="object">Object binding</h2>
-			<div class="row">
-				<div class="col-sm-6"><pre class="php" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> User <span style="color: #009900;">&#123;</span>
-	<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000088;">$name</span><span style="color: #339933;">;</span>
-	<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000088;">$age</span><span style="color: #339933;">;</span>
-<span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
-&nbsp;
-<span style="color: #000088;">$user</span> <span style="color: #339933;">=</span> <span style="color: #000000; font-weight: bold;">new</span> User<span style="color: #339933;">;</span>
-<span style="color: #000088;">$user</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">name</span> <span style="color: #339933;">=</span> <span style="color: #0000ff;">'Fred Flintstone'</span><span style="color: #339933;">,</span>
-<span style="color: #000088;">$user</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">age</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">31</span><span style="color: #339933;">;</span>
-&nbsp;
-Form<span style="color: #339933;">::</span><span style="color: #004000;">from_object</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$user</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
-	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Name'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
-	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'age'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'Age'</span><span style="color: #339933;">,</span> <span style="color: #009900;">&#91;</span><span style="color: #0000ff;">'type'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'number'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'min'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #cc66cc;">1</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'required'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #009900; font-weight: bold;">true</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
-<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div>
-				<div class="col-sm-6"><form id="User" class="form bootstrap" method="POST" action="">
-<div class="form-group required">	<label for="User_name" class="control-label">Name</label>	<input class="form-control" required value="Fred Flintstone" id="User_name" name="name" type="text" /></div><div class="form-group required">	<label for="User_age" class="control-label">Age</label>	<input class="form-control" type="number" min="1" required value="31" id="User_age" name="age" /></div></form>
-</div>
-			</div>
 
 			<h2 id="styling">Styling</h2>
 			<table class="table table-striped">

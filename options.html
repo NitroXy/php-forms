@@ -27,24 +27,20 @@
   </div>
 </nav>
 
-			<h2>Form options</h2>
-			<dl>
-				<dt>method</dt>
+			<h2 id="form-options">Form options</h2>
+			<dl class="doc-table">
+				<dt><code>method</code> <span class="label type-string">string</span></dt>
 				<dd>Form method (default: post)</dd>
-				<dt>method_field_name</dt>
+				<dt><code>method_field_name</code> <span class="label type-string">string</span></dt>
 				<dd>Name of the special method field when using methods other than <tt>GET</tt> and <tt>POST</tt></dd>
-				<dt>action</dt>
+				<dt><code>action</code> <span class="label type-string">string</span></dt>
 				<dd>Form action (default: "")</dd>
-				<dt>enctype</dt>
-				<dd>Form enctype</dd>
-				<dt>layout</dt>
+				<dt><code>layout</code> <span class="label type-string">string</span></dt>
 				<dd>Form layout ("plain", "table", "bootstrap" or an instance of <code>FormLayout</code>)</dd>
-				<dt>prefix</dt>
+				<dt><code>prefix</code> <span class="label label-default">mixed</span></dt>
 				<dd>Use custom prefix when generating names and ID</dd>
-				<dt>attr</dt>
-				<dd>Array with arbitrary attributes to pass directly to form.</dd>
 				<dt>Other</dt>
-				<dd>Form also accepts <code>style</code>, <code>class</code> and <code>data</code> which is just passed directly to the form.</dd>
+				<dd>All other options are passed directly to the form as attributes. Use it to specify attributes such as <code>name</code>, <code>class</code>, etc.</dd>
 			</dl>
 
 			<h3>Default options</h3>
