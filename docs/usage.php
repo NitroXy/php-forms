@@ -58,13 +58,51 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
 				</tbody>
 			</table>
 
+			<h2 id="unbound">Simple form (unbound)</h2>
+			<?=code('Form::create(string $id, callable $callback, [array $options])', 'php')?>
+			<dl class="doc-table">
+				<dt><code>$id</code>  <span class="label type-string">string</span></dt>
+				<dd>Form id (prefix).</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.php#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
+			<div class="row">
+				<div class="col-sm-6"><?php display('usage/unbound.php'); ?></div>
+				<div class="col-sm-6"><?php include('usage/unbound.php'); ?></div>
+			</div>
+
 			<h2 id="array">Array binding</h2>
+			<?=code('Form::from_array(string $id, array $array, callable $callback, [array $options])', 'php')?>
+			<dl class="doc-table">
+				<dt><code>$id</code>  <span class="label type-string">string</span></dt>
+				<dd>Form id (prefix).</dd>
+				<dt><code>$array</code>  <span class="label type-array">array</span></dt>
+				<dd>Array to bind data from.</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.php#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
 			<div class="row">
 				<div class="col-sm-6"><?php display('usage/array.php'); ?></div>
 				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
 			</div>
 
 			<h2 id="object">Object binding</h2>
+			<?=code('Form::from_object(object $obj, callable $callback, [array $options])', 'php')?>
+			<dl class="doc-table">
+				<dt><code>$object</code>  <span class="label type-object">object</span></dt>
+				<dd>Object to bind data from.</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.php#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
 			<div class="row">
 				<div class="col-sm-6"><?php display('usage/object.php'); ?></div>
 				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
