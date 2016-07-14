@@ -115,4 +115,34 @@ class FormTest extends PHPUnit_Framework_TestCase {
 			$f->group(false, function($f){});
 		}, ['layout' => $mock]);
 	}
+
+	public function testArbitraryAttr(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){}, ['layout' => $mock, 'foobar' => 'spam']);
+		$this->assertArrayHasKey('foobar', $mock->form_attr);
+		$this->assertEquals('spam', $mock->form_attr['foobar']);
+	}
+
+	public function testEnctypeDefault(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){}, ['layout' => $mock]);
+		$this->assertArrayNotHasKey('enctype', $mock->form_attr);
+	}
+
+	public function testEnctypeOption(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){}, ['layout' => $mock, 'enctype' => 'multipart/form-data']);
+		$this->assertArrayHasKey('enctype', $mock->form_attr);
+		$this->assertEquals('multipart/form-data', $mock->form_attr['enctype']);
+	}
+
+	public function testNoExtraAttr(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){}, ['layout' => $mock]);
+		$expected = ['class', 'method', 'action'];
+		$this->assertEquals($expected, array_keys($mock->form_attr));
+
+		/* id is not passed via attribute but should also be present */
+		$this->assertEquals('id', $mock->form_id);
+	}
 }

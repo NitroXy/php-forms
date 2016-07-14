@@ -107,3 +107,11 @@ h4[id]:hover .link {
 .doc-table .type-html {
 	background-color: #007;
 }
+
+.doc-table .type-callable {
+	background-color: #707;
+}
+
+.doc-table .type-array {
+	background-color: #770;
+}

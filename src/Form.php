@@ -10,13 +10,9 @@ class Form extends FormContainer {
 		'method' => 'post',                  /* form method (get or post) */
 		'method_field_name' => '_method',    /* name of the method field when method isn't GET or POST. */
 		'action' => '',                      /* form action (if set to false no <form> wrapper will be generated (you must manually set it) */
-		'enctype' => false,                  /* form encoding */
 		'layout' => 'table',                 /* layout engine, one of {plain, table, bootstrap, unbuffered} or a class extending FormLayout. If unbuffered fields is written directly. */
 		'prefix' => false,                   /* use a custom prefix in front of all names, default is nothing for arrays and class name for objects */
-		'style' => '',                       /* add custom style to form, e.g. width */
 		'class' => [],                       /* additional classes (accepts string or array) */
-		'data' => [],                        /* extra data attributes */
-		'attr' => [],                        /* extra arbitrary attributes */
 	);
 
 	public $id = "";
@@ -26,7 +22,7 @@ class Form extends FormContainer {
 	private $name_pattern = '%s';
 	private $layout = null;
 	private $callback = null;
-	private $options = null;
+	private $options = [];
 	private $unbuffered = false;
 
 	/**
@@ -144,33 +140,59 @@ class Form extends FormContainer {
 		$this->render();
 	}
 
+	protected function pop_attr($key, &$attr, &$value){
+		if ( array_key_exists($key, $attr) ){
+			$value = $attr[$key];
+			unset($attr[$key]);
+			return true;
+		}
+		return false;
+	}
+
 	private function parse_options($user){
-		$options = array_merge(static::$base_options, static::default_options(), $user);
+		$options = array_merge(
+			static::$base_options,
+			static::default_options(),
+			$user
+		);
 
-		/* split classes given as string */
-		if ( !is_array($options['class']) ){
-			$options['class'] = explode(' ', $options['class']);
+		/* extract non-attribute options */
+		$this->pop_attr('method_field_name', $options, $this->options['method_field_name']);
+
+		/* layout */
+		$this->pop_attr('layout', $options, $layout);
+		$this->set_layout($layout);
+
+		/* rewrite requested action to GET/POST and store original method */
+		$this->pop_attr('method', $options, $method);
+		$this->options['requested_method'] = $method;
+		$this->attr['method'] = static::parse_method($method);
+
+		/* custom prefix */
+		$this->pop_attr('prefix', $options, $prefix);
+		if ( $prefix ){
+			$this->name_pattern = $prefix . '[%s]';
 		}
 
-		/* store raw options */
-		$this->options = $options;
+		/* classes require deeper merge: classes has already been added */
+		$this->pop_attr('class', $options, $class);
+		$this->add_class($class);
 
-		/* required */
-		$this->attr['method'] = static::parse_method($options['method']);
-		$this->attr['action'] = $options['action'];
+		/* merge form attributes */
+		$attr = [];
+		$this->pop_attr('attr', $options, $attr);
+		$this->attr = array_merge(
+			$this->attr,
+			$options,
+			$attr
+		);
+	}
 
-		/* optional */
-		$this->set_layout($options);
-		if (    $options['class'] ) $this->attr['class'] = array_merge($this->attr['class'], $options['class']);
-		if (    $options['style'] ) $this->attr['style'] = $options['style'];
-		if (   $options['prefix'] ) $this->name_pattern = $options['prefix'] . '[%s]';
-		if (  $options['enctype'] ) $this->attr['enctype'] = $options['enctype'];
-		if (     $options['data'] ) $this->attr['data'] =  $options['data'];
-
-		/* arbitrary options */
-		if ( $options['attr'] ){
-			$this->attr = array_merge($this->attr, $options['attr']);
+	protected function add_class($class){
+		if ( is_string($class) ){
+			$class = explode(' ', $class);
 		}
+		$this->attr['class'] = array_merge($this->attr['class'], $class);
 	}
 
 	private function parse_method($method){
@@ -184,8 +206,7 @@ class Form extends FormContainer {
 		}
 	}
 
-	private function set_layout($options){
-		$layout = $options['layout'];
+	private function set_layout($layout){
 		$class = $layout;
 
 		if ( is_string($layout) ){
@@ -209,7 +230,7 @@ class Form extends FormContainer {
 		}
 
 		/* use layout class so it is possible to style a single layout */
-		$this->attr['class'] = array_merge($this->attr['class'], array($class));
+		$this->add_class($class);
 
 		$this->layout = $layout;
 	}
@@ -268,7 +289,7 @@ class Form extends FormContainer {
 	}
 
 	public function method_field() {
-		$this->hidden_field($this->options['method_field_name'], strtoupper($this->options['method']));
+		$this->hidden_field($this->options['method_field_name'], strtoupper($this->options['requested_method']));
 	}
 
 	protected function start() {
@@ -286,7 +307,7 @@ class Form extends FormContainer {
 	}
 
 	protected function end() {
-		$method = strtoupper($this->options['method']);
+		$method = strtoupper($this->options['requested_method']);
 		if ( $method !== "GET" ) {
 			$has_csrf = false;
 			foreach( $this->hidden as $field) {

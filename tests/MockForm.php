@@ -12,7 +12,7 @@ class MockLayout implements NitroXy\PHPForms\FormLayout {
 	public $closed = 0;
 
 	public function preamble($form){
-		$this->form_id = $form;
+		$this->form_id = $form->id;
 		$this->form_attr = $form->attr;
 		$this->opened++;
 	}

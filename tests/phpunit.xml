@@ -6,15 +6,15 @@
 				 beStrictAboutTestsThatDoNotTestAnything="true"
 				 verbose="true">
 
-  <testsuites>
-    <testsuite name="tests">
-      <directory>.</directory>
-    </testsuite>
-  </testsuites>
+	<testsuites>
+		<testsuite name="tests">
+			<directory>.</directory>
+		</testsuite>
+	</testsuites>
 
-  <filter>
+	<filter>
 		<whitelist addUncoveredFilesFromWhitelist="true">
 			<directory>../src</directory>
 		</whitelist>
-  </filter>
+	</filter>
 </phpunit>

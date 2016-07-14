@@ -27,7 +27,57 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
 			<h1>PHP Forms <small>Usage</small></h1>
 			<?php include('menu.php') ?>
 
-			<h2 id="generic">Generic usage</h2>
+			<h2 id="unbound">Simple form (unbound)</h2>
+			<?=code('Form::create(string $id, callable $callback, [array $options])', 'php')?>
+			<dl class="doc-table">
+				<dt><code>$id</code>  <span class="label type-string">string</span></dt>
+				<dd>Form id (prefix).</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.php#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
+			<div class="row">
+				<div class="col-sm-6"><?php display('usage/unbound.php'); ?></div>
+				<div class="col-sm-6"><?php include('usage/unbound.php'); ?></div>
+			</div>
+
+			<h2 id="array">Array binding</h2>
+			<?=code('Form::from_array(string $id, array $array, callable $callback, [array $options])', 'php')?>
+			<dl class="doc-table">
+				<dt><code>$id</code>  <span class="label type-string">string</span></dt>
+				<dd>Form id (prefix).</dd>
+				<dt><code>$array</code>  <span class="label type-array">array</span></dt>
+				<dd>Array to bind data from.</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.php#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
+			<div class="row">
+				<div class="col-sm-6"><?php display('usage/array.php'); ?></div>
+				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
+			</div>
+
+			<h2 id="object">Object binding</h2>
+			<?=code('Form::from_object(object $obj, callable $callback, [array $options])', 'php')?>
+			<dl class="doc-table">
+				<dt><code>$object</code>  <span class="label type-object">object</span></dt>
+				<dd>Object to bind data from.</dd>
+				<dt><code>$callback</code>  <span class="label type-callable">callable</span></dt>
+				<dd>Build callback.</dd>
+				<dt><code>$options</code>  <span class="label type-array">array</span></dt>
+				<dd>Optional options and form attributes, see <a href="options.php#form-options">Form Options</a></dd>
+			</dl>
+			<h3>Example</h3>
+			<div class="row">
+				<div class="col-sm-6"><?php display('usage/object.php'); ?></div>
+				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
+			</div>
+
+			<h2 id="generic">Fields</h2>
 			<p>The general prototype is:</p>
 			<?=code('xyz_field($key, $label=null, array $attr=[])', 'php')?>
 
@@ -37,7 +87,7 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
 				<li><code>$attr</code> is an array with optional attributes. Most of these are serialized and passed as-is to the input-field (e.g. passing <code>['data-foo' => 'bar']</code> results in <code>&lt;input&nbsp;data-foo="bar"&gt;</code>. Some fields have special options (see table below) which are consumed and not serialized.</li>
 			</ul>
 
-			<h2 id="fields">Fields</h2>
+			<h2 id="fields">Available fields</h2>
 			<table class="table table-striped doc-table">
 				<thead>
 					<tr>
@@ -57,18 +107,6 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-
-			<h2 id="array">Array binding</h2>
-			<div class="row">
-				<div class="col-sm-6"><?php display('usage/array.php'); ?></div>
-				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
-			</div>
-
-			<h2 id="object">Object binding</h2>
-			<div class="row">
-				<div class="col-sm-6"><?php display('usage/object.php'); ?></div>
-				<div class="col-sm-6"><?php include('usage/array.php'); ?></div>
-			</div>
 
 			<h2 id="styling">Styling</h2>
 			<table class="table table-striped">

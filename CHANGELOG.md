@@ -1,3 +1,10 @@
+# 1.4.0
+
+## Breaking changes
+
+  - Form attributes is now pulled directly from `$options`, `attr`
+    option is still present but deprecated.
+
 # 1.3.0
 
 ## Features
