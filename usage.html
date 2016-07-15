@@ -22,6 +22,7 @@
         </ul>
       </li>
       <li><a href="usage.html">Usage</a></li>
+      <li><a href="style.html">Style</a></li>
       <li><a href="options.html">Options</a></li>
     </ul>
   </div>
@@ -122,7 +123,7 @@ Form<span style="color: #339933;">::</span><span style="color: #004000;">from_ob
 				</thead>
 				<tbody>
 																							<tr>
-							<td><pre class="php" style="font-family:monospace;">factory<span style="color: #009900;">&#40;</span><span style="color: #000088;">$type</span><span style="color: #339933;">,</span> <span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">factory<span style="color: #009900;">&#40;</span><span style="color: #000088;">$type</span><span style="color: #339933;">,</span> <span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Generates any kind of input, used by most other fields. Note that this function should not be called directly, use <code>custom_field()</code> instead. Common options for all fields:
 
@@ -132,48 +133,51 @@ Generates any kind of input, used by most other fields. Note that this function 
 <strong>Attribute options</strong><ul class="option"><li><code>value</code> <span class="label type-string">string</span> If value is set as an attribute it forces the value (irregardless of the object).</li><li><code>required</code> <span class="label type-boolean">boolean</span> Set field to required (using HTML <code>required</code> attribute).</li><li><code>prefix</code> <span class="label type-string">string</span> Add a prefix addon.</li><li><code>suffix</code> <span class="label type-string">string</span> Add a suffix addon. </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">hidden_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$value</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">hidden_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$value</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Add hidden field. All hiddens are placed at the beginning of the form no matter where used.
 
 <strong>Parameters</strong><ul class="param"><li><code>$value</code> If set the value is used instead of reading from the resource. </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">text_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">text_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Regular "text" input.
 
 <strong>Attribute options</strong><ul class="option"><li><code>type</code> <span class="label type-string">string</span> HTML type attribute, e.g. <code>email</code> or <code>tel</code>. </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">password_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">password_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Password field. </td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">custom_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$type</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">custom_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$type</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Wrapper around <code>factory</code>. </td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">select<span style="color: #009900;">&#40;</span><span style="color: #000088;">$sel</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">select<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$options</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
-Select (dropdown) field. Used in conjunction with <code>FormSelect</code>. </td>
+Select (dropdown) field. Used in conjunction with <code>FormOptions</code>.
+
+
+<strong>Parameters</strong><ul class="param"><li><code>$options</code> Instance of FormOptions.</li></ul><strong>Attribute options</strong><ul class="option"><li><code>postback</code> <span class="label type-boolean">boolean</span> Automatically submit form when value changes. (default: false) </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">hint<span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">hint<span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Add a help text. </td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">manual<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$content</span><span style="color: #339933;">,</span> <span style="color: #000088;">$hint</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">manual<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$content</span><span style="color: #339933;">,</span> <span style="color: #000088;">$hint</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">false</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Create a manual field from HTML.
 
 <strong>Parameters</strong><ul class="param"><li><code>$content</code> Any HTML. </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">upload_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">upload_field<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 File upload field.
 
@@ -181,45 +185,45 @@ File upload field.
 <strong>Attribute options</strong><ul class="option"><li><code>remove</code> <span class="label type-boolean">boolean</span> If true a checkbox to remove the current value will be added.</li><li><code>current</code> <span class="label type-html">html</span> If set to non-false the content will be displayed as the current value, e.g can be set to &lt;img ..&gt; to display the current uploaded image. </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">group<span style="color: #009900;">&#40;</span><span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$callback</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">group<span style="color: #009900;">&#40;</span><span style="color: #000088;">$label</span><span style="color: #339933;">,</span> callable <span style="color: #000088;">$callback</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Create a field group where all fields is aligned horizontaly, useful for buttons, checkboxes and radiobuttons.
 
 <strong>Parameters</strong><ul class="param"><li><code>$callback</code> A new rendering context. </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">fieldset<span style="color: #009900;">&#40;</span><span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$callback</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">fieldset<span style="color: #009900;">&#40;</span><span style="color: #000088;">$label</span><span style="color: #339933;">,</span> callable <span style="color: #000088;">$callback</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Form fieldset.
 
 <strong>Parameters</strong><ul class="param"><li><code>$callback</code> A new rendering context. </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">submit<span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">submit<span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Submit button.
 
-<strong>Attribute options</strong><ul class="option"><li><code>confirm</code> <span class="label type-string">string</span> adds <code>onclick="return confirm(...);"</code> </li></ul></td>
+<strong>Attribute options</strong><ul class="option"><li><code>confirm</code> <span class="label type-string">string</span> Adds a javascript confirmation prompt before submit/click: <code>onclick="return confirm(...);"</code> </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">button<span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">button<span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Generic button.
 
 <strong>Attribute options</strong><ul class="option"><li><code>type</code> <span class="label type-string">string</span> Should be a valid HTML button value (e.g. <code>submit</code> or <code>button</code>). </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">static_value<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">static_value<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">false</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Display a value from the resource but provides no editable field. </td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;"><span style="color: #990000;">link</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$href</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;"><span style="color: #990000;">link</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$href</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">false</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Similar to static but provides a link as well. </td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">textarea<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">textarea<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Create textarea.
 
@@ -227,12 +231,12 @@ Create textarea.
 <strong>Attribute options</strong><ul class="option"><li><code>tworow</code> <span class="label type-boolean">boolean</span> Layout hint to use two rows having the label on one row label and the textfield below.</li><li><code>fill</code> <span class="label type-boolean">boolean</span> Layout hint used together with <code>'tworow'</code> to fill the entire row (not just label + content). </li></ul></td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">checkbox<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #000088;">$attr</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">checkbox<span style="color: #009900;">&#40;</span><span style="color: #000088;">$key</span><span style="color: #339933;">,</span> <span style="color: #000088;">$text</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span> <span style="color: #339933;">=</span> <span style="color: #009900; font-weight: bold;">NULL</span><span style="color: #339933;">,</span> <span style="color: #990000;">array</span> <span style="color: #000088;">$attr</span> <span style="color: #339933;">=</span> <span style="color: #009900;">&#91;</span><span style="color: #009900;">&#93;</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Checkbox field. </td>
 						</tr>
 																	<tr>
-							<td><pre class="php" style="font-family:monospace;">fields_for<span style="color: #009900;">&#40;</span><span style="color: #000088;">$id</span><span style="color: #339933;">,</span> <span style="color: #000088;">$obj</span><span style="color: #339933;">,</span> <span style="color: #000088;">$callback</span><span style="color: #009900;">&#41;</span></pre></td>
+							<td><pre class="php" style="font-family:monospace;">fields_for<span style="color: #009900;">&#40;</span><span style="color: #000088;">$id</span><span style="color: #339933;">,</span> <span style="color: #000088;">$obj</span><span style="color: #339933;">,</span> callable <span style="color: #000088;">$callback</span><span style="color: #009900;">&#41;</span></pre></td>
 <td>
 Changes the resource object to another object. Used to generate forms for multiple object at the same times. Objects doesn't have to be of the same type but ID must be unique.
 
@@ -241,61 +245,33 @@ Changes the resource object to another object. Used to generate forms for multip
 									</tbody>
 			</table>
 
-			<h2 id="styling">Styling</h2>
-			<table class="table table-striped">
-				<thead>
-					<th>Selector</th>
-					<th>Description</th>
-					<th>Sample style</th>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>.form-checkbox</code></td>
-						<td>Class added to all checkbox labels (wrapping the input field).</td>
-						<td><pre class="css" style="font-family:monospace;"><span style="color: #808080; font-style: italic;">/* add some margin to checkboxes (useful in groups) */</span>
-<span style="color: #6666ff;">.form-checkbox</span> <span style="color: #00AA00;">&#123;</span>
-	<span style="color: #000000; font-weight: bold;">margin-right</span><span style="color: #00AA00;">:</span> <span style="color: #933;">15px</span><span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">&#125;</span></pre></td>
-					</tr>
-					<tr>
-						<td><code>.form-group</code></td>
-						<td>Class added to row wrapper for for groups.</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><code>.form-addon</code></td>
-						<td>Class wrapping addons and field when addons are used.</td>
-						<td><pre class="css" style="font-family:monospace;"><span style="color: #808080; font-style: italic;">/* suggested structural style */</span>
-<span style="color: #6666ff;">.form-addon</span> <span style="color: #00AA00;">&#123;</span>
-	<span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">inline-table</span><span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">&#125;</span></pre></td>
-					</tr>
-					<tr>
-						<td><code>.form-prefix, .form-suffix</code></td>
-						<td>Class added to addons.</td>
-						<td><pre class="css" style="font-family:monospace;"><span style="color: #808080; font-style: italic;">/* suggested structural style */</span>
-<span style="color: #6666ff;">.form-prefix</span><span style="color: #00AA00;">,</span> <span style="color: #6666ff;">.form-suffix</span> <span style="color: #00AA00;">&#123;</span>
-	<span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">table-cell</span><span style="color: #00AA00;">;</span>
-	<span style="color: #000000; font-weight: bold;">width</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">auto</span><span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">&#125;</span></pre></td>
-					</tr>
-					<tr>
-						<td><code>.form-group</code></td>
-						<td>Class added to row wrapper for for groups.</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><code>.required</code></td>
-						<td>Class added to row wrapper for all required fields.</td>
-						<td><pre class="css" style="font-family:monospace;"><span style="color: #808080; font-style: italic;">/* adds a red asterisk after the label */</span>
-<span style="color: #6666ff;">.required</span> label<span style="color: #3333ff;">:after </span><span style="color: #00AA00;">&#123;</span>
-	<span style="color: #000000; font-weight: bold;">content</span><span style="color: #00AA00;">:</span> <span style="color: #ff0000;">'*'</span><span style="color: #00AA00;">;</span>
-	<span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#a00</span><span style="color: #00AA00;">;</span>
-	<span style="color: #000000; font-weight: bold;">margin-left</span><span style="color: #00AA00;">:</span> <span style="color: #933;">5px</span><span style="color: #00AA00;">;</span>
-<span style="color: #00AA00;">&#125;</span></pre></td>
-					</tr>
-				</tbody>
-			</table>
+			<h2>Extending fields</h2>
+			<p>Custom fields or customization of existing fields is possible
+				by extending <code>FormBuilder</code>.</p>
+				<div class="col-sm-6"><pre class="php" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> MyBuilder <span style="color: #000000; font-weight: bold;">extends</span> FormBuilder <span style="color: #009900;">&#123;</span>
+	<span style="color: #000000; font-weight: bold;">public</span> <span style="color: #000000; font-weight: bold;">function</span> myField<span style="color: #009900;">&#40;</span><span style="color: #000088;">$label</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+		<span style="color: #000088;">$this</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">manual</span><span style="color: #009900;">&#40;</span><span style="color: #009900; font-weight: bold;">false</span><span style="color: #339933;">,</span> <span style="color: #000088;">$label</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'custom'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	<span style="color: #009900;">&#125;</span>
+<span style="color: #009900;">&#125;</span>
+&nbsp;
+<span style="color: #000000; font-weight: bold;">class</span> MyForm <span style="color: #000000; font-weight: bold;">extends</span> Form <span style="color: #009900;">&#123;</span>
+	<span style="color: #000000; font-weight: bold;">public</span> static <span style="color: #000088;">$defaultBuilder</span> <span style="color: #339933;">=</span> MyBuilder<span style="color: #339933;">::</span><span style="color: #000000; font-weight: bold;">class</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span>
+&nbsp;
+MyForm<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;id&quot;</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">myField</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'Label'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+<span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre></div>
+				<div class="col-sm-6"><form id="id" class="form table" method="POST" action="">
+	<table class="layout">
+		<tr >
+			<th class="form-label"><label for="">Label</label></th>
+			<td class="form-field">custom</td>
+			<td class="form-hint" ></td>
+			<td class="form-error"></td>
+		</tr>
+	</table>
+</form>
+</div>
 		</div>
 
 		<a href="https://github.com/NitroXy/php-forms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
