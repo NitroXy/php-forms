@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-interface FormLayout {
+interface FormLayoutInterface {
 	public function preamble($form);
 	public function postamble($form);
 	public function render_group($group, $res);

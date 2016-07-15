@@ -3,7 +3,7 @@
 /**
  * @codeCoverageIgnore
  */
-class MockLayout implements NitroXy\PHPForms\FormLayout {
+class MockLayout implements NitroXy\PHPForms\FormLayoutInterface {
 	public $form_id;
 	public $form_attr;
 	public $group = [];

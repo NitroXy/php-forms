@@ -219,7 +219,7 @@ class Form extends FormContainer {
 				trigger_error("Form class called with unknown layout `$layout'", E_USER_NOTICE);
 				$layout = new FormLayoutPlain();
 			}
-		} else if ( !$layout instanceof FormLayout ){
+		} else if ( !$layout instanceof FormLayoutInterface ){
 			trigger_error("Layout must either be string or a class implementing FormLayout", E_USER_ERROR);
 		} else {
 			if ( method_exists($layout, 'layout_name') ){

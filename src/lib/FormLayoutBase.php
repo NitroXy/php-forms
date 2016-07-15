@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-abstract class FormLayoutBase implements FormLayout {
+abstract class FormLayoutBase implements FormLayoutInterface {
 	public function preamble($form){
 		$attr = FormUtils::serialize_attr($form->attr);
 		echo "<form id=\"{$form->id}\" $attr>\n";
