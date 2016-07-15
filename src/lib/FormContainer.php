@@ -169,7 +169,7 @@ class FormContainer {
 	 *
 	 * @param $callback A new rendering context.
 	 */
-	public function group($label, $callback, array $attr=array()){
+	public function group($label, callable $callback, array $attr=array()){
 		if ( $this->unbuffered() ){
 			trigger_error("Cannot use Form groups in unbuffered mode", E_USER_ERROR);
 		}
@@ -181,7 +181,7 @@ class FormContainer {
 	 *
 	 * @param $callback A new rendering context.
 	 */
-	public function fieldset($label, $callback){
+	public function fieldset($label, callable $callback){
 		if ( $this->unbuffered() ){
 			trigger_error("Cannot use Form fieldsets in unbuffered mode", E_USER_ERROR);
 		}
@@ -250,7 +250,7 @@ class FormContainer {
 	 *
 	 * @param $callback A new rendering context.
 	 */
-	public function fields_for($id, $obj, $callback){
+	public function fields_for($id, $obj, callable $callback){
 		$this->form->fields_for($id, $obj, $callback, $this);
 	}
 

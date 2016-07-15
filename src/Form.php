@@ -264,7 +264,7 @@ class Form extends FormContainer {
 	 * Herp[boo] (text_field)
 	 * (given that Derp and Herp are the class-name of the models given to fields_for
 	 */
-	public function fields_for($id, $obj, $method, $target=null) {
+	public function fields_for($id, $obj, callable $callback, $target=null) {
 		$old = array($this->res, $this->id, $this->name_pattern);
 		$this->id = $id;
 		$this->name_pattern = $id . '[%s]';
@@ -274,7 +274,7 @@ class Form extends FormContainer {
 		} else {
 			$this->res = new FormData($obj);
 		}
-		$method($target ?: $this);
+		$callback($target ?: $this);
 		list($this->res, $this->id, $this->name_pattern) = $old;
 	}
 

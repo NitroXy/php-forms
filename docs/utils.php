@@ -25,9 +25,29 @@ function code($code, $lang){
 	echo $geshi->parse_code();
 }
 
+function prototype_default_val($arg){
+	$val = $arg->getDefaultValue();
+	if ( is_array($val) && count($val) === 0 ){
+		return '[]';
+	}
+	return var_export($val, true);
+}
+
 function prototype($method){
 	$args = implode(', ', array_map(function($arg){
-		return '$' . $arg->name;
+		$str = '';
+		if ( $arg->isCallable() ){
+			$str .= 'callable $';
+		} else if ( $arg->isArray() ){
+			$str .= 'array $';
+		} else {
+			$str .= '$';
+		}
+		$str .= $arg->name;
+		if ( $arg->isDefaultValueAvailable() ){
+			$str .= ' = ' . prototype_default_val($arg);
+		}
+		return $str;
 	}, $method->getParameters()));
 	return "{$method->name}({$args})";
 }
