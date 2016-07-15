@@ -46,7 +46,7 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 
 			/* match attributes */
 			if ( isset($expected[1]) ){
-				preg_match_all('#([a-z]+)="([^"]+)"#', $match[3], $raw, PREG_PATTERN_ORDER);
+				preg_match_all('#([a-z]+)(?:="([^"]+)")?#', $match[3], $raw, PREG_PATTERN_ORDER);
 				$actual = array_combine($raw[1], $raw[2]);
 
 				foreach ( $expected[1] as $key => $value ){

@@ -45,7 +45,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testSelectField(){
 		$this->generate(function($f){
-			$f->select('foo', 'Test field', FormOptions::from_array(['a', 'b', 'c']));
+			$f->select('foo', 'Test field', FormOptions::from_array(['a', 'b', 'c']), ['selected' => 1]);
 		});
 		$this->validate([
 			['form_start'],
@@ -55,7 +55,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 			['td_start'],
 			['select_start', ['name' => 'foo', 'id' => 'id_foo']],
 			['option_start', ['value' => 0]], ['content', 'a'], ['option_end'],
-			['option_start', ['value' => 1]], ['content', 'b'], ['option_end'],
+			['option_start', ['value' => 1, 'selected' => '']], ['content', 'b'], ['option_end'],
 			['option_start', ['value' => 2]], ['content', 'c'], ['option_end'],
 			['select_end'],
 			['td_end'],
