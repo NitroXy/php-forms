@@ -6,6 +6,7 @@
 
 ## Breaking changes
 
+  - PHP 5.6 or later is now required.
   - Select API change: prototype more similar to other fields, replaced
     `FormSelect` with `FormOptions`.
   - Button API change: $key removed from prototype.
