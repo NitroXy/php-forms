@@ -13,7 +13,7 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 		$this->html = null;
 	}
 
-	protected function onNotSuccessfulTest(Exception $e){
+	protected function onNotSuccessfulTest($e){
 		if ( $this->html ){
 			echo "\n";
 			echo $this->html;
