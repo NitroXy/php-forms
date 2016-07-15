@@ -11,7 +11,7 @@ class Form extends NitroXy\PHPForms\Form {
 	}
 };
 
-$reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
+$reflection_form = new ReflectionClass('NitroXy\PHPForms\FormBuilder');
 
 ?>
 <!DOCTYPE html>

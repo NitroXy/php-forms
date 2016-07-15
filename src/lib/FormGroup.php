@@ -6,8 +6,8 @@ class FormGroup extends FormContext implements FormFieldInterface {
 	private $label;
 	private $hint = false;
 
-	public function __construct($form, $label, $callback, $attr){
-		parent::__construct($form);
+	public function __construct(FormContext $parent, $label, callable $callback, array $attr){
+		parent::__construct($parent->form, $parent->builder);
 		$this->label = $label;
 
 		if ( array_key_exists('hint', $attr) ){
@@ -15,7 +15,7 @@ class FormGroup extends FormContext implements FormFieldInterface {
 			unset($attr['hint']);
 		}
 
-		$callback($this);
+		$this->apply($callback);
 	}
 
 	public function children(){
