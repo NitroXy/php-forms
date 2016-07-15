@@ -16,7 +16,7 @@ class FormButtonTest extends PHPUnit_Framework_TestCase {
 	public function testButtonType(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->button('label', null, ['type' => 'submit']);
+			$f->button('label', ['type' => 'submit']);
 		}, ['layout' => $mock]);
 		$this->assertCount(1, $mock->field); /* buttons are unnamed */
 		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field[0]);
@@ -26,7 +26,7 @@ class FormButtonTest extends PHPUnit_Framework_TestCase {
 	public function testButtonAttr(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->button('label', null, ['ng-click' => 'foo()']);
+			$f->button('label', ['ng-click' => 'foo()']);
 		}, ['layout' => $mock]);
 		$this->assertCount(1, $mock->field); /* buttons are unnamed */
 		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field[0]);

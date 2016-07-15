@@ -18,14 +18,14 @@ Form::create('smoketest', function($f){
 	$f->upload_field('upload', 'File upload', ['remove' => true]);
 	$f->checkbox('checkbox', 'Checkbox');
 	$f->manual('manual', 'Manual', '<em>Custom html</em>', false);
-	$f->submit('submit', 'Submit button');
-	$f->button('button', 'Generic button', ['class' => 'btn-success']);
+	$f->submit('Submit button');
+	$f->button('Generic button', ['class' => 'btn-success']);
 
 	/* groups allows you to put multiple fields inline (label is optional) */
 	$f->group('Inline group', function($f){
-		$f->button('Button 1', 'b1', ['class' => 'btn-default']);
-		$f->button('Button 2', 'b2', ['class' => 'btn-danger']);
-		$f->button('Button 3', 'b3');
+		$f->button('Button 1', ['class' => 'btn-default']);
+		$f->button('Button 2', ['class' => 'btn-danger']);
+		$f->button('Button 3');
 	});
 
 	/* fieldsets */

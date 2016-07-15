@@ -193,10 +193,10 @@ class FormContainer {
 	/**
 	 * Submit button.
 	 *
-	 * @option 'confirm' {string} adds <code>onclick="return confirm(...);"</code>
+	 * @option 'confirm' {string} Adds a javascript confirmation prompt before submit/click: <code>onclick="return confirm(...);"</code>
 	 */
-	public function submit($text, $key=null, array $attr=array()) {
-		$this->fields[] = $this->factory('submit', $key, $text, $attr);
+	public function submit($text, array $attr=[]) {
+		$this->fields[] = $this->factory('submit', null, $text, $attr);
 	}
 
 	/**
@@ -205,8 +205,8 @@ class FormContainer {
 	 * @option 'type' {string} Should be a valid HTML button value
    *         (e.g. <code>submit</code> or <code>button</code>).
 	 */
-	public function button($text, $key=null, array $attr=array()) {
-		$this->fields[] = $this->factory('button', $key, $text, $attr);
+	public function button($text, array $attr=[]) {
+		$this->fields[] = $this->factory('button', null, $text, $attr);
 	}
 
 	/**

@@ -1,3 +1,9 @@
+# 1.5.0
+
+## Breaking changes
+
+  - Button API change: $key removed from prototype.
+
 # 1.4.0
 
 ## Breaking changes
