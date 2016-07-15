@@ -43,7 +43,7 @@ class FormBuilder {
 	 * @option 'prefix' {string} Add a prefix addon.
 	 * @option 'suffix' {string} Add a suffix addon.
 	 */
-	public function factory($type, $key, $label=null, array $attr=array()){
+	public function factory($type, $key, $label=null, array $attr=[]){
 		if ( $label && !is_string($label) ){
 			trigger_error("Label must be string");
 		}
@@ -80,7 +80,7 @@ class FormBuilder {
 	 *
 	 * @param $value If set the value is used instead of reading from the resource.
 	 */
-	public function hidden_field($key, $value=null, array $attr=array()){
+	public function hidden_field($key, $value=null, array $attr=[]){
 		$this->context->hiddenField($key, $value, $attr);
 	}
 
@@ -89,7 +89,7 @@ class FormBuilder {
 	 *
 	 * @option 'type' {string} HTML type attribute, e.g. <code>email</code> or <code>tel</code>.
 	 */
-	public function text_field($key, $label=null, array $attr=array()){
+	public function text_field($key, $label=null, array $attr=[]){
 		$field = $this->factory("text", $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -97,7 +97,7 @@ class FormBuilder {
 	/**
 	 * Password field.
 	 */
-	public function password_field($key, $label=null, array $attr=array()) {
+	public function password_field($key, $label=null, array $attr=[]) {
 		$field = $this->factory("password", $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -105,7 +105,7 @@ class FormBuilder {
 	/**
 	 * Wrapper around <code>factory</code>.
 	 */
-	public function custom_field($key, $type, $label=null, array $attr=array()) {
+	public function custom_field($key, $type, $label=null, array $attr=[]) {
 		$field = $this->factory($type, $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -125,7 +125,7 @@ class FormBuilder {
 	/**
 	 * Add a help text.
 	 */
-	public function hint($text, $label=null, array $attr=array()) {
+	public function hint($text, $label=null, array $attr=[]) {
 		$field = $this->factory("hint", $text, $label, $attr);
 		return $this->addField($field);
 	}
@@ -135,7 +135,7 @@ class FormBuilder {
 	 *
 	 * @param $content Any HTML.
 	 */
-	public function manual($key, $label, $content, $hint){
+	public function manual($key, $label, $content, $hint=false){
 		$field = new ManualField($key, $label, $content, $hint);
 		$this->addField($field);
 
@@ -154,7 +154,7 @@ class FormBuilder {
 	 *                 current value, e.g can be set to &lt;img ..&gt; to display the
 	 *                 current uploaded image.
 	 */
-	public function upload_field($key, $label=null, array $attr=array()) {
+	public function upload_field($key, $label=null, array $attr=[]) {
 		$remove = false;
 		$current = false;
 
@@ -196,7 +196,7 @@ class FormBuilder {
 	 *
 	 * @param $callback A new rendering context.
 	 */
-	public function group($label, callable $callback, array $attr=array()){
+	public function group($label, callable $callback, array $attr=[]){
 		if ( $this->unbuffered() ){
 			trigger_error("Cannot use Form groups in unbuffered mode", E_USER_ERROR);
 		}
@@ -241,7 +241,7 @@ class FormBuilder {
 	/**
 	 * Display a value from the resource but provides no editable field.
 	 */
-	public function static_value($key, $label=false, array $attr=array()){
+	public function static_value($key, $label=false, array $attr=[]){
 		$field = $this->factory('static', $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -249,7 +249,7 @@ class FormBuilder {
 	/**
 	 * Similar to static but provides a link as well.
 	 */
-	public function link($text, $href, $label=false, array $attr=array()){
+	public function link($text, $href, $label=false, array $attr=[]){
 		$field = $this->factory('link', false, $label, array_merge(array('text' => $text, 'href' => $href), $attr));
 		return $this->addField($field);
 	}
@@ -263,7 +263,7 @@ class FormBuilder {
 	 *         <code>'tworow'</code> to fill the entire row (not just
 	 *         label + content).
 	 */
-	public function textarea($key, $label=null, array $attr=array()){
+	public function textarea($key, $label=null, array $attr=[]){
 		$field = $this->factory('textarea', $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -271,7 +271,7 @@ class FormBuilder {
 	/**
 	 * Checkbox field.
 	 */
-	public function checkbox($key, $text, $label=null, array $attr=array()) {
+	public function checkbox($key, $text, $label=null, array $attr=[]) {
 		$this->hidden_field($key, '0');
 		$attr['text'] = $text;
 		$field = $this->factory('checkbox', $key, $label, $attr);

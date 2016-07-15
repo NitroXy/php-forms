@@ -12,7 +12,7 @@ class FormUtils {
 	 * ['data' => ['foo' => 'bar'] becomes data-foo="bar"
 	 */
 	public static function serialize_attr($data){
-		$attr = array();
+		$attr = [];
 		foreach ( $data as $key => $value ){
 			if ( is_array($value) ){
 				foreach ( static::_serialize_attr_array($key, $value) as $sub ){
@@ -34,7 +34,7 @@ class FormUtils {
 	}
 
 	protected static function _serialize_attr_array($stem, $data){
-		$item = array();
+		$item = [];
 
 		/* test if assoc or numerical array */
 		if ( count(array_filter(array_keys($data), 'is_string')) > 0 ){

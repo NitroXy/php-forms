@@ -39,7 +39,7 @@ class Form extends FormContext {
 	 * Should return an array with options. See $base_options.
 	 */
 	static protected function default_options(){
-		return array();
+		return [];
 	}
 
 	/**
@@ -55,7 +55,7 @@ class Form extends FormContext {
 	/**
 	 * Create a form bound to an key-value array.
 	 */
-	static public function from_array($id, $array, $callback, array $options=array()){
+	static public function from_array($id, $array, $callback, array $options=[]){
 		$form = static::create_instance(false, null);
 		$form->parse_options($options);
 		$form->callback = $callback;
@@ -69,7 +69,7 @@ class Form extends FormContext {
 	 *
 	 * Name will use class name as prefix, e.g name="Foo[field]".
 	 */
-	static public function from_object($obj, $callback, array $options=array()){
+	static public function from_object($obj, $callback, array $options=[]){
 		$form = static::create_instance(false, null);
 		$form->parse_options($options);
 		$form->callback = $callback;
@@ -87,7 +87,7 @@ class Form extends FormContext {
 		}
 
 		/** @todo lookup real field name */
-		$empty = array();
+		$empty = [];
 		$id = $form->get_value('id', $empty);
 		if ( !empty($id) ){
 			$form->hiddenField("id");
@@ -98,7 +98,7 @@ class Form extends FormContext {
 	/**
 	 * Create a resource-less form.
 	 */
-	static public function create($id, $callback, array $options=array()){
+	static public function create($id, $callback, array $options=[]){
 		$form = static::create_instance(false, null);
 		$form->parse_options($options);
 		$form->callback = $callback;
@@ -112,7 +112,7 @@ class Form extends FormContext {
 	 * Just like "new Form()" but works with late static binding so an inherited
 	 * class can call "MyForm::from_object(..)" and still get a MyForm instance.
 	 */
-	static private function create_instance($id, $callback, array $options=array()){
+	static private function create_instance($id, $callback, array $options=[]){
 		$classname = get_called_class();
 		return new $classname($id, $callback, $options);
 	}
@@ -258,7 +258,7 @@ class Form extends FormContext {
 	/**
 	 * Overridden hidden so child-containers can call this.
 	 */
-	public function hiddenField($key, $value=null, array $attr=array()) {
+	public function hiddenField($key, $value=null, array $attr=[]) {
 		if ( $value !== null ){
 			$attr['value'] = $value;
 		}
