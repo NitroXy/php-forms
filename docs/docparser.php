@@ -99,3 +99,7 @@ function phpdoc($method){
 
 	return $doc;
 }
+
+function methodIgnored($method){
+	return preg_match('/.*@internal.*/', $method->getDocComment());
+}

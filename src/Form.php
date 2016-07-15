@@ -2,9 +2,11 @@
 
 namespace NitroXy\PHPForms;
 
-class Form extends FormContainer {
+class Form extends FormContext {
 	const LAYOUT_TWOROWS =  1;
 	const LAYOUT_FILL = 2;
+
+	static public $defaultBuilder = FormBuilder::class;
 
 	static protected $base_options = array(
 		'method' => 'post',                  /* form method (get or post) */
@@ -24,6 +26,13 @@ class Form extends FormContainer {
 	private $callback = null;
 	private $options = [];
 	private $unbuffered = false;
+
+	public function __construct() {
+		$builderClass = static::$defaultBuilder;
+		$builder = new $builderClass;
+		$builder->setContext($this);
+		parent::__construct($this, $builder);
+	}
 
 	/**
 	 * Override to set defaults for subclassed form.
@@ -81,7 +90,7 @@ class Form extends FormContainer {
 		$empty = array();
 		$id = $form->get_value('id', $empty);
 		if ( !empty($id) ){
-			$form->hidden_field("id");
+			$form->hiddenField("id");
 		}
 		$form->render();
 	}
@@ -106,38 +115,6 @@ class Form extends FormContainer {
 	static private function create_instance($id, $callback, array $options=array()){
 		$classname = get_called_class();
 		return new $classname($id, $callback, $options);
-	}
-
-	/**
-	 * Skapar ett formulär.
-	 *
-	 * $x = User::from_id(123);
-	 * new Form($x, function($f){
-	 *   $f->text_field('name');
-	 * }, array(...));
-	 *
-	 * @param id BasicObject instance or a unique string.
-	 * @param callback En funktion som lägger till fält.
-	 * @param options
-	 **/
-	public function __construct($id, $callback, array $options=array()) {
-		parent::__construct($this);
-
-		if ( $id === false ) return; /* called using from_{array,object} */
-		deprecated("Calling Form without explicit call to `from_object' or `from_array' is deprecated.");
-
-		$this->parse_options($options);
-		$this->callback = $callback;
-
-		if($id instanceof \BasicObject) {
-			$this->id=get_class($id);
-			$this->res = $id;
-			$this->hidden_field("id");
-		} else {
-			$this->id=$id;
-		}
-
-		$this->render();
 	}
 
 	protected function pop_attr($key, &$attr, &$value){
@@ -235,7 +212,7 @@ class Form extends FormContainer {
 		$this->layout = $layout;
 	}
 
-	protected function unbuffered(){
+	public function unbuffered(){
 		return $this->unbuffered;
 	}
 
@@ -243,7 +220,7 @@ class Form extends FormContainer {
 		$cb = $this->callback;
 
 		$this->start();
-		$cb($this);
+		$this->apply($cb);
 		$this->end();
 	}
 
@@ -264,32 +241,32 @@ class Form extends FormContainer {
 	 * Herp[boo] (text_field)
 	 * (given that Derp and Herp are the class-name of the models given to fields_for
 	 */
-	public function fields_for($id, $obj, callable $callback, $target=null) {
-		$old = array($this->res, $this->id, $this->name_pattern);
+	public function fieldsFor($id, $obj, callable $callback) {
+		$old = [$this->res, $this->id, $this->name_pattern];
 		$this->id = $id;
 		$this->name_pattern = $id . '[%s]';
 		if ( $obj instanceof \BasicObject ) {
 			$this->res = $obj;
-			$this->hidden_field("id");
+			$this->hiddenField("id");
 		} else {
 			$this->res = new FormData($obj);
 		}
-		$callback($target ?: $this);
+		$this->apply($callback);
 		list($this->res, $this->id, $this->name_pattern) = $old;
 	}
 
 	/**
 	 * Overridden hidden so child-containers can call this.
 	 */
-	public function hidden_field($key, $value=null, array $attr=array()) {
+	public function hiddenField($key, $value=null, array $attr=array()) {
 		if ( $value !== null ){
 			$attr['value'] = $value;
 		}
-		$this->hidden[] = $this->factory("hidden", $key, false, $attr);
+		$this->hidden[] = $this->builder->factory("hidden", $key, false, $attr);
 	}
 
 	public function method_field() {
-		$this->hidden_field($this->options['method_field_name'], strtoupper($this->options['requested_method']));
+		$this->hiddenField($this->options['method_field_name'], strtoupper($this->options['requested_method']));
 	}
 
 	protected function start() {
@@ -318,7 +295,7 @@ class Form extends FormContainer {
 			}
 
 			if ( !$has_csrf && ($csrf_token=$this->csrf_token()) ) {
-				$this->hidden_field("csrf_token", $csrf_token);
+				$this->hiddenField("csrf_token", $csrf_token);
 			}
 
 			/* use a special _method field to allow using other HTTP methods

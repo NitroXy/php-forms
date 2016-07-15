@@ -11,7 +11,7 @@ class Form extends NitroXy\PHPForms\Form {
 	}
 };
 
-$reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
+$reflection_form = new ReflectionClass('NitroXy\PHPForms\FormBuilder');
 
 ?>
 <!DOCTYPE html>
@@ -97,7 +97,7 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
 				</thead>
 				<tbody>
 					<?php foreach ( $reflection_form->getMethods(ReflectionMethod::IS_PUBLIC) as $method ): ?>
-						<?php if ( $method->name === '__construct' ) continue; ?>
+						<?php if ( methodIgnored($method) ) continue; ?>
 						<tr>
 							<td><?=code(prototype($method), 'php')?></td>
 <td>

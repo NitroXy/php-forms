@@ -2,13 +2,13 @@
 
 namespace NitroXy\PHPForms;
 
-class FormFieldset extends FormContainer implements FormFieldInterface {
+class FormFieldset extends FormContext implements FormFieldInterface {
 	private $label;
 
-	public function __construct($form, $label, $callback){
-		parent::__construct($form);
+	public function __construct(FormContext $parent, $label, callable $callback){
+		parent::__construct($parent->form, $parent->builder);
 		$this->label = $label;
-		$callback($this);
+		$this->apply($callback);
 	}
 
 	public function render($layout, $res){

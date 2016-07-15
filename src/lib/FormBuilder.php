@@ -2,12 +2,32 @@
 
 namespace NitroXy\PHPForms;
 
-class FormContainer {
-	protected $fields = array(); /* all fields but hidden */
-	protected $hidden = array(); /* only hidden fields */
+class FormBuilder {
+	private $context = null;
 
-	public function __construct($form){
-		$this->form = $form;
+	/**
+	 * Change context.
+	 *
+	 * @internal
+	 * @return old context
+	 */
+	public function setContext(FormContext $context){
+		$old = $this->context;
+		$this->context = $context;
+		return $old;
+	}
+
+	protected function addField($field){
+		return $this->context->addField($field);
+	}
+
+	/**
+	 * Tell if the form is unbuffered or not.
+	 *
+	 * @internal
+	 */
+	protected function unbuffered(){
+		return $this->context->unbuffered();
 	}
 
 	/**
@@ -27,23 +47,23 @@ class FormContainer {
 		if ( $label && !is_string($label) ){
 			trigger_error("Label must be string");
 		}
-		list($id, $name, $value) = $this->generate_data($key, $attr);
+		list($id, $name, $value) = $this->generateData($key, $attr);
 		switch ( $type ){
-		case 'hidden': $field = new FormInput($key, false, $name, $value, 'hidden', false, $attr); break;
-		case 'button': $field = new FormButton(false, $id, $name, $label, 'button', false, $attr); break;
-		case 'submit': $field = new FormButton(false, $id, $name, $label, 'submit', false, $attr); break;
-		case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
-		case 'static': $field = new StaticField($value, $label, $attr); break;
-		case 'link': $field = new LinkField($label, $attr); break;
-		case 'hint': $field = new HintField($key, $label, $attr); break;
-		case 'file': $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
-		case 'checkbox': $field = new FormCheckbox($key, $id, $name, $value, $type, $label, $attr); break;
-		case 'select': $field = new FormSelect($key, $id, $name, $value, $label, $attr); break;
-		default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
+			case 'hidden': $field = new FormInput($key, false, $name, $value, 'hidden', false, $attr); break;
+			case 'button': $field = new FormButton(false, $id, $name, $label, 'button', false, $attr); break;
+			case 'submit': $field = new FormButton(false, $id, $name, $label, 'submit', false, $attr); break;
+			case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
+			case 'static': $field = new StaticField($value, $label, $attr); break;
+			case 'link': $field = new LinkField($label, $attr); break;
+			case 'hint': $field = new HintField($key, $label, $attr); break;
+			case 'file': $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
+			case 'checkbox': $field = new FormCheckbox($key, $id, $name, $value, $type, $label, $attr); break;
+			case 'select': $field = new FormSelect($key, $id, $name, $value, $label, $attr); break;
+			default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
 		}
 
 		/* remember containing object */
-		$field->set_container($this);
+		$field->set_container($this->context);
 
 		if ( $this->unbuffered() ){
 			if($field->get_label() !== false) {
@@ -55,17 +75,13 @@ class FormContainer {
 		return $field;
 	}
 
-	protected function unbuffered(){
-		return $this->form->unbuffered();
-	}
-
 	/**
 	 * Add hidden field. All hiddens are placed at the beginning of the form no matter where used.
 	 *
 	 * @param $value If set the value is used instead of reading from the resource.
 	 */
 	public function hidden_field($key, $value=null, array $attr=array()){
-		$this->form->hidden_field($key, $value, $attr);
+		$this->context->hiddenField($key, $value, $attr);
 	}
 
 	/**
@@ -74,22 +90,24 @@ class FormContainer {
 	 * @option 'type' {string} HTML type attribute, e.g. <code>email</code> or <code>tel</code>.
 	 */
 	public function text_field($key, $label=null, array $attr=array()){
-		$this->fields[] = $this->factory("text", $key, $label, $attr);
+		$field = $this->factory("text", $key, $label, $attr);
+		return $this->addField($field);
 	}
-
 
 	/**
 	 * Password field.
 	 */
 	public function password_field($key, $label=null, array $attr=array()) {
-		$this->fields[] = $this->factory("password", $key, $label, $attr);
+		$field = $this->factory("password", $key, $label, $attr);
+		return $this->addField($field);
 	}
 
 	/**
 	 * Wrapper around <code>factory</code>.
 	 */
 	public function custom_field($key, $type, $label=null, array $attr=array()) {
-		$this->fields[] = $this->factory($type, $key, $label, $attr);
+		$field = $this->factory($type, $key, $label, $attr);
+		return $this->addField($field);
 	}
 
 	/**
@@ -100,14 +118,16 @@ class FormContainer {
 	 */
 	public function select($key, $label, FormOptions $options, array $attr=[]){
 		$attr['options'] = $options;
-		$this->fields[] = $this->factory('select', $key, $label, $attr);
+		$field = $this->factory('select', $key, $label, $attr);
+		return $this->addField($field);
 	}
 
 	/**
 	 * Add a help text.
 	 */
 	public function hint($text, $label=null, array $attr=array()) {
-		$this->fields[] = $this->factory("hint", $text, $label, $attr);
+		$field = $this->factory("hint", $text, $label, $attr);
+		return $this->addField($field);
 	}
 
 	/**
@@ -117,11 +137,13 @@ class FormContainer {
 	 */
 	public function manual($key, $label, $content, $hint){
 		$field = new ManualField($key, $label, $content, $hint);
-		$this->fields[] = $field;
+		$this->addField($field);
 
 		if ( $this->unbuffered() ){
 			echo $field->get_content() . "\n";
 		}
+
+		return $field;
 	}
 
 	/**
@@ -149,23 +171,28 @@ class FormContainer {
 		$attr['name'] = $key; /* fulhack för att PHP är CP */
 		$upload = $this->factory("file", $key, $label, $attr);
 		$this->fields[] = $upload;
+		$this->addField($upload);
 
 		if ( $current !== false ){
-			$attr = array();
-			list($id, $name,) = $this->generate_data($key . '_current', $attr);
-			$this->fields[] = new ManualField("{$key}_current", '', "<label>$current</label>", false);
+			$attr = [];
+			list($id, $name,) = $this->generateData($key . '_current', $attr);
+			$field = new ManualField("{$key}_current", '', "<label>$current</label>", false);
+			return $this->addField($field);
 		}
 
 		if ( $remove ){
-			$attr = array();
-			list($id, $name,) = $this->generate_data($key . '_remove', $attr);
-			$this->fields[] = new ManualField("{$key}_remove", '', "<label><input type='checkbox' name='$name' id='$id' value='1' />Ta bort</label>", false);
+			$attr = [];
+			list($id, $name,) = $this->generateData($key . '_remove', $attr);
+			$field = new ManualField("{$key}_remove", '', "<label><input type='checkbox' name='$name' id='$id' value='1' />Ta bort</label>", false);
+			return $this->addField($field);
 		}
+
+		return $upload;
 	}
 
 	/**
 	 * Create a field group where all fields is aligned horizontaly,
-   * useful for buttons, checkboxes and radiobuttons.
+	 * useful for buttons, checkboxes and radiobuttons.
 	 *
 	 * @param $callback A new rendering context.
 	 */
@@ -173,7 +200,8 @@ class FormContainer {
 		if ( $this->unbuffered() ){
 			trigger_error("Cannot use Form groups in unbuffered mode", E_USER_ERROR);
 		}
-		$this->fields[] = new FormGroup($this, $label, $callback, $attr);
+		$field = new FormGroup($this->context, $label, $callback, $attr);
+		return $this->addField($field);
 	}
 
 	/**
@@ -185,7 +213,8 @@ class FormContainer {
 		if ( $this->unbuffered() ){
 			trigger_error("Cannot use Form fieldsets in unbuffered mode", E_USER_ERROR);
 		}
-		$this->fields[] = new FormFieldset($this, $label, $callback);
+		$field = new FormFieldset($this->context, $label, $callback);
+		return $this->addField($field);
 	}
 
 	/**
@@ -194,31 +223,35 @@ class FormContainer {
 	 * @option 'confirm' {string} Adds a javascript confirmation prompt before submit/click: <code>onclick="return confirm(...);"</code>
 	 */
 	public function submit($text, array $attr=[]) {
-		$this->fields[] = $this->factory('submit', null, $text, $attr);
+		$field = $this->factory('submit', null, $text, $attr);
+		return $this->addField($field);
 	}
 
 	/**
 	 * Generic button.
 	 *
 	 * @option 'type' {string} Should be a valid HTML button value
-   *         (e.g. <code>submit</code> or <code>button</code>).
+	 *         (e.g. <code>submit</code> or <code>button</code>).
 	 */
 	public function button($text, array $attr=[]) {
-		$this->fields[] = $this->factory('button', null, $text, $attr);
+		$field = $this->factory('button', null, $text, $attr);
+		return $this->addField($field);
 	}
 
 	/**
 	 * Display a value from the resource but provides no editable field.
 	 */
 	public function static_value($key, $label=false, array $attr=array()){
-		$this->fields[] = $this->factory('static', $key, $label, $attr);
+		$field = $this->factory('static', $key, $label, $attr);
+		return $this->addField($field);
 	}
 
 	/**
 	 * Similar to static but provides a link as well.
 	 */
 	public function link($text, $href, $label=false, array $attr=array()){
-		$this->fields[] = $this->factory('link', false, $label, array_merge(array('text' => $text, 'href' => $href), $attr));
+		$field = $this->factory('link', false, $label, array_merge(array('text' => $text, 'href' => $href), $attr));
+		return $this->addField($field);
 	}
 
 	/**
@@ -231,7 +264,8 @@ class FormContainer {
 	 *         label + content).
 	 */
 	public function textarea($key, $label=null, array $attr=array()){
-		$this->fields[] = $this->factory('textarea', $key, $label, $attr);
+		$field = $this->factory('textarea', $key, $label, $attr);
+		return $this->addField($field);
 	}
 
 	/**
@@ -240,21 +274,22 @@ class FormContainer {
 	public function checkbox($key, $text, $label=null, array $attr=array()) {
 		$this->hidden_field($key, '0');
 		$attr['text'] = $text;
-		$this->fields[] = $this->factory('checkbox', $key, $label, $attr);
+		$field = $this->factory('checkbox', $key, $label, $attr);
+		return $this->addField($field);
 	}
 
 	/**
 	 * Changes the resource object to another object. Used to generate
-   * forms for multiple object at the same times. Objects doesn't have
-   * to be of the same type but ID must be unique.
+	 * forms for multiple object at the same times. Objects doesn't have
+	 * to be of the same type but ID must be unique.
 	 *
 	 * @param $callback A new rendering context.
 	 */
 	public function fields_for($id, $obj, callable $callback){
-		$this->form->fields_for($id, $obj, $callback, $this);
+		$this->context->fieldsFor($id, $obj, $callback);
 	}
 
-	protected function generate_data($key, array &$attr){
-		return $this->form->generate_data($key, $attr);
+	protected function generateData($key, array &$attr){
+		return $this->context->generateData($key, $attr);
 	}
 }
