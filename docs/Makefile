@@ -5,6 +5,7 @@ FILES = \
 	dist/layout_table.html \
 	dist/layout_plain.html \
 	dist/layout_bootstrap.html \
+	dist/style.html \
 	dist/usage.html \
 	dist/options.html \
 	dist/autolink.js \

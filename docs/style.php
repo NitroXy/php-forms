@@ -1,18 +1,6 @@
 <?php
 require '../vendor/autoload.php';
 require 'utils.php';
-require 'docparser.php';
-
-class Form extends NitroXy\PHPForms\Form {
-	static protected function default_options(){
-		return [
-			'layout' => 'bootstrap',
-		];
-	}
-};
-
-$reflection_form = new ReflectionClass('NitroXy\PHPForms\FormContainer');
-
 ?>
 <!DOCTYPE html>
 <html>
