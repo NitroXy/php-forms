@@ -26,7 +26,14 @@
 		"symfony/filesystem": "^2.1"
 	},
 	"autoload": {
-		"psr-4": { "NitroXy\\PHPForms\\": ["src/", "src/lib/"] }
+		"psr-4": {
+			"NitroXy\\PHPForms\\": [
+				"src/",
+				"src/fields/",
+				"src/layout/",
+				"src/lib/"
+			]
+		}
 	},
 	"autoload-dev": {
 		"psr-4": { "NitroXy\\PHPForms\\Tests\\": "tests/" },
