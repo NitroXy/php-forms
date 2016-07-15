@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-interface FormField {
+interface FormFieldInterface {
 	public function render($layout, $res);
 	public function layout_hints();
 	public function get_content();

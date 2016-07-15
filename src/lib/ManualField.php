@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class ManualField implements FormField {
+class ManualField implements FormFieldInterface {
 	private $key = null;
 	private $label = null;
 	private $content = null;

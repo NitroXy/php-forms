@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class FormGroup extends FormContainer implements FormField {
+class FormGroup extends FormContainer implements FormFieldInterface {
 	private $label;
 	private $hint = false;
 

@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class FormInput implements FormField {
+class FormInput implements FormFieldInterface {
 	protected $key;
 	protected $id;
 	protected $name;

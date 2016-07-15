@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class HintField implements FormField {
+class HintField implements FormFieldInterface {
 	private $text = null;
 	private $label = null;
 	private $attr = array('class' => 'form-hint');
