@@ -107,6 +107,12 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormBuilder');
 					<?php endforeach; ?>
 				</tbody>
 			</table>
+
+			<h2>Extending fields</h2>
+			<p>Custom fields or customization of existing fields is possible
+				by extending <code>FormBuilder</code>.</p>
+				<div class="col-sm-6"><?php display('usage/extend.php'); ?></div>
+				<div class="col-sm-6"><?php include('usage/extend.php'); ?></div>
 		</div>
 
 		<?php include('badge.php'); ?>
