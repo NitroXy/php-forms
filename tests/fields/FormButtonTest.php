@@ -32,4 +32,24 @@ class FormButtonTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field[0]);
 		$this->assertEquals('<button ng-click="foo()" type="button">label</button>', $mock->field[0]->get_content());
 	}
+
+	public function testSubmitAlias(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){
+			$f->submit('label');
+		}, ['layout' => $mock]);
+		$this->assertCount(1, $mock->field); /* buttons are unnamed */
+		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field[0]);
+		$this->assertEquals('<button type="submit">label</button>', $mock->field[0]->get_content());
+	}
+
+	public function testSubmitConfirm(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){
+			$f->submit('label', ['confirm' => 'foo']);
+		}, ['layout' => $mock]);
+		$this->assertCount(1, $mock->field); /* buttons are unnamed */
+		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field[0]);
+		$this->assertEquals("return confirm('foo');", $mock->field[0]->attribute('onclick'));
+	}
 }
