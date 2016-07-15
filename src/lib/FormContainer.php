@@ -38,6 +38,7 @@ class FormContainer {
 		case 'hint': $field = new HintField($key, $label, $attr); break;
 		case 'file': $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
 		case 'checkbox': $field = new FormCheckbox($key, $id, $name, $value, $type, $label, $attr); break;
+		case 'select': $field = new FormSelect($key, $id, $name, $value, $label, $attr); break;
 		default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
 		}
 
@@ -92,17 +93,14 @@ class FormContainer {
 	}
 
 	/**
-	 * Select (dropdown) field. Used in conjunction with <code>FormSelect</code>.
+	 * Select (dropdown) field. Used in conjunction with <code>FormOptions</code>.
+	 *
+	 * @param $options Instance of FormOptions.
+	 * @option postback {boolean} Automatically submit form when value changes. (default: false)
 	 */
-	public function select(FormSelect $sel){
-		$this->fields[] = $sel;
-
-		if ( $this->unbuffered() ){
-			if($sel->get_label() !== false) {
-				echo "<label for='{$sel->get_id()}'>{$sel->get_label()}</label>\n";
-			}
-			echo $sel->get_content()."\n";
-		}
+	public function select($key, $label, FormOptions $options, array $attr=[]){
+		$attr['options'] = $options;
+		$this->fields[] = $this->factory('select', $key, $label, $attr);
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php /*~*/
 use NitroXy\PHPForms\Form;
-use NitroXy\PHPForms\FormSelect;
+use NitroXy\PHPForms\FormOptions;
 global $layout;
 ?>
 <?php
@@ -11,7 +11,7 @@ Form::create('smoketest', function($f){
 	$f->password_field('password_field', 'Password', ['hint' => 'Passwords are not persistent if autocomplete is off', 'autocomplete' => 'off']);
 	$f->custom_field('custom_field', 'email', 'Email', ['hint' => 'Another way to add custom input fields (same as using text_field with type).', 'placeholder' => 'email@example.net']);
 	$f->textarea('textarea', 'Textarea');
-	$f->select(FormSelect::from_array($f, 'select',  ['A', 'B', 'C'], 'Select'));
+	$f->select('select', 'Select', FormOptions::from_array(['A', 'B', 'C']));
 	$f->static_value('static', 'Static text');
 	$f->link('link', 'https://example.net', 'Static link');
 	$f->hint('static', 'Lorem ipsum dot sit amet.');

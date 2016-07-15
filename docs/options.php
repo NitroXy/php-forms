@@ -52,12 +52,6 @@ use NitroXy\PHPForms\Form;
 				<dd>HTML to preview the current uploaded data, e.g. <code>&lt;img src="/user/123/avatar.png"/&gt;</code>. (default: none)</dd>
 			</dl>
 
-			<h3 id="select">Select</h3>
-			<dl>
-				<dt>postback <span class="label label-default">boolean</span></dt>
-				<dd>Automatically submit form when value changes. (default: false)</dd>
-			</dl>
-
 			<h2>Serialization</h2>
 			<p>Most attributes is serialized using these rules:</p>
 			<ul>

@@ -20,7 +20,7 @@ class FormInput implements FormFieldInterface {
 	 * @param $id element id (e.g. id_$key)
 	 * @param $name element name (e.g. Class[$key])
 	 */
-	public function __construct($key, $id, $name, $value, $type, $label, $attr) {
+	public function __construct($key, $id, $name, $value, $type, $label, array $attr) {
 		$this->key = $key;
 		$this->id = $id;
 		$this->name = $name;

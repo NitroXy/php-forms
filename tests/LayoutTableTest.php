@@ -1,6 +1,6 @@
 <?php
 
-use NitroXy\PHPForms\FormSelect;
+use NitroXy\PHPForms\FormOptions;
 
 class LayoutTableTest extends DOMParser_TestCase {
 	public function testHiddenField(){
@@ -45,7 +45,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testSelectField(){
 		$this->generate(function($f){
-			$f->select(FormSelect::from_array($f, 'foo', ['a', 'b', 'c'], 'Test field'));
+			$f->select('foo', 'Test field', FormOptions::from_array(['a', 'b', 'c']));
 		});
 		$this->validate([
 			['form_start'],
