@@ -97,7 +97,7 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormBuilder');
 				</thead>
 				<tbody>
 					<?php foreach ( $reflection_form->getMethods(ReflectionMethod::IS_PUBLIC) as $method ): ?>
-						<?php if ( $method->name === '__construct' ) continue; ?>
+						<?php if ( methodIgnored($method) ) continue; ?>
 						<tr>
 							<td><?=code(prototype($method), 'php')?></td>
 <td>

@@ -1,5 +1,9 @@
 # 1.5.0
 
+## Features
+
+  - New `FormBuilder` class allows easier currying of fields.
+
 ## Breaking changes
 
   - Select API change: prototype more similar to other fields, replaced
