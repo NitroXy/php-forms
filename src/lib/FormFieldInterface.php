@@ -9,6 +9,7 @@ interface FormFieldInterface {
 	public function get_label();
 	public function get_id();
 	public function get_container();
+	public function set_container($container);
 
 	/**
 	 * Get attribute from field.

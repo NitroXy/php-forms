@@ -37,6 +37,10 @@ class FormFieldset extends FormContext implements FormFieldInterface {
 		return null;
 	}
 
+	public function set_container($container){
+
+	}
+
 	public function attribute($key, $default=false){
 		return $default; /* for now, fieldsets has no attributes to read */
 	}

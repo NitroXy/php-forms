@@ -17,7 +17,10 @@ class FormBuilder {
 		return $old;
 	}
 
-	protected function addField($field){
+	protected function addField(FormFieldInterface $field){
+		/* remember containing object */
+		$field->set_container($this->context);
+
 		return $this->context->addField($field);
 	}
 
@@ -61,9 +64,6 @@ class FormBuilder {
 			case 'select': $field = new FormSelect($key, $id, $name, $value, $label, $attr); break;
 			default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
 		}
-
-		/* remember containing object */
-		$field->set_container($this->context);
 
 		if ( $this->unbuffered() ){
 			if($field->get_label() !== false) {
