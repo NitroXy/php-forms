@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class FormContainer {
+class FormContext {
 	protected $fields = array(); /* all fields but hidden */
 	protected $hidden = array(); /* only hidden fields */
 

@@ -2,7 +2,7 @@
 
 namespace NitroXy\PHPForms;
 
-class Form extends FormContainer {
+class Form extends FormContext {
 	const LAYOUT_TWOROWS =  1;
 	const LAYOUT_FILL = 2;
 
