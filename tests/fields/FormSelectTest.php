@@ -56,4 +56,14 @@ class FormSelectTest extends PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey('foo', $mock->field);
 		$this->assertEquals('this.form.submit();', $mock->field['foo']->attribute('onchange'));
 	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error
+	 */
+	public function testInvalidLabel(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){
+			$f->select(FormSelect::from_array($f, 'foo', [], 5));
+		}, ['layout' => $mock]);
+	}
 }

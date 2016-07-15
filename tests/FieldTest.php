@@ -22,7 +22,6 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('explicit_set_id', $mock->field['foo']->attribute('id'));
 	}
 
-
 	/**
 	 * @expectedException PHPUnit_Framework_Error
 	 */
