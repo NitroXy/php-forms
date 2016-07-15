@@ -11,6 +11,7 @@
         </ul>
       </li>
       <li><a href="usage.php">Usage</a></li>
+      <li><a href="style.php">Style</a></li>
       <li><a href="options.php">Options</a></li>
     </ul>
   </div>
