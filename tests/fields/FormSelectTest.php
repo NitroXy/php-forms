@@ -59,7 +59,7 @@ class FormSelectTest extends PHPUnit_Framework_TestCase {
 	public function testInvalidLabel(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->select(FormOptions::from_array($f, 'foo', [], 5));
+			$f->select('foo', 5, FormOptions::from_array([]));
 		}, ['layout' => $mock]);
 	}
 }
