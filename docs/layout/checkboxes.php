@@ -4,7 +4,7 @@ global $layout;
 $data = [];
 ?>
 <?php
-Form::from_array('checkboxes', $data, function($f){
+Form::fromArray('checkboxes', $data, function($f){
 	$f->checkbox('a', 'Text 1', null, ['hint' => 'Checkbox using regular label']);
 	$f->checkbox('b', 'Text 2', false, ['hint' => 'Checkbox using inline label']);
 	$f->group('Label', function($f){

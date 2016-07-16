@@ -18,26 +18,26 @@ class FormFieldset extends FormContext implements FormFieldInterface {
 		}
 
 		$children = $this->fields;
-		$layout->render_fieldset($this, function() use ($children, $layout, $res) {
+		$layout->renderFieldset($this, function() use ($children, $layout, $res) {
 			foreach ( $children as $field){
 				$field->render($layout, $res);
 			}
 		});
 	}
 
-	public function layout_hints(){
+	public function layoutHints(){
 		return 0;
 	}
 
-	public function get_label() { return $this->label; }
-	public function get_content() { return false; }
-	public function get_id() { return false; }
+	public function getLabel() { return $this->label; }
+	public function getContent() { return false; }
+	public function getId() { return false; }
 
-	public function get_container(){
+	public function getContainer(){
 		return null;
 	}
 
-	public function set_container($container){
+	public function setContainer($container){
 
 	}
 

@@ -11,11 +11,11 @@ class FormUtils {
 	 * ['class' => ['foo', 'bar']  becomes class="foo bar"
 	 * ['data' => ['foo' => 'bar'] becomes data-foo="bar"
 	 */
-	public static function serialize_attr($data){
+	public static function serializeAttr($data){
 		$attr = [];
 		foreach ( $data as $key => $value ){
 			if ( is_array($value) ){
-				foreach ( static::_serialize_attr_array($key, $value) as $sub ){
+				foreach ( static::_serializeAttrArray($key, $value) as $sub ){
 					$value = htmlspecialchars($sub[1]);
 					$attr[] = "{$sub[0]}=\"{$value}\"";
 				}
@@ -33,7 +33,7 @@ class FormUtils {
 		return implode(' ', $attr);
 	}
 
-	protected static function _serialize_attr_array($stem, $data){
+	protected static function _serializeAttrArray($stem, $data){
 		$item = [];
 
 		/* test if assoc or numerical array */
@@ -41,7 +41,7 @@ class FormUtils {
 			foreach ( $data as $key => $value ){
 				if ( is_array($value) ){
 					/* recursive */
-					foreach ( static::_serialize_attr_array("$stem-$key", $value) as $sub ){
+					foreach ( static::_serializeAttrArray("$stem-$key", $value) as $sub ){
 						$item[] = $sub;
 					}
 				} else {

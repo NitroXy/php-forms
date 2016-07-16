@@ -11,10 +11,10 @@ $a = new MyClassA; $a->name = 'Name A';
 $b = new MyClassB; $b->name = 'Name B';
 
 Form::create('example6', function($f) use ($a, $b) {
-	$f->fields_for('A', $a, function($f){
-		$f->text_field('name', 'Name');
+	$f->fieldsFor('A', $a, function($f){
+		$f->textField('name', 'Name');
 	});
-	$f->fields_for('B', $b, function($f){
-		$f->text_field('name', 'Name');
+	$f->fieldsFor('B', $b, function($f){
+		$f->textField('name', 'Name');
 	});
 }, ['layout' => 'bootstrap']);

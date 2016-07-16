@@ -8,7 +8,7 @@ function get_current_csrf_token(){
 ?>
 <?php
 class MyForm extends Form {
-	protected static function csrf_token(){
+	protected static function csrfToken(){
 		return get_current_csrf_token();
 	}
 };

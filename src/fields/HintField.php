@@ -15,16 +15,16 @@ class HintField implements FormFieldInterface {
 	}
 
 	public function render($layout, $res) {
-		$layout->render_hint($this);
+		$layout->renderHint($this);
 	}
 
-	public function get_hint(){ return false; }
-	public function get_content(){ return $this->text; }
-	public function get_label(){ return $this->label; }
-	public function layout_hints(){ return 0; }
-	public function get_id() { return false; }
-	public function set_container($container){ $this->container = $container; }
-	public function get_container(){ return $this->container; }
+	public function getHint(){ return false; }
+	public function getContent(){ return $this->text; }
+	public function getLabel(){ return $this->label; }
+	public function layoutHints(){ return 0; }
+	public function getId() { return false; }
+	public function setContainer($container){ $this->container = $container; }
+	public function getContainer(){ return $this->container; }
 
 	public function attribute($key, $default=false){
 		return array_key_exists($key, $this->attr) ? $this->attr[$key] : $default;

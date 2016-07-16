@@ -11,8 +11,8 @@ class FormCheckbox extends FormInput {
 		$this->hint = null;
 		$this->text = '';
 
-		$this->pop_attr('hint', $attr, $this->hint);
-		$this->pop_attr('text', $attr, $this->text);
+		$this->popAttr('hint', $attr, $this->hint);
+		$this->popAttr('text', $attr, $this->text);
 
 		if (  $type !== null  ) $attr['type'] = $type;
 		if (    $id !== null  ) $attr['id'] = $id;
@@ -26,16 +26,16 @@ class FormCheckbox extends FormInput {
 		$this->attr = $attr;
 	}
 
-	public function get_text(){
+	public function getText(){
 		return $this->text;
 	}
 
-	public function get_content(array $extra_attr = array(), array $label = array()){
+	public function getContent(array $extra_attr = array(), array $label = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
-		if ( $this->get_container() instanceof FormGroup ){
-			return "<label class=\"form-checkbox\" " . FormUtils::serialize_attr($label) . "><input " . $this->serialize_attr($attr) . " /> {$this->text}</label>";
+		if ( $this->getContainer() instanceof FormGroup ){
+			return "<label class=\"form-checkbox\" " . FormUtils::serializeAttr($label) . "><input " . $this->serializeAttr($attr) . " /> {$this->text}</label>";
 		} else {
-			return "<input " . $this->serialize_attr($attr) . " />";
+			return "<input " . $this->serializeAttr($attr) . " />";
 		}
 	}
 }

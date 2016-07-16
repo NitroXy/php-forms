@@ -62,7 +62,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$form = Form::create('id', function($f){}, ['layout' => $mock, 'method' => 'patch']);
 		$this->assertEquals('POST', $mock->form_attr['method']);
 		$this->assertArrayHasKey('_method', $mock->field);
-		$this->assertEquals('PATCH', $mock->field['_method']->get_value());
+		$this->assertEquals('PATCH', $mock->field['_method']->getValue());
 	}
 
 	public function testHttpMethodOtherCustomField(){
@@ -71,7 +71,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('POST', $mock->form_attr['method']);
 		$this->assertArrayNotHasKey('_method', $mock->field);
 		$this->assertArrayHasKey('foobar', $mock->field);
-		$this->assertEquals('PUT', $mock->field['foobar']->get_value());
+		$this->assertEquals('PUT', $mock->field['foobar']->getValue());
 	}
 
 	public function testFromBeginEnd(){
@@ -99,16 +99,16 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyFieldset(){
-		$mock = $this->getMockBuilder('MockLayout')->setMethods(['render_fieldset'])->getMock();
-		$mock->expects($this->never())->method('render_fieldset');
+		$mock = $this->getMockBuilder('MockLayout')->setMethods(['renderFieldset'])->getMock();
+		$mock->expects($this->never())->method('renderFieldset');
 		$form = Form::create('id', function($f){
 			$f->fieldset(false, function($f){});
 		}, ['layout' => $mock]);
 	}
 
 	public function testEmptyGroup(){
-		$mock = $this->getMockBuilder('MockLayout')->setMethods(['render_group'])->getMock();
-		$mock->expects($this->never())->method('render_group');
+		$mock = $this->getMockBuilder('MockLayout')->setMethods(['renderGroup'])->getMock();
+		$mock->expects($this->never())->method('renderGroup');
 		$form = Form::create('id', function($f){
 			$f->group(false, function($f){});
 		}, ['layout' => $mock]);

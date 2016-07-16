@@ -19,7 +19,7 @@ class FormBuilder {
 
 	protected function addField(FormFieldInterface $field){
 		/* remember containing object */
-		$field->set_container($this->context);
+		$field->setContainer($this->context);
 
 		return $this->context->addField($field);
 	}
@@ -36,7 +36,7 @@ class FormBuilder {
 	/**
 	 * Generates any kind of input, used by most other fields. Note that
 	 * this function should not be called directly, use
-	 * <code>custom_field()</code> instead. Common options for all
+	 * <code>customField()</code> instead. Common options for all
 	 * fields:
 	 *
 	 * @option 'value' {string} If value is set as an attribute it
@@ -66,10 +66,10 @@ class FormBuilder {
 		}
 
 		if ( $this->unbuffered() ){
-			if($field->get_label() !== false) {
-				echo "<label for='{$field->get_id()}'>{$field->get_label()}</label>\n";
+			if($field->getLabel() !== false) {
+				echo "<label for='{$field->getId()}'>{$field->getLabel()}</label>\n";
 			}
-			echo $field->get_content() . "\n";
+			echo $field->getContent() . "\n";
 		}
 
 		return $field;
@@ -80,7 +80,7 @@ class FormBuilder {
 	 *
 	 * @param $value If set the value is used instead of reading from the resource.
 	 */
-	public function hidden_field($key, $value=null, array $attr=[]){
+	public function hiddenField($key, $value=null, array $attr=[]){
 		$this->context->hiddenField($key, $value, $attr);
 	}
 
@@ -89,7 +89,7 @@ class FormBuilder {
 	 *
 	 * @option 'type' {string} HTML type attribute, e.g. <code>email</code> or <code>tel</code>.
 	 */
-	public function text_field($key, $label=null, array $attr=[]){
+	public function textField($key, $label=null, array $attr=[]){
 		$field = $this->factory("text", $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -97,7 +97,7 @@ class FormBuilder {
 	/**
 	 * Password field.
 	 */
-	public function password_field($key, $label=null, array $attr=[]) {
+	public function passwordField($key, $label=null, array $attr=[]) {
 		$field = $this->factory("password", $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -105,7 +105,7 @@ class FormBuilder {
 	/**
 	 * Wrapper around <code>factory</code>.
 	 */
-	public function custom_field($key, $type, $label=null, array $attr=[]) {
+	public function customField($key, $type, $label=null, array $attr=[]) {
 		$field = $this->factory($type, $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -140,7 +140,7 @@ class FormBuilder {
 		$this->addField($field);
 
 		if ( $this->unbuffered() ){
-			echo $field->get_content() . "\n";
+			echo $field->getContent() . "\n";
 		}
 
 		return $field;
@@ -154,7 +154,7 @@ class FormBuilder {
 	 *                 current value, e.g can be set to &lt;img ..&gt; to display the
 	 *                 current uploaded image.
 	 */
-	public function upload_field($key, $label=null, array $attr=[]) {
+	public function uploadField($key, $label=null, array $attr=[]) {
 		$remove = false;
 		$current = false;
 
@@ -241,7 +241,7 @@ class FormBuilder {
 	/**
 	 * Display a value from the resource but provides no editable field.
 	 */
-	public function static_value($key, $label=false, array $attr=[]){
+	public function staticValue($key, $label=false, array $attr=[]){
 		$field = $this->factory('static', $key, $label, $attr);
 		return $this->addField($field);
 	}
@@ -272,7 +272,7 @@ class FormBuilder {
 	 * Checkbox field.
 	 */
 	public function checkbox($key, $text, $label=null, array $attr=[]) {
-		$this->hidden_field($key, '0');
+		$this->hiddenField($key, '0');
 		$attr['text'] = $text;
 		$field = $this->factory('checkbox', $key, $label, $attr);
 		return $this->addField($field);
@@ -285,7 +285,7 @@ class FormBuilder {
 	 *
 	 * @param $callback A new rendering context.
 	 */
-	public function fields_for($id, $obj, callable $callback){
+	public function fieldsFor($id, $obj, callable $callback){
 		$this->context->fieldsFor($id, $obj, $callback);
 	}
 

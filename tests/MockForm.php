@@ -21,20 +21,20 @@ class MockLayout implements NitroXy\PHPForms\FormLayoutInterface {
 		$this->closed++;
 	}
 
-	public function render_group($group, $res){
+	public function renderGroup($group, $res){
 		$children = [];
 		foreach ( $group->children() as $child ){
-			$children[$child->get_name()] = $child;
+			$children[$child->getName()] = $child;
 		}
-		$this->group[$group->get_label()] = $children;
+		$this->group[$group->getLabel()] = $children;
 	}
 
-	public function render_hidden($field){
-		$this->field[$field->get_name()] = $field;
+	public function renderHidden($field){
+		$this->field[$field->getName()] = $field;
 	}
 
-	public function render_field($field, $error){
-		$name = $field->get_name();
+	public function renderField($field, $error){
+		$name = $field->getName();
 		if ( $name ){
 			$this->field[$name] = $field;
 		} else {
@@ -42,16 +42,16 @@ class MockLayout implements NitroXy\PHPForms\FormLayoutInterface {
 		}
 	}
 
-	public function render_fieldset($fieldset, $children_cb){
+	public function renderFieldset($fieldset, $children_cb){
 		$children_cb();
 	}
 
-	public function render_hint($field){
+	public function renderHint($field){
 
 	}
 
-	public function render_static($field){
-		$this->field[$field->get_name()] = $field;
+	public function renderStatic($field){
+		$this->field[$field->getName()] = $field;
 	}
 
 	public function begin(){
@@ -62,7 +62,7 @@ class MockLayout implements NitroXy\PHPForms\FormLayoutInterface {
 
 	}
 
-	public function layout_name(){
+	public function layoutName(){
 		return 'mock';
 	}
 }

@@ -10,9 +10,9 @@ class TextAreaField extends FormInput {
 		$this->value = $value;
 	}
 
-	public function get_content(array $extra_attr = array()){
+	public function getContent(array $extra_attr = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
 		$value = htmlspecialchars($this->value);
-		return "<textarea " . $this->serialize_attr($attr) . " >{$value}</textarea>";
+		return "<textarea " . $this->serializeAttr($attr) . " >{$value}</textarea>";
 	}
 }

@@ -9,17 +9,17 @@ use \NitroXy\PHPForms\FormFieldInterface;
 
 class MyField implements FormFieldInterface {
 	public function render($layout, $res){
-		$layout->render_field($this, null);
+		$layout->renderField($this, null);
 	}
 
-	public function layout_hints(){}
-	public function get_content(){}
-	public function get_label(){}
-	public function get_id(){}
-	public function get_container(){}
-	public function set_container($container){}
+	public function layoutHints(){}
+	public function getContent(){}
+	public function getLabel(){}
+	public function getId(){}
+	public function getContainer(){}
+	public function setContainer($container){}
 	public function attribute($key, $default=false){}
-	public function get_name(){ return false; }
+	public function getName(){ return false; }
 }
 
 class MyBuilder extends FormBuilder {

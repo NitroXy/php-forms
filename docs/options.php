@@ -33,7 +33,7 @@ use NitroXy\PHPForms\Form;
 			</dl>
 
 			<h3>Default options</h3>
-			<p>Default options for forms can be set by extending <code>default_options</code>:</p>
+			<p>Default options for forms can be set by extending <code>defaultOptions</code>:</p>
 			<?php display('overview/options.php'); ?>
 
 			<h2>Field options</h2>

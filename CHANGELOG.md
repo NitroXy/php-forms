@@ -6,6 +6,7 @@
 
 ## Breaking changes
 
+  - **ALL** Methods names are now camelCase (PSR-1).
   - PHP 5.6 or later is now required.
   - Select API change: prototype more similar to other fields, replaced
     `FormSelect` with `FormOptions`.

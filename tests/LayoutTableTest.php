@@ -5,7 +5,7 @@ use NitroXy\PHPForms\FormOptions;
 class LayoutTableTest extends DOMParser_TestCase {
 	public function testHiddenField(){
 		$this->generate(function($f){
-			$f->hidden_field('foo', '1');
+			$f->hiddenField('foo', '1');
 		});
 		$this->validate([
 			['form_start'],
@@ -16,7 +16,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testFormArbitraryAttribute(){
 		$this->generate(function($f){
-			$f->hidden_field('foo', '1');
+			$f->hiddenField('foo', '1');
 		}, ['attr' => ['foo' => 'bar']]);
 		$this->validate([
 			['form_start', ['foo' => 'bar']],
@@ -27,7 +27,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testTextField(){
 		$this->generate(function($f){
-			$f->text_field('foo', 'Test field');
+			$f->textField('foo', 'Test field');
 		});
 		$this->validate([
 			['form_start'],
@@ -45,7 +45,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testSelectField(){
 		$this->generate(function($f){
-			$f->select('foo', 'Test field', FormOptions::from_array(['a', 'b', 'c']), ['selected' => 1]);
+			$f->select('foo', 'Test field', FormOptions::fromArray(['a', 'b', 'c']), ['selected' => 1]);
 		});
 		$this->validate([
 			['form_start'],
@@ -71,7 +71,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 		$this->generate(function($f){
 			$f->hint('Lorem ipsum', false);
 			$f->hint('Lorem ipsum', 'Hint field');
-			$f->text_field('foo', 'Test field', ['hint' => 'Lorem ipsum']);
+			$f->textField('foo', 'Test field', ['hint' => 'Lorem ipsum']);
 		});
 		$this->validate([
 			['form_start'],
@@ -97,7 +97,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 	public function testFieldsetNoLegend(){
 		$this->generate(function($f){
 			$f->fieldset(false, function($f){
-				$f->text_field('foo', 'Test field');
+				$f->textField('foo', 'Test field');
 			});
 		});
 		$this->validate([
@@ -119,7 +119,7 @@ class LayoutTableTest extends DOMParser_TestCase {
 	public function testFieldsetWithLegend(){
 		$this->generate(function($f){
 			$f->fieldset('Legend', function($f){
-				$f->text_field('foo', 'Test field');
+				$f->textField('foo', 'Test field');
 			});
 		});
 		$this->validate([
@@ -142,12 +142,12 @@ class LayoutTableTest extends DOMParser_TestCase {
 	public function testGroup(){
 		$this->generate(function($f){
 			$f->group('Group 1', function($f){
-				$f->text_field('foo', 'Field 1');
-				$f->text_field('bar', 'Field 2');
-				$f->text_field('baz', 'Field 3');
+				$f->textField('foo', 'Field 1');
+				$f->textField('bar', 'Field 2');
+				$f->textField('baz', 'Field 3');
 			});
 			$f->group('Group 2', function($f){
-				$f->text_field('ham', 'Field 1');
+				$f->textField('ham', 'Field 1');
 			}, ['hint' => 'Lorem ipsum']);
 		});
 		$this->validate([
@@ -178,8 +178,8 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testRequired(){
 		$this->generate(function($f){
-			$f->text_field('foo', 'Test field', ['required' => false]);
-			$f->text_field('bar', 'Test field', ['required' => true]);
+			$f->textField('foo', 'Test field', ['required' => false]);
+			$f->textField('bar', 'Test field', ['required' => true]);
 		});
 		$this->validate([
 			['form_start'],
@@ -278,9 +278,9 @@ class LayoutTableTest extends DOMParser_TestCase {
 
 	public function testAddons(){
 		$this->generate(function($f){
-			$f->text_field('a', 'Text 1', ['prefix' => 'Prefix']);
-			$f->text_field('b', 'Text 2', ['suffix' => 'Suffix']);
-			$f->text_field('c', 'Text 3', ['prefix' => 'Prefix', 'suffix' => 'Suffix']);
+			$f->textField('a', 'Text 1', ['prefix' => 'Prefix']);
+			$f->textField('b', 'Text 2', ['suffix' => 'Suffix']);
+			$f->textField('c', 'Text 3', ['prefix' => 'Prefix', 'suffix' => 'Suffix']);
 		});
 		$this->validate([
 			['form_start'],

@@ -6,7 +6,7 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 	public function testHiddenField(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->hidden_field('foo', '1');
+			$f->hiddenField('foo', '1');
 		}, ['layout' => $mock]);
 		$this->assertArrayHasKey('foo', $mock->field);
 		$this->assertEquals('hidden', $mock->field['foo']->attribute('type'));
@@ -16,7 +16,7 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 	public function testExplicitId(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->text_field('foo', 'Label', ['id' => 'explicit_set_id']);
+			$f->textField('foo', 'Label', ['id' => 'explicit_set_id']);
 		}, ['layout' => $mock]);
 		$this->assertArrayHasKey('foo', $mock->field);
 		$this->assertEquals('explicit_set_id', $mock->field['foo']->attribute('id'));
@@ -28,15 +28,15 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 	public function testInvalidLabel(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->text_field('foo', 5);
+			$f->textField('foo', 5);
 		}, ['layout' => $mock]);
 	}
 
 	public function testInputFields(){
 		$mock = new MockLayout();
 		$matrix = [
-			'text_field' => 'text',
-			'password_field' => 'password',
+			'textField' => 'text',
+			'passwordField' => 'password',
 		];
 
 		foreach ( $matrix as $func => $type){
@@ -51,7 +51,7 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 	public function testCustomField(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->custom_field('foo', 'email', 'Label');
+			$f->customField('foo', 'email', 'Label');
 		}, ['layout' => $mock]);
 		$this->assertArrayHasKey('foo', $mock->field);
 		$this->assertEquals('email', $mock->field['foo']->attribute('type'));
@@ -60,9 +60,9 @@ class FieldTest extends PHPUnit_Framework_TestCase {
 	public function testUploadField(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->upload_field('foo', 'Label');
-			$f->upload_field('bar', 'Label', ['remove' => true]);
-			$f->upload_field('baz', 'Label', ['current' => 'Preview']);
+			$f->uploadField('foo', 'Label');
+			$f->uploadField('bar', 'Label', ['remove' => true]);
+			$f->uploadField('baz', 'Label', ['current' => 'Preview']);
 		}, ['layout' => $mock]);
 		$this->assertArrayHasKey('foo', $mock->field);
 		$this->assertArrayNotHasKey('foo_remove', $mock->field);

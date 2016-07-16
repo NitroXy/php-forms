@@ -4,12 +4,12 @@ namespace NitroXy\PHPForms;
 
 interface FormFieldInterface {
 	public function render($layout, $res);
-	public function layout_hints();
-	public function get_content();
-	public function get_label();
-	public function get_id();
-	public function get_container();
-	public function set_container($container);
+	public function layoutHints();
+	public function getContent();
+	public function getLabel();
+	public function getId();
+	public function getContainer();
+	public function setContainer($container);
 
 	/**
 	 * Get attribute from field.

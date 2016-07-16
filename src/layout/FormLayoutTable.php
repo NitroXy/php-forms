@@ -6,19 +6,19 @@ use NitroXy\PHPForms\FormUtils;
 class FormLayoutTable extends FormLayoutBase {
 	public $closed = true;
 
-	public function render_field($field, $error){
+	public function renderField($field, $error){
 		$this->begin();
 
-		$id = $field->get_id();
-		$label = $field->get_label();
-		$content = $field->get_content();
-		$hint = $field->get_hint();
-		$hints = $field->layout_hints();
+		$id = $field->getId();
+		$label = $field->getLabel();
+		$content = $field->getContent();
+		$hint = $field->getHint();
+		$hints = $field->layoutHints();
 		$required = $field->attribute('required');
-		$tr_class = FormUtils::serialize_attr($required ? ['class' => 'required'] : []);
+		$tr_class = FormUtils::serializeAttr($required ? ['class' => 'required'] : []);
 
 		/* addons */
-		list($prefix, $suffix) = $field->get_addons();
+		list($prefix, $suffix) = $field->getAddons();
 		$have_addon = (boolean)($prefix || $suffix);
 		if ( $prefix ) $prefix = "<span class=\"form-prefix\">{$prefix}</span>";
 		if ( $suffix ) $suffix = "<span class=\"form-suffix\">{$suffix}</span>";
@@ -26,12 +26,12 @@ class FormLayoutTable extends FormLayoutBase {
 		if ( $field instanceof FormCheckbox ){
 			echo "		<tr {$tr_class}>\n";
 			if ( $label !== false ){
-				echo "			<th class=\"form-label\"><label for=\"$id\">{$field->get_text()}</label></th>\n";
+				echo "			<th class=\"form-label\"><label for=\"$id\">{$field->getText()}</label></th>\n";
 				echo "			<td class=\"form-field\">$content</td>\n";
 				echo "			<td class=\"form-hint\" >$hint</td>\n";
 				echo "			<td class=\"form-error\">$error</td>\n";
 			} else {
-				echo "			<td class=\"form-field\" colspan=\"4\"><label>{$content} {$field->get_text()}</label></td>\n";
+				echo "			<td class=\"form-field\" colspan=\"4\"><label>{$content} {$field->getText()}</label></td>\n";
 			}
 			echo "		</tr>\n";
 			return;
@@ -73,11 +73,11 @@ class FormLayoutTable extends FormLayoutBase {
 		}
 	}
 
-	public function render_group($group, $res){
+	public function renderGroup($group, $res){
 		$this->begin();
 
-		$label = $group->get_label();
-		$hint = $group->get_hint();
+		$label = $group->getLabel();
+		$hint = $group->getHint();
 
 		echo "		<tr class=\"form-group\">\n";
 		if ( $label !== false ){
@@ -88,7 +88,7 @@ class FormLayoutTable extends FormLayoutBase {
 		}
 
 		foreach ( $group->children() as $field ){
-			echo $field->get_content();
+			echo $field->getContent();
 		}
 
 		echo "			</td>\n";
@@ -99,11 +99,11 @@ class FormLayoutTable extends FormLayoutBase {
 		echo "		</tr>\n";
 	}
 
-	public function render_hint($field){
+	public function renderHint($field){
 		$this->begin();
 
-		$label = $field->get_label();
-		$content = $field->get_content();
+		$label = $field->getLabel();
+		$content = $field->getContent();
 
 		echo "		<tr>\n";
 		if ( $label !== false ){
@@ -115,8 +115,8 @@ class FormLayoutTable extends FormLayoutBase {
 		echo "		</tr>\n";
 	}
 
-	public function render_static($field){
-		$this->render_field($field, false);
+	public function renderStatic($field){
+		$this->renderField($field, false);
 	}
 
 	public function begin(){

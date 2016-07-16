@@ -4,15 +4,15 @@ namespace NitroXy\PHPForms;
 use NitroXy\PHPForms\FormUtils;
 
 class FormLayoutBootstrap extends FormLayoutBase {
-	public function render_field($field, $error){
-		$id = $field->get_id();
-		$label = $field->get_label();
-		$content = static::field_content($field);
-		$hint = $field->get_hint();
+	public function renderField($field, $error){
+		$id = $field->getId();
+		$label = $field->getLabel();
+		$content = static::fieldContent($field);
+		$hint = $field->getHint();
 		$required = $field->attribute('required');
 
 		/* addons */
-		list($prefix, $suffix) = $field->get_addons();
+		list($prefix, $suffix) = $field->getAddons();
 		$have_addon = (boolean)($prefix || $suffix);
 		if ( $prefix ) $prefix = "<div class=\"input-group-addon\">{$prefix}</div>";
 		if ( $suffix ) $suffix = "<div class=\"input-group-addon\">{$suffix}</div>";
@@ -27,13 +27,13 @@ class FormLayoutBootstrap extends FormLayoutBase {
 			$class[] = 'required';
 		}
 
-		$group_attr = FormUtils::serialize_attr(['class' => $class]);
+		$group_attr = FormUtils::serializeAttr(['class' => $class]);
 
 		if ( $field instanceof FormCheckbox ){
 			echo "<div class=\"checkbox\">";
 			echo "	<label for=\"$id\" class=\"control-label\">";
 			echo "		$content";
-			echo "		{$field->get_text()}";
+			echo "		{$field->getText()}";
 			echo "	</label>";
 			if ( $hint ){
 				echo "	<span class=\"help-block\">$hint</span>";
@@ -57,11 +57,11 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		echo '</div>';
 	}
 
-	public function render_static($field){
-		$id = $field->get_id();
-		$label = $field->get_label();
-		$content = $field->get_content();
-		$hint = $field->get_hint();
+	public function renderStatic($field){
+		$id = $field->getId();
+		$label = $field->getLabel();
+		$content = $field->getContent();
+		$hint = $field->getHint();
 
 		echo "<div class=\"form-group\">";
 		if ( $label ){
@@ -74,24 +74,24 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		echo '</div>';
 	}
 
-	public function render_hint($field){
-		if ( $field->get_label() ){
-			$this->render_static($field);
+	public function renderHint($field){
+		if ( $field->getLabel() ){
+			$this->renderStatic($field);
 			return;
 		}
 
-		$content = $field->get_content();
+		$content = $field->getContent();
 		echo "<p>$content</p>";
 	}
 
 	public function begin(){}
 	public function end(){}
 
-	public function field_class(){
+	public function fieldClass(){
 		return array('form-control');
 	}
 
-	static private function has_class($field, $pattern){
+	static private function hasClass($field, $pattern){
 		if ( !($class = $field->attribute('class')) ) return false;
 		if ( !is_array($class) ){
 			$class = explode(' ', $class);
@@ -102,37 +102,37 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		return false;
 	}
 
-	static private function field_content($field){
+	static private function fieldContent($field){
 		if ( $field instanceof FormUpload ){
-			return $field->get_content();
+			return $field->getContent();
 		}
 
 		if ( $field instanceof FormCheckbox ){
-			return $field->get_content();
+			return $field->getContent();
 		}
 
 		if ( $field instanceof StaticField ){
-			if ( $icon = $field->get_icon() ){
+			if ( $icon = $field->getIcon() ){
 				$icon = "<span class=\"$icon\"></span>";
 			}
-			return $field->get_content(array('icon' => $icon));
+			return $field->getContent(array('icon' => $icon));
 		}
 
 		if ( $field instanceof FormButton ){
 			$class = array('btn');
-			if ( !static::has_class($field, 'btn-.+') ){
+			if ( !static::hasClass($field, 'btn-.+') ){
 				$class[] = 'btn-primary';
 			}
-			if ( $icon = $field->get_icon() ){
+			if ( $icon = $field->getIcon() ){
 				$icon = "<span class=\"$icon\"></span>";
 			}
-			return $field->get_content(array('class' => $class, 'icon' => $icon));
+			return $field->getContent(array('class' => $class, 'icon' => $icon));
 		}
 
-		return $field->get_content(['class' => 'form-control']);
+		return $field->getContent(['class' => 'form-control']);
 	}
 
-	static private function column_class($columns){
+	static private function columnClass($columns){
 		switch ($columns){
 			case 1:
 				return 'col-xs-12';
@@ -150,7 +150,7 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		}
 	}
 
-	static private function field_has_class($field, $needle){
+	static private function fieldHasClass($field, $needle){
 		$class = $field->attribute('class', []);
 		if ( is_string($class) ){
 			$class = explode(' ', $class);
@@ -163,10 +163,10 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		return false;
 	}
 
-	public function render_group($group, $res){
-		$label = $group->get_label();
+	public function renderGroup($group, $res){
+		$label = $group->getLabel();
 		$children = $group->children();
-		$column_class = static::column_class(count($children));
+		$column_class = static::columnClass(count($children));
 		$inline_only = array_reduce($children, function($all, $x){
 			return $all ? ($x instanceof FormButton || $x instanceof FormCheckbox) : false;
 		}, true);
@@ -181,9 +181,9 @@ class FormLayoutBootstrap extends FormLayoutBase {
 			echo "	<div class=\"clearfix\">\n";
 			foreach ( $group->children() as $field ){
 				if ( $field instanceof FormCheckbox ){
-					echo "		" . $field->get_content(array(), array('class' => 'checkbox-inline')) . "\n";
+					echo "		" . $field->getContent(array(), array('class' => 'checkbox-inline')) . "\n";
 				} else {
-					echo "		" . static::field_content($field) . "\n";
+					echo "		" . static::fieldContent($field) . "\n";
 				}
 			}
 			echo "	</div>\n";
@@ -194,9 +194,9 @@ class FormLayoutBootstrap extends FormLayoutBase {
 		/* output row with balanced columns */
 		echo "	<div class=\"row\">\n";
 		foreach ( $group->children() as $field ){
-			$class = static::field_has_class($field, '/col-(xs|sm|md|lg)-[0-9]+/') ?: $column_class;
+			$class = static::fieldHasClass($field, '/col-(xs|sm|md|lg)-[0-9]+/') ?: $column_class;
 			echo "		<div class=\"{$class}\">\n";
-			echo "			" . static::field_content($field) . "\n";
+			echo "			" . static::fieldContent($field) . "\n";
 			echo "		</div>\n";
 		}
 		echo "	</div>\n";

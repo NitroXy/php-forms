@@ -6,12 +6,12 @@ class GroupTest extends PHPUnit_Framework_TestCase {
 	public function testGroup(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){
-			$f->text_field('c', null);
+			$f->textField('c', null);
 			$f->group("group1", function($f){
-				$f->text_field('a', null);
+				$f->textField('a', null);
 			});
 			$f->group("group2", function($f){
-				$f->text_field('b', null);
+				$f->textField('b', null);
 			});
 		}, ['layout' => $mock]);
 

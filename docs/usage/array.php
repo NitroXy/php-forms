@@ -5,7 +5,7 @@ $data = [
 	'age' => 31,
 ];
 
-Form::from_array("User", $data, function($f){
-	$f->text_field('name', 'Name', ['required' => true]);
-	$f->text_field('age', 'Age', ['type' => 'number', 'min' => 1, 'required' => true]);
+Form::fromArray("User", $data, function($f){
+	$f->textField('name', 'Name', ['required' => true]);
+	$f->textField('age', 'Age', ['type' => 'number', 'min' => 1, 'required' => true]);
 });

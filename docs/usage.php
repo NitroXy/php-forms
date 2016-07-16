@@ -4,7 +4,7 @@ require 'utils.php';
 require 'docparser.php';
 
 class Form extends NitroXy\PHPForms\Form {
-	static protected function default_options(){
+	static protected function defaultOptions(){
 		return [
 			'layout' => 'bootstrap',
 		];
@@ -44,7 +44,7 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormBuilder');
 			</div>
 
 			<h2 id="array">Array binding</h2>
-			<?=code('Form::from_array(string $id, array $array, callable $callback, [array $options])', 'php')?>
+			<?=code('Form::fromArray(string $id, array $array, callable $callback, [array $options])', 'php')?>
 			<dl class="doc-table">
 				<dt><code>$id</code>  <span class="label type-string">string</span></dt>
 				<dd>Form id (prefix).</dd>
@@ -62,7 +62,7 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormBuilder');
 			</div>
 
 			<h2 id="object">Object binding</h2>
-			<?=code('Form::from_object(object $obj, callable $callback, [array $options])', 'php')?>
+			<?=code('Form::fromObject(object $obj, callable $callback, [array $options])', 'php')?>
 			<dl class="doc-table">
 				<dt><code>$object</code>  <span class="label type-object">object</span></dt>
 				<dd>Object to bind data from.</dd>
@@ -79,7 +79,7 @@ $reflection_form = new ReflectionClass('NitroXy\PHPForms\FormBuilder');
 
 			<h2 id="generic">Fields</h2>
 			<p>The general prototype is:</p>
-			<?=code('xyz_field($key, $label=null, array $attr=[])', 'php')?>
+			<?=code('xyzField($key, $label=null, array $attr=[])', 'php')?>
 
 			<ul class="param">
 				<li><code>$key</code> is the name of the data inside the resource object, i.e. array key or member name. If the key isn't found in the resource it is assumed to be <code>''</code>.</li>

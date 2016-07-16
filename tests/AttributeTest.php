@@ -5,27 +5,27 @@ use NitroXy\PHPForms\FormUtils;
 class AttributeTest extends PHPUnit_Framework_TestCase {
 	public function testSerializeAttribute(){
 		/* ensure nothing is generated for an empty array */
-		$this->assertEquals('', FormUtils::serialize_attr([]));
+		$this->assertEquals('', FormUtils::serializeAttr([]));
 
 		/* common case */
-		$this->assertEquals('foo="bar"', FormUtils::serialize_attr(['foo' => 'bar']));
+		$this->assertEquals('foo="bar"', FormUtils::serializeAttr(['foo' => 'bar']));
 
 		/* ensure attributes is joined with spaces */
-		$this->assertEquals('foo="bar" fred="barney"', FormUtils::serialize_attr(['foo' => 'bar', 'fred' => 'barney']));
+		$this->assertEquals('foo="bar" fred="barney"', FormUtils::serializeAttr(['foo' => 'bar', 'fred' => 'barney']));
 
 		/* htmlspecialchars */
-		$this->assertEquals('foo="b&quot;a&quot;r"', FormUtils::serialize_attr(['foo' => 'b"a"r']));
+		$this->assertEquals('foo="b&quot;a&quot;r"', FormUtils::serializeAttr(['foo' => 'b"a"r']));
 
 		/* numerical array (e.g. for classes) */
-		$this->assertEquals('foo="a b c"', FormUtils::serialize_attr(['foo' => ['a', 'b', 'c']]));
+		$this->assertEquals('foo="a b c"', FormUtils::serializeAttr(['foo' => ['a', 'b', 'c']]));
 
 		/* assoc array */
-		$this->assertEquals('foo-a="spam" foo-b="ham"', FormUtils::serialize_attr(['foo' => ['a' => 'spam', 'b' => 'ham']]));
+		$this->assertEquals('foo-a="spam" foo-b="ham"', FormUtils::serializeAttr(['foo' => ['a' => 'spam', 'b' => 'ham']]));
 
 		/* recursive */
-		$this->assertEquals('foo-a-spam="1" foo-a-ham="2"', FormUtils::serialize_attr(['foo' => ['a' => ['spam' => '1', 'ham' => '2']]]));
+		$this->assertEquals('foo-a-spam="1" foo-a-ham="2"', FormUtils::serializeAttr(['foo' => ['a' => ['spam' => '1', 'ham' => '2']]]));
 
 		/* boolean */
-		$this->assertEquals('foo', FormUtils::serialize_attr(['foo' => true, 'bar' => false]));
+		$this->assertEquals('foo', FormUtils::serializeAttr(['foo' => true, 'bar' => false]));
 	}
 }

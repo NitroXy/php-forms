@@ -28,16 +28,16 @@ class FormInput implements FormFieldInterface {
 		$this->hint = null;
 
 		/* add confirmation dialog for submit buttons */
-		if ( $this->pop_attr('confirm', $attr, $confirm) ){
+		if ( $this->popAttr('confirm', $attr, $confirm) ){
 			$attr['onclick'] = "return confirm('".htmlspecialchars($confirm, ENT_QUOTES)."');";
 		}
 
-		$this->pop_attr('hint', $attr, $this->hint);
-		$this->pop_attr('tworow', $attr, $this->tworow);
-		$this->pop_attr('fill', $attr, $this->fill);
-		$this->pop_attr('icon', $attr, $this->icon);
-		$this->pop_attr('prefix', $attr, $this->prefix);
-		$this->pop_attr('suffix', $attr, $this->suffix);
+		$this->popAttr('hint', $attr, $this->hint);
+		$this->popAttr('tworow', $attr, $this->tworow);
+		$this->popAttr('fill', $attr, $this->fill);
+		$this->popAttr('icon', $attr, $this->icon);
+		$this->popAttr('prefix', $attr, $this->prefix);
+		$this->popAttr('suffix', $attr, $this->suffix);
 
 		if ( $value !== null ) $attr['value'] = $value;
 		if (    $id !== null ) $attr['id'] = $id;
@@ -55,7 +55,7 @@ class FormInput implements FormFieldInterface {
 	 * Read and remove $key from attribute array.
 	 * @return true if attribute existed.
 	 */
-	protected function pop_attr($key, &$attr, &$value){
+	protected function popAttr($key, &$attr, &$value){
 		if ( array_key_exists($key, $attr) ){
 			$value = $attr[$key];
 			unset($attr[$key]);
@@ -66,50 +66,50 @@ class FormInput implements FormFieldInterface {
 
 	public function render($layout, $res) {
 		if ( !(array_key_exists('type', $this->attr) && $this->attr['type'] === 'hidden') ){
-			$layout->render_field($this, $this->get_error($res));
+			$layout->renderField($this, $this->getError($res));
 		} else {
-			$layout->render_hidden($this);
+			$layout->renderHidden($this);
 		}
 	}
 
-	public function get_id() {
+	public function getId() {
 		return $this->id;
 	}
 
-	public function get_label(){
+	public function getLabel(){
 		return $this->label;
 	}
 
-	public function get_name() {
+	public function getName() {
 		return $this->name;
 	}
 
-	public function get_icon(){
+	public function getIcon(){
 		return $this->icon;
 	}
 
-	public function get_addons(){
+	public function getAddons(){
 		return [$this->prefix, $this->suffix];
 	}
 
-	public function get_value(){
+	public function getValue(){
 		return array_key_exists('value', $this->attr) ? $this->attr['value'] : null;
 	}
 
-	public function get_content(array $extra_attr = array()){
+	public function getContent(array $extra_attr = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
 		if ( $attr['type'] == 'password' && isset($attr['autocomplete']) && $attr['autocomplete'] == 'off' ){
 			unset($attr['value']);
 		}
-		return "<input " . $this->serialize_attr($attr) . " />";
+		return "<input " . $this->serializeAttr($attr) . " />";
 	}
 
-	public function get_error($res){
+	public function getError($res){
 		if ( !($this->key && isset($res->errors[$this->key])) ) return false;
 		return ucfirst($res->errors[$this->key][0]); /* get first error only */
 	}
 
-	public function get_hint(){
+	public function getHint(){
 		return $this->hint;
 	}
 
@@ -117,21 +117,21 @@ class FormInput implements FormFieldInterface {
 		return array_key_exists($key, $this->attr) ? $this->attr[$key] : $default;
 	}
 
-	public function layout_hints(){
+	public function layoutHints(){
 		return
 			($this->tworow ? Form::LAYOUT_TWOROWS : 0) |
 			($this->fill   ? Form::LAYOUT_FILL : 0 );
 	}
 
-	protected function serialize_attr($data=null){
-		return FormUtils::serialize_attr($data ?: $this->attr);
+	protected function serializeAttr($data=null){
+		return FormUtils::serializeAttr($data ?: $this->attr);
 	}
 
-	public function set_container($container){
+	public function setContainer($container){
 		$this->container = $container;
 	}
 
-	public function get_container(){
+	public function getContainer(){
 		return $this->container;
 	}
 }

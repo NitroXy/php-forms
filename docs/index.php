@@ -33,7 +33,7 @@ use NitroXy\PHPForms\FormSelect;
 			<p><code>composer require nitroxy/php-forms</code> or install manually.</p>
 
 			<h3>Simple form</h3>
-			<p>Forms can be created using three different constructors: <code>create</code>, <code>from_array</code> and <code>from_object</code>. Among the three <code>create</code> is the simplest and most manual, only taking an ID and a closure.</p>
+			<p>Forms can be created using three different constructors: <code>create</code>, <code>fromArray</code> and <code>fromObject</code>. Among the three <code>create</code> is the simplest and most manual, only taking an ID and a closure.</p>
 			<?php display('overview/simple_form.php'); ?>
 			<div class="example">
 				<?php include('overview/simple_form.php'); ?>
@@ -86,9 +86,9 @@ use NitroXy\PHPForms\FormSelect;
 			</table>
 
 			<h2 id="persistent">Persistent values</h2>
-			<p>By utilizing either <code>from_array</code> or <code>from_object</code> values can be stored and automatically filled into the form.</p>
+			<p>By utilizing either <code>fromArray</code> or <code>fromObject</code> values can be stored and automatically filled into the form.</p>
 			<div class="alert alert-info" role="alert"><strong>Note:</strong> in addition to reading the values it will change the way ID and name is set.</div>
-			<p>Objects will use the classname by default (e.g. MyCustomClass in the example) and <code>from_array</code> has an argument for ID. In addition there is also an form option <code>prefix</code> which can be used to customize it. Field names are set as <code>prefix[fieldname]</code>. The major reason is to read the entire object at once by accessing <code>$_POST['prefix']</code>.</p>
+			<p>Objects will use the classname by default (e.g. MyCustomClass in the example) and <code>fromArray</code> has an argument for ID. In addition there is also an form option <code>prefix</code> which can be used to customize it. Field names are set as <code>prefix[fieldname]</code>. The major reason is to read the entire object at once by accessing <code>$_POST['prefix']</code>.</p>
 			<p>If you are using <strong>BasicObject</strong> you can use <code>$model = MyModel::update_attributes($_POST['MyCustomClass'], ['permit' => ['name', 'age', role', description']);</code> to update the model.</p>
 			<?php display('overview/objects.php'); ?>
 			<div class="example">
@@ -96,7 +96,7 @@ use NitroXy\PHPForms\FormSelect;
 			</div>
 
 			<h2 id="nested" >Nested data/"forms"</h2>
-			<p>Forms can be nested by using <code>fields_for</code> to allow either sending to unrelated objects or multiple instances of the same class.</p>
+			<p>Forms can be nested by using <code>fieldsFor</code> to allow either sending to unrelated objects or multiple instances of the same class.</p>
 			<?php display('overview/nested.php'); ?>
 			<div class="example">
 				<?php include('overview/nested.php'); ?>

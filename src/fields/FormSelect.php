@@ -14,27 +14,27 @@ class FormSelect extends FormInput {
 	 */
 	public function __construct($key, $id, $name, $value, $label=null, array $attr=[]){
 		/* if postback is enabled, add onchange which submits the forrm */
-		if ( $this->pop_attr('postback', $attr, $postback) && $postback ){
+		if ( $this->popAttr('postback', $attr, $postback) && $postback ){
 			$attr['onchange'] = 'this.form.submit();';
 		}
 
 		$this->selected = $value;
-		$this->pop_attr('selected', $attr, $this->selected);
-		$this->pop_attr('options', $attr, $this->options);
+		$this->popAttr('selected', $attr, $this->selected);
+		$this->popAttr('options', $attr, $this->options);
 
 		parent::__construct($key, $id, $name, $value, null, $label, $attr);
 	}
 
-	public function get_options(){
-		return $this->options->get_options();
+	public function getOptions(){
+		return $this->options->getOptions();
 	}
 
-	public function get_value(){
+	public function getValue(){
 		return $this->selected;
 	}
 
-	public function get_content(array $extra_attr = array()){
+	public function getContent(array $extra_attr = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
-		return '<select ' . $this->serialize_attr($attr) . ">\n" . $this->options->serialize_options($this->selected) . "\n</select>\n";
+		return '<select ' . $this->serializeAttr($attr) . ">\n" . $this->options->serializeOptions($this->selected) . "\n</select>\n";
 	}
 }

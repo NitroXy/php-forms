@@ -28,41 +28,41 @@ class FormGroup extends FormContext implements FormFieldInterface {
 			return;
 		}
 
-		$layout->render_group($this, $res);
+		$layout->renderGroup($this, $res);
 	}
 
-	public function get_label(){
+	public function getLabel(){
 		return $this->label;
 	}
 
-	public function get_hint(){
+	public function getHint(){
 		return $this->hint;
 	}
 
-	public function get_error($res){
+	public function getError($res){
 		foreach ( $this->fields as $field ){
-			if ( ($error=$field->get_error($res)) ){
+			if ( ($error=$field->getError($res)) ){
 				return $error;
 			}
 		}
 		return false;
 	}
 
-	public function get_content(){
+	public function getContent(){
 		return '';
 	}
 
-	public function layout_hints(){
+	public function layoutHints(){
 		return 0;
 	}
 
-	public function get_id() { return false; }
+	public function getId() { return false; }
 
-	public function get_container(){
+	public function getContainer(){
 		return null;
 	}
 
-	public function set_container($container){
+	public function setContainer($container){
 
 	}
 

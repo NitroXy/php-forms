@@ -18,7 +18,7 @@ class FormContext {
 	}
 
 	public function generateData($key, array &$attr){
-		return $this->form->generate_data($key, $attr);
+		return $this->form->generateData($key, $attr);
 	}
 
 	public function addField($field){

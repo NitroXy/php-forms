@@ -38,7 +38,7 @@ class Form extends FormContext {
 	 * Override to set defaults for subclassed form.
 	 * Should return an array with options. See $base_options.
 	 */
-	static protected function default_options(){
+	static protected function defaultOptions(){
 		return [];
 	}
 
@@ -48,16 +48,16 @@ class Form extends FormContext {
 	 * is automatically appended to all forms but it will not validate it (user
 	 * must check for presence and validate)
 	 */
-	static protected function csrf_token(){
+	static protected function csrfToken(){
 		return false;
 	}
 
 	/**
 	 * Create a form bound to an key-value array.
 	 */
-	static public function from_array($id, $array, $callback, array $options=[]){
-		$form = static::create_instance(false, null);
-		$form->parse_options($options);
+	static public function fromArray($id, $array, $callback, array $options=[]){
+		$form = static::createInstance(false, null);
+		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = $id;
 		$form->res = new FormData($array);
@@ -69,9 +69,9 @@ class Form extends FormContext {
 	 *
 	 * Name will use class name as prefix, e.g name="Foo[field]".
 	 */
-	static public function from_object($obj, $callback, array $options=[]){
-		$form = static::create_instance(false, null);
-		$form->parse_options($options);
+	static public function fromObject($obj, $callback, array $options=[]){
+		$form = static::createInstance(false, null);
+		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = get_class($obj);
 		$form->attr['class'][] = get_class($obj);
@@ -88,7 +88,7 @@ class Form extends FormContext {
 
 		/** @todo lookup real field name */
 		$empty = [];
-		$id = $form->get_value('id', $empty);
+		$id = $form->getValue('id', $empty);
 		if ( !empty($id) ){
 			$form->hiddenField("id");
 		}
@@ -99,8 +99,8 @@ class Form extends FormContext {
 	 * Create a resource-less form.
 	 */
 	static public function create($id, $callback, array $options=[]){
-		$form = static::create_instance(false, null);
-		$form->parse_options($options);
+		$form = static::createInstance(false, null);
+		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = $id;
 		$form->res = null;
@@ -110,14 +110,14 @@ class Form extends FormContext {
 	/**
 	 * Creates an instance of the called form class.
 	 * Just like "new Form()" but works with late static binding so an inherited
-	 * class can call "MyForm::from_object(..)" and still get a MyForm instance.
+	 * class can call "MyForm::fromObject(..)" and still get a MyForm instance.
 	 */
-	static private function create_instance($id, $callback, array $options=[]){
+	static private function createInstance($id, $callback, array $options=[]){
 		$classname = get_called_class();
 		return new $classname($id, $callback, $options);
 	}
 
-	protected function pop_attr($key, &$attr, &$value){
+	protected function popAttr($key, &$attr, &$value){
 		if ( array_key_exists($key, $attr) ){
 			$value = $attr[$key];
 			unset($attr[$key]);
@@ -126,38 +126,38 @@ class Form extends FormContext {
 		return false;
 	}
 
-	private function parse_options($user){
+	private function parseOptions($user){
 		$options = array_merge(
 			static::$base_options,
-			static::default_options(),
+			static::defaultOptions(),
 			$user
 		);
 
 		/* extract non-attribute options */
-		$this->pop_attr('method_field_name', $options, $this->options['method_field_name']);
+		$this->popAttr('method_field_name', $options, $this->options['method_field_name']);
 
 		/* layout */
-		$this->pop_attr('layout', $options, $layout);
-		$this->set_layout($layout);
+		$this->popAttr('layout', $options, $layout);
+		$this->setLayout($layout);
 
 		/* rewrite requested action to GET/POST and store original method */
-		$this->pop_attr('method', $options, $method);
+		$this->popAttr('method', $options, $method);
 		$this->options['requested_method'] = $method;
-		$this->attr['method'] = static::parse_method($method);
+		$this->attr['method'] = static::parseMethod($method);
 
 		/* custom prefix */
-		$this->pop_attr('prefix', $options, $prefix);
+		$this->popAttr('prefix', $options, $prefix);
 		if ( $prefix ){
 			$this->name_pattern = $prefix . '[%s]';
 		}
 
 		/* classes require deeper merge: classes has already been added */
-		$this->pop_attr('class', $options, $class);
-		$this->add_class($class);
+		$this->popAttr('class', $options, $class);
+		$this->addClass($class);
 
 		/* merge form attributes */
 		$attr = [];
-		$this->pop_attr('attr', $options, $attr);
+		$this->popAttr('attr', $options, $attr);
 		$this->attr = array_merge(
 			$this->attr,
 			$options,
@@ -165,14 +165,14 @@ class Form extends FormContext {
 		);
 	}
 
-	protected function add_class($class){
+	protected function addClass($class){
 		if ( is_string($class) ){
 			$class = explode(' ', $class);
 		}
 		$this->attr['class'] = array_merge($this->attr['class'], $class);
 	}
 
-	private function parse_method($method){
+	private function parseMethod($method){
 		$method = strtoupper($method);
 		switch ( $method ){
 			case 'GET':
@@ -183,7 +183,7 @@ class Form extends FormContext {
 		}
 	}
 
-	private function set_layout($layout){
+	private function setLayout($layout){
 		$class = $layout;
 
 		if ( is_string($layout) ){
@@ -199,15 +199,15 @@ class Form extends FormContext {
 		} else if ( !$layout instanceof FormLayoutInterface ){
 			trigger_error("Layout must either be string or a class implementing FormLayout", E_USER_ERROR);
 		} else {
-			if ( method_exists($layout, 'layout_name') ){
-				$class = $layout->layout_name();
+			if ( method_exists($layout, 'layoutName') ){
+				$class = $layout->layoutName();
 			} else {
 				$class = get_class($layout);
 			}
 		}
 
 		/* use layout class so it is possible to style a single layout */
-		$this->add_class($class);
+		$this->addClass($class);
 
 		$this->layout = $layout;
 	}
@@ -228,18 +228,18 @@ class Form extends FormContext {
 	 * This creates a subform.
 	 * Example:
 	 * new Form("foo", function($f) {
-	 *	 $f->fields_for($object_type_derp, function($fo) {
-	 *		$fo->text_field('moo');
+	 *	 $f->fieldsFor($object_type_derp, function($fo) {
+	 *		$fo->textField('moo');
 	 *	 });
-	 *	 $f->fields_for($object_type_herp, function($fo) {
-	 *		$fo->text_field('boo');
+	 *	 $f->fieldsFor($object_type_herp, function($fo) {
+	 *		$fo->textField('boo');
 	 *	 });
 	 *	});
 	 *
 	 * This would generate the form with id "foo" and the fields
-	 * Derp[moo] (text_field)
-	 * Herp[boo] (text_field)
-	 * (given that Derp and Herp are the class-name of the models given to fields_for
+	 * Derp[moo] (textField)
+	 * Herp[boo] (textField)
+	 * (given that Derp and Herp are the class-name of the models given to fieldsFor
 	 */
 	public function fieldsFor($id, $obj, callable $callback) {
 		$old = [$this->res, $this->id, $this->name_pattern];
@@ -265,14 +265,14 @@ class Form extends FormContext {
 		$this->hidden[] = $this->builder->factory("hidden", $key, false, $attr);
 	}
 
-	public function method_field() {
+	public function methodField() {
 		$this->hiddenField($this->options['method_field_name'], strtoupper($this->options['requested_method']));
 	}
 
 	protected function start() {
 		if ( $this->unbuffered ){
 			if ( $this->attr['action'] !== false ){
-				$attr = FormUtils::serialize_attr($this->attr);
+				$attr = FormUtils::serializeAttr($this->attr);
 				echo "<form id=\"{$this->id}\" $attr>\n";
 			}
 			return;
@@ -288,20 +288,20 @@ class Form extends FormContext {
 		if ( $method !== "GET" ) {
 			$has_csrf = false;
 			foreach( $this->hidden as $field) {
-				if($field->get_name() == "csrf_token") {
+				if($field->getName() == "csrf_token") {
 					$has_csrf = true;
 					break;
 				}
 			}
 
-			if ( !$has_csrf && ($csrf_token=$this->csrf_token()) ) {
+			if ( !$has_csrf && ($csrf_token=$this->csrfToken()) ) {
 				$this->hiddenField("csrf_token", $csrf_token);
 			}
 
 			/* use a special _method field to allow using other HTTP methods
 			 * such as PATCH and DELETE. */
 			if ( $method !== 'POST' ){
-				$this->method_field();
+				$this->methodField();
 			}
 		}
 
@@ -328,7 +328,7 @@ class Form extends FormContext {
 		}
 	}
 
-	private function get_value($key, array &$attr) {
+	private function getValue($key, array &$attr) {
 		if ( array_key_exists('value', $attr) ){
 			$value = $attr['value'];
 			unset($attr['value']);
@@ -339,7 +339,7 @@ class Form extends FormContext {
 		return $this->res->$key;
 	}
 
-	public function generate_id($key, array &$attr){
+	public function generateId($key, array &$attr){
 		if ( array_key_exists('id', $attr) ){
 			$id = $attr['id'];
 			unset($attr['id']);
@@ -350,7 +350,7 @@ class Form extends FormContext {
 		return "{$this->id}_$key";
 	}
 
-	public function generate_name($key, array &$attr){
+	public function generateName($key, array &$attr){
 		if ( array_key_exists('name', $attr) ){
 			$name = $attr['name'];
 			unset($attr['name']);
@@ -367,10 +367,10 @@ class Form extends FormContext {
 		return sprintf($this->name_pattern, $key);
 	}
 
-	public function generate_data($key, array &$attr){
-		$id = $this->generate_id($key, $attr);
-		$name = $this->generate_name($key, $attr);
-		$value = $this->get_value($key, $attr);
+	public function generateData($key, array &$attr){
+		$id = $this->generateId($key, $attr);
+		$name = $this->generateName($key, $attr);
+		$value = $this->getValue($key, $attr);
 		return array($id, $name, $value);
 	}
 }

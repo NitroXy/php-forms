@@ -17,23 +17,23 @@ class ManualField implements FormFieldInterface {
 	}
 
 	public function render($layout, $res) {
-		$layout->render_field($this, $this->get_error($res));
+		$layout->renderField($this, $this->getError($res));
 	}
 
-	public function get_error($res){
+	public function getError($res){
 		if ( !($this->key && isset($res->errors[$this->key])) ) return false;
 		return ucfirst($res->errors[$this->key][0]); /* get first error only */
 	}
 
-	public function get_name(){ return $this->key; }
-	public function get_label(){ return $this->label; }
-	public function get_content(){ return $this->content; }
-	public function get_hint(){ return $this->hint; }
-	public function get_addons(){ return [false, false]; }
-	public function layout_hints(){ return 0; }
-	public function get_id() { return false; }
-	public function set_container($container){ $this->container = $container; }
-	public function get_container(){ return $this->container; }
+	public function getName(){ return $this->key; }
+	public function getLabel(){ return $this->label; }
+	public function getContent(){ return $this->content; }
+	public function getHint(){ return $this->hint; }
+	public function getAddons(){ return [false, false]; }
+	public function layoutHints(){ return 0; }
+	public function getId() { return false; }
+	public function setContainer($container){ $this->container = $container; }
+	public function getContainer(){ return $this->container; }
 
 	public function attribute($key, $default=false){
 		return $default; /* no sane way to get attributes from manual fields */
