@@ -45,9 +45,9 @@
 			</dl>
 
 			<h3>Default options</h3>
-			<p>Default options for forms can be set by extending <code>default_options</code>:</p>
+			<p>Default options for forms can be set by extending <code>defaultOptions</code>:</p>
 			<pre class="php" style="font-family:monospace;"><span style="color: #000000; font-weight: bold;">class</span> MyForm <span style="color: #000000; font-weight: bold;">extends</span> Form <span style="color: #009900;">&#123;</span>
-	static <span style="color: #000000; font-weight: bold;">protected</span> <span style="color: #000000; font-weight: bold;">function</span> default_options<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
+	static <span style="color: #000000; font-weight: bold;">protected</span> <span style="color: #000000; font-weight: bold;">function</span> defaultOptions<span style="color: #009900;">&#40;</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
 		<span style="color: #b1b100;">return</span> <span style="color: #009900;">&#91;</span>
 			<span style="color: #0000ff;">'layout'</span> <span style="color: #339933;">=&gt;</span> <span style="color: #0000ff;">'bootstrap'</span><span style="color: #339933;">,</span>
 		<span style="color: #009900;">&#93;</span><span style="color: #339933;">;</span>
@@ -55,7 +55,7 @@
 <span style="color: #009900;">&#125;</span><span style="color: #339933;">;</span>
 &nbsp;
 MyForm<span style="color: #339933;">::</span><span style="color: #004000;">create</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">&quot;example_default_options&quot;</span><span style="color: #339933;">,</span> <span style="color: #000000; font-weight: bold;">function</span><span style="color: #009900;">&#40;</span><span style="color: #000088;">$f</span><span style="color: #009900;">&#41;</span><span style="color: #009900;">&#123;</span>
-	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">text_field</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'My field name'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
+	<span style="color: #000088;">$f</span><span style="color: #339933;">-&gt;</span><span style="color: #004000;">textField</span><span style="color: #009900;">&#40;</span><span style="color: #0000ff;">'name'</span><span style="color: #339933;">,</span> <span style="color: #0000ff;">'My field name'</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span>
 <span style="color: #009900;">&#125;</span><span style="color: #009900;">&#41;</span><span style="color: #339933;">;</span></pre>
 			<h2>Field options</h2>
 			<dl>
