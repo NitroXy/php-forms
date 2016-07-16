@@ -86,7 +86,6 @@ class Form extends FormContext {
 			$form->name_pattern = get_class($obj) . '[%s]';
 		}
 
-		/** @todo lookup real field name */
 		$empty = [];
 		$id = $form->getValue('id', $empty);
 		if ( !empty($id) ){
