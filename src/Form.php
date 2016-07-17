@@ -64,7 +64,7 @@ class Form extends FormContext {
 		$form = static::createInstance(get_class($obj), $callback);
 		$form->setNamePattern($obj);
 		$form->parseOptions($options);
-		$form->attr['class'][] = get_class($obj);
+		$form->addClass(get_class($obj));
 		$form->res = $obj ? $obj : new FormData();
 
 		/* use a unique html id if the object has an id, makes it possible to use form for multiple objects of same type */
