@@ -105,7 +105,7 @@ class Form extends FormContext {
 	 * Just like "new Form()" but works with late static binding so an inherited
 	 * class can call "MyForm::fromObject(..)" and still get a MyForm instance.
 	 */
-	static private function createInstance($id, $callback){
+	protected static function createInstance($id, callable $callback){
 		$classname = get_called_class();
 		return new $classname($id, $callback);
 	}
