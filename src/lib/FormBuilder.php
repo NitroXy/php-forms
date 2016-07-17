@@ -53,8 +53,8 @@ class FormBuilder {
 		list($id, $name, $value) = $this->generateData($key, $attr);
 		switch ( $type ){
 			case 'hidden': $field = new FormInput($key, false, $name, $value, 'hidden', false, $attr); break;
-			case 'button': $field = new FormButton(false, $id, $name, $label, 'button', false, $attr); break;
-			case 'submit': $field = new FormButton(false, $id, $name, $label, 'submit', false, $attr); break;
+			case 'button': $field = new FormButton($key, $id, $name, $label, 'button', false, $attr); break;
+			case 'submit': $field = new FormButton($key, $id, $name, $label, 'submit', false, $attr); break;
 			case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
 			case 'static': $field = new StaticField($value, $label, $attr); break;
 			case 'link': $field = new LinkField($label, $attr); break;
@@ -220,23 +220,27 @@ class FormBuilder {
 	}
 
 	/**
-	 * Submit button.
+	 * Submit button. Alias for `button($text, $key, ['type' => 'submit'])`.
 	 *
+	 * @param $text Button label.
+	 * @param $key Passed as name HTML attribute.
 	 * @option 'confirm' {string} Adds a javascript confirmation prompt before submit/click: <code>onclick="return confirm(...);"</code>
 	 */
-	public function submit($text, array $attr=[]) {
-		$field = $this->factory('submit', null, $text, $attr);
+	public function submit($text, $key=false, array $attr=[]) {
+		$field = $this->factory('submit', $key, $text, $attr);
 		return $this->addField($field);
 	}
 
 	/**
 	 * Generic button.
 	 *
+	 * @param $text Button label.
+	 * @param $key Passed as name HTML attribute.
 	 * @option 'type' {string} Should be a valid HTML button value
 	 *         (e.g. <code>submit</code> or <code>button</code>).
 	 */
-	public function button($text, array $attr=[]) {
-		$field = $this->factory('button', null, $text, $attr);
+	public function button($text, $key=false, array $attr=[]) {
+		$field = $this->factory('button', $key, $text, $attr);
 		return $this->addField($field);
 	}
 

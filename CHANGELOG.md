@@ -12,7 +12,10 @@
   - PHP 5.6 or later is now required.
   - Select API change: prototype more similar to other fields, replaced
     `FormSelect` with `FormOptions`.
-  - Button API change: $key removed from prototype.
+
+## Bugfixes
+
+  - Buttons now sets name attribute properly again.
 
 # 1.4.0
 
