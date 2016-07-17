@@ -116,8 +116,10 @@ class FormBuilder {
 	 * @param $options Instance of FormOptions.
 	 * @option postback {boolean} Automatically submit form when value changes. (default: false)
 	 */
-	public function select($key, $label, FormOptions $options, array $attr=[]){
-		$attr['options'] = $options;
+	public function select($key, $label, FormOptions $options=null, array $attr=[]){
+		if ( $options !== null ){
+			$attr['options'] = $options;
+		}
 		$field = $this->factory('select', $key, $label, $attr);
 		return $this->addField($field);
 	}

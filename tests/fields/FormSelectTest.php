@@ -4,6 +4,16 @@ use NitroXy\PHPForms\Form;
 use NitroXy\PHPForms\FormOptions;
 
 class FormSelectTest extends PHPUnit_Framework_TestCase {
+	public function testNull(){
+		$mock = new MockLayout();
+		$form = Form::create('id', function($f){
+			$f->select('foo', 'label', null);
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('foo', $mock->field);
+		$this->assertInstanceOf('NitroXy\PHPForms\FormSelect', $mock->field['foo']);
+		$this->assertCount(0, $mock->field['foo']->getOptions());
+	}
+
 	public function testFromArray(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){

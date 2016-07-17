@@ -22,6 +22,11 @@ class FormSelect extends FormInput {
 		$this->popAttr('selected', $attr, $this->selected);
 		$this->popAttr('options', $attr, $this->options);
 
+		/* fill with empty options */
+		if ( $this->options === null ){
+			$this->options = new FormOptions();
+		}
+
 		parent::__construct($key, $id, $name, $value, null, $label, $attr);
 	}
 
