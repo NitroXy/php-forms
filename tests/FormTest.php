@@ -22,6 +22,25 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(false, $mock->field['foo']->attribute('value'));
 	}
 
+	public function testFromObject(){
+		$mock = new MockLayout();
+		$data = (object)['foo' => 'bar'];
+		$form = Form::fromObject($data, function($f){
+			$f->textField('foo', 'Label');
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('stdClass[foo]', $mock->field);
+		$this->assertEquals('bar', $mock->field['stdClass[foo]']->attribute('value'));
+	}
+
+	public function testFromObjectNull(){
+		$mock = new MockLayout();
+		$form = Form::fromObject(null, function($f){
+			$f->textField('foo', 'Label');
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('foo', $mock->field);
+		$this->assertEquals(false, $mock->field['foo']->attribute('value'));
+	}
+
 	public function testClassString(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){}, ['layout' => $mock, 'class' => 'foo bar']);

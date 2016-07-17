@@ -69,13 +69,13 @@ class Form extends FormContext {
 	 *
 	 * Name will use class name as prefix, e.g name="Foo[field]".
 	 */
-	static public function fromObject($obj, $callback, array $options=[]){
+	static public function fromObject($obj, callable $callback, array $options=[]){
 		$form = static::createInstance(false, null);
 		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = get_class($obj);
 		$form->attr['class'][] = get_class($obj);
-		$form->res = $obj;
+		$form->res = $obj ? $obj : new FormData();
 
 		/* use a unique html id if the object has an id, makes it possible to use form for multiple objects of same type */
 		if ( !empty($obj->id) ){
@@ -83,7 +83,11 @@ class Form extends FormContext {
 		}
 
 		if ( !isset($options['prefix']) ){
-			$form->name_pattern = get_class($obj) . '[%s]';
+			if ( $obj !== null ){
+				$form->name_pattern = get_class($obj) . '[%s]';
+			} else {
+				$form->name_pattern = '%s';
+			}
 		}
 
 		$empty = [];
