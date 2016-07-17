@@ -8,9 +8,11 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 	const SELF = 3;
 
 	protected $html;
+	protected $formId;
 
 	public function setUp(){
 		$this->html = null;
+		$this->formId = 'id';
 	}
 
 	protected function onNotSuccessfulTest($e){
@@ -23,7 +25,7 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 
 	protected function generate($func, array $options=[]){
 		ob_start();
-		Form::create('id', $func, array_merge(['layout' => 'table'], $options));
+		Form::create($this->formId, $func, array_merge(['layout' => 'table'], $options));
 		$this->html = ob_get_contents();
 		ob_end_clean();
 	}

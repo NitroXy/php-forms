@@ -3,6 +3,12 @@
 use NitroXy\PHPForms\Form;
 
 class FormTest extends PHPUnit_Framework_TestCase {
+	public function testIdFalse(){
+		$mock = new MockLayout();
+		$form = Form::create(false, function($f){}, ['layout' => $mock]);
+		$this->assertEquals(null, $mock->form_id, "ID as false should not set id at all");
+	}
+
 	public function testFromArray(){
 		$mock = new MockLayout();
 		$data = ['foo' => 'bar'];
@@ -205,7 +211,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function testNoExtraAttr(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){}, ['layout' => $mock]);
-		$expected = ['class', 'method', 'action'];
+		$expected = ['class', 'method', 'action', 'id'];
 		$this->assertEquals($expected, array_keys($mock->form_attr));
 
 		/* id is not passed via attribute but should also be present */

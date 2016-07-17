@@ -3,6 +3,8 @@
 ## Features
 
   - New `FormBuilder` class allows easier currying of fields.
+  - Form ID false disables ID.
+  - Passing null to both `fromArray` and `fromObject` is now allowed.
 
 ## Breaking changes
 

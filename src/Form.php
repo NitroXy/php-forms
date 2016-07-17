@@ -60,6 +60,7 @@ class Form extends FormContext {
 		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = $id;
+		$form->attr['id'] = $form->id;
 		$form->res = new FormData($array);
 		$form->render();
 	}
@@ -75,6 +76,7 @@ class Form extends FormContext {
 		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = get_class($obj);
+		$form->attr['id'] = $form->id;
 		$form->attr['class'][] = get_class($obj);
 		$form->res = $obj ? $obj : new FormData();
 
@@ -99,6 +101,7 @@ class Form extends FormContext {
 		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = $id;
+		$form->attr['id'] = $form->id;
 		$form->res = null;
 		$form->render();
 	}
@@ -283,7 +286,7 @@ class Form extends FormContext {
 		if ( $this->unbuffered ){
 			if ( $this->attr['action'] !== false ){
 				$attr = FormUtils::serializeAttr($this->attr);
-				echo "<form id=\"{$this->id}\" $attr>\n";
+				echo "<form $attr>\n";
 			}
 			return;
 		}

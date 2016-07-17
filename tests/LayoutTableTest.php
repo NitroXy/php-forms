@@ -3,6 +3,24 @@
 use NitroXy\PHPForms\FormOptions;
 
 class LayoutTableTest extends DOMParser_TestCase {
+	public function testId(){
+		$this->formId = 'something';
+		$this->generate(function($f){});
+		$this->validate([
+			['form_start', ['id' => 'something']],
+			['form_end'],
+		]);
+	}
+
+	public function testIdFalse(){
+		$this->formId = false;
+		$this->generate(function($f){});
+		$this->validate([
+			['form_start', ['id' => null]],
+			['form_end'],
+		]);
+	}
+
 	public function testHiddenField(){
 		$this->generate(function($f){
 			$f->hiddenField('foo', '1');
