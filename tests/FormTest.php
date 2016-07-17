@@ -211,7 +211,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function testNoExtraAttr(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){}, ['layout' => $mock]);
-		$expected = ['class', 'method', 'action', 'id'];
+		$expected = ['id', 'class', 'method', 'action'];
 		$this->assertEquals($expected, array_keys($mock->form_attr));
 
 		/* id is not passed via attribute but should also be present */

@@ -27,11 +27,14 @@ class Form extends FormContext {
 	private $options = [];
 	private $unbuffered = false;
 
-	public function __construct() {
+	public function __construct($id, callable $callback) {
 		$builderClass = static::$defaultBuilderClass;
 		$builder = new $builderClass;
 		$builder->setContext($this);
 		parent::__construct($this, $builder);
+		$this->callback = $callback;
+		$this->id = $id;
+		$this->attr['id'] = $this->id;
 		$this->addClass('form');
 	}
 
@@ -57,11 +60,8 @@ class Form extends FormContext {
 	 * Create a form bound to an key-value array.
 	 */
 	static public function fromArray($id, array $array=null, callable $callback, array $options=[]){
-		$form = static::createInstance(false, null);
+		$form = static::createInstance($id, $callback);
 		$form->parseOptions($options);
-		$form->callback = $callback;
-		$form->id = $id;
-		$form->attr['id'] = $form->id;
 		$form->res = new FormData($array);
 		$form->render();
 	}
@@ -72,12 +72,9 @@ class Form extends FormContext {
 	 * Name will use class name as prefix, e.g name="Foo[field]".
 	 */
 	static public function fromObject($obj, callable $callback, array $options=[]){
-		$form = static::createInstance(false, null);
+		$form = static::createInstance(get_class($obj), $callback);
 		$form->setNamePattern($obj);
 		$form->parseOptions($options);
-		$form->callback = $callback;
-		$form->id = get_class($obj);
-		$form->attr['id'] = $form->id;
 		$form->attr['class'][] = get_class($obj);
 		$form->res = $obj ? $obj : new FormData();
 
@@ -98,11 +95,8 @@ class Form extends FormContext {
 	 * Create a resource-less form.
 	 */
 	static public function create($id, $callback, array $options=[]){
-		$form = static::createInstance(false, null);
+		$form = static::createInstance($id, $callback);
 		$form->parseOptions($options);
-		$form->callback = $callback;
-		$form->id = $id;
-		$form->attr['id'] = $form->id;
 		$form->res = null;
 		$form->render();
 	}
@@ -112,9 +106,9 @@ class Form extends FormContext {
 	 * Just like "new Form()" but works with late static binding so an inherited
 	 * class can call "MyForm::fromObject(..)" and still get a MyForm instance.
 	 */
-	static private function createInstance($id, $callback, array $options=[]){
+	static private function createInstance($id, $callback){
 		$classname = get_called_class();
-		return new $classname($id, $callback, $options);
+		return new $classname($id, $callback);
 	}
 
 	protected function popAttr($key, &$attr, &$value){
