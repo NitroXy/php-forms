@@ -27,16 +27,6 @@ class Form extends FormContext {
 	private $options = [];
 	private $unbuffered = false;
 
-	public function __construct($id, callable $callback) {
-		$builderClass = static::$defaultBuilderClass;
-		$builder = new $builderClass;
-		$builder->setContext($this);
-		parent::__construct($this, $builder);
-		$this->setId($id);
-		$this->addClass('form');
-		$this->callback = $callback;
-	}
-
 	/**
 	 * Override to set defaults for subclassed form.
 	 * Should return an array with options. See $base_options.
@@ -98,6 +88,16 @@ class Form extends FormContext {
 		$form->parseOptions($options);
 		$form->res = null;
 		$form->render();
+	}
+
+	public function __construct($id, callable $callback) {
+		$builderClass = static::$defaultBuilderClass;
+		$builder = new $builderClass;
+		$builder->setContext($this);
+		parent::__construct($this, $builder);
+		$this->setId($id);
+		$this->addClass('form');
+		$this->callback = $callback;
 	}
 
 	/**
