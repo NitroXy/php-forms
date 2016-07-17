@@ -3,6 +3,25 @@
 use NitroXy\PHPForms\Form;
 
 class FormTest extends PHPUnit_Framework_TestCase {
+	public function testFromArray(){
+		$mock = new MockLayout();
+		$data = ['foo' => 'bar'];
+		$form = Form::fromArray('id', $data, function($f){
+			$f->textField('foo', 'Label');
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('foo', $mock->field);
+		$this->assertEquals('bar', $mock->field['foo']->attribute('value'));
+	}
+
+	public function testFromArrayNull(){
+		$mock = new MockLayout();
+		$form = Form::fromArray('id', null, function($f){
+			$f->textField('foo', 'Label');
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('foo', $mock->field);
+		$this->assertEquals(false, $mock->field['foo']->attribute('value'));
+	}
+
 	public function testClassString(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){}, ['layout' => $mock, 'class' => 'foo bar']);

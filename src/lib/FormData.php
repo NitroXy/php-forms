@@ -3,7 +3,9 @@
 namespace NitroXy\PHPForms;
 
 class FormData {
-	public function __construct($data){
+	public function __construct(array $data = null){
+		if ( $data === null ) return;
+
 		foreach ( $data as $key => $value ){
 			$this->$key = $value;
 		}

@@ -55,7 +55,7 @@ class Form extends FormContext {
 	/**
 	 * Create a form bound to an key-value array.
 	 */
-	static public function fromArray($id, $array, $callback, array $options=[]){
+	static public function fromArray($id, array $array=null, callable $callback, array $options=[]){
 		$form = static::createInstance(false, null);
 		$form->parseOptions($options);
 		$form->callback = $callback;
