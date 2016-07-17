@@ -18,7 +18,7 @@ class Form extends FormContext {
 	);
 
 	public $id = "";
-	public $attr = ['class' => ['form']];
+	public $attr = [];
 
 	private $res = null;
 	private $name_pattern = '%s';
@@ -32,6 +32,7 @@ class Form extends FormContext {
 		$builder = new $builderClass;
 		$builder->setContext($this);
 		parent::__construct($this, $builder);
+		$this->addClass('form');
 	}
 
 	/**
@@ -181,6 +182,9 @@ class Form extends FormContext {
 	protected function addClass($class){
 		if ( is_string($class) ){
 			$class = explode(' ', $class);
+		}
+		if ( !array_key_exists('class', $this->attr) ){
+			$this->attr['class'] = [];
 		}
 		$this->attr['class'] = array_merge($this->attr['class'], $class);
 	}
