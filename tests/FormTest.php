@@ -28,7 +28,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$form = Form::fromObject($data, function($f){
 			$f->textField('foo', 'Label');
 		}, ['layout' => $mock]);
-		$this->assertArrayHasKey('stdClass[foo]', $mock->field);
+		$this->assertArrayHasKey('stdClass[foo]', $mock->field, "Fields should use class prefix");
 		$this->assertEquals('bar', $mock->field['stdClass[foo]']->attribute('value'));
 	}
 
@@ -37,8 +37,28 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$form = Form::fromObject(null, function($f){
 			$f->textField('foo', 'Label');
 		}, ['layout' => $mock]);
-		$this->assertArrayHasKey('foo', $mock->field);
+		$this->assertArrayHasKey('foo', $mock->field, "When null is used no prefix should be used for fields (like for arrays)");
 		$this->assertEquals(false, $mock->field['foo']->attribute('value'));
+	}
+
+	public function testFromObjectPrefix(){
+		$mock = new MockLayout();
+		$data = (object)['foo' => 'bar'];
+		$form = Form::fromObject($data, function($f){
+			$f->textField('foo', 'Label');
+		}, ['layout' => $mock, 'prefix' => 'prefix']);
+		$this->assertArrayHasKey('prefix[foo]', $mock->field, "When prefix is set to a simple string [] should be appended");
+		$this->assertEquals('bar', $mock->field['prefix[foo]']->attribute('value'));
+	}
+
+	public function testFromObjectPrefixFull(){
+		$mock = new MockLayout();
+		$data = (object)['foo' => 'bar'];
+		$form = Form::fromObject($data, function($f){
+			$f->textField('foo', 'Label');
+		}, ['layout' => $mock, 'prefix' => 'prefix-%s']);
+		$this->assertArrayHasKey('prefix-foo', $mock->field, "When prefix is set to a full string with %s it should be used as-is");
+		$this->assertEquals('bar', $mock->field['prefix-foo']->attribute('value'));
 	}
 
 	public function testClassString(){

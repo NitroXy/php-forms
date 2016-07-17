@@ -71,6 +71,7 @@ class Form extends FormContext {
 	 */
 	static public function fromObject($obj, callable $callback, array $options=[]){
 		$form = static::createInstance(false, null);
+		$form->setNamePattern($obj);
 		$form->parseOptions($options);
 		$form->callback = $callback;
 		$form->id = get_class($obj);
@@ -80,14 +81,6 @@ class Form extends FormContext {
 		/* use a unique html id if the object has an id, makes it possible to use form for multiple objects of same type */
 		if ( !empty($obj->id) ){
 			$form->id .= '_' . $obj->id;
-		}
-
-		if ( !isset($options['prefix']) ){
-			if ( $obj !== null ){
-				$form->name_pattern = get_class($obj) . '[%s]';
-			} else {
-				$form->name_pattern = '%s';
-			}
 		}
 
 		$empty = [];
@@ -151,7 +144,7 @@ class Form extends FormContext {
 		/* custom prefix */
 		$this->popAttr('prefix', $options, $prefix);
 		if ( $prefix ){
-			$this->name_pattern = $prefix . '[%s]';
+			$this->setNamePattern($prefix);
 		}
 
 		/* classes require deeper merge: classes has already been added */
@@ -166,6 +159,20 @@ class Form extends FormContext {
 			$options,
 			$attr
 		);
+	}
+
+	protected function setNamePattern($prefix){
+		if ( is_object($prefix) ){
+			$this->name_pattern = get_class($prefix) . '[%s]';
+		} else if ( is_string($prefix) ){
+			if ( strstr($prefix, '%s') === false ){
+				$this->name_pattern = $prefix . '[%s]';
+			} else {
+				$this->name_pattern = $prefix;
+			}
+		} else {
+			$this->name_pattern = '%s';
+		}
 	}
 
 	protected function addClass($class){
