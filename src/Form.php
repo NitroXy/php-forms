@@ -32,10 +32,9 @@ class Form extends FormContext {
 		$builder = new $builderClass;
 		$builder->setContext($this);
 		parent::__construct($this, $builder);
-		$this->callback = $callback;
-		$this->id = $id;
-		$this->attr['id'] = $this->id;
+		$this->setId($id);
 		$this->addClass('form');
+		$this->callback = $callback;
 	}
 
 	/**
@@ -80,7 +79,7 @@ class Form extends FormContext {
 
 		/* use a unique html id if the object has an id, makes it possible to use form for multiple objects of same type */
 		if ( !empty($obj->id) ){
-			$form->id .= '_' . $obj->id;
+			$form->setId($form->id . "_{$obj->id}");
 		}
 
 		$empty = [];
@@ -171,6 +170,10 @@ class Form extends FormContext {
 		} else {
 			$this->name_pattern = '%s';
 		}
+	}
+
+	protected function setId($id){
+		$this->attr['id'] = $this->id = $id;
 	}
 
 	protected function addClass($class){
