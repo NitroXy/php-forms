@@ -6,7 +6,7 @@ class Form extends FormContext {
 	const LAYOUT_TWOROWS =  1;
 	const LAYOUT_FILL = 2;
 
-	static public $defaultBuilder = FormBuilder::class;
+	static public $defaultBuilderClass = FormBuilder::class;
 
 	static protected $base_options = array(
 		'method' => 'post',                  /* form method (get or post) */
@@ -28,7 +28,7 @@ class Form extends FormContext {
 	private $unbuffered = false;
 
 	public function __construct() {
-		$builderClass = static::$defaultBuilder;
+		$builderClass = static::$defaultBuilderClass;
 		$builder = new $builderClass;
 		$builder->setContext($this);
 		parent::__construct($this, $builder);

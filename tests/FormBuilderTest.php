@@ -40,7 +40,7 @@ class MyBuilder extends FormBuilder {
 }
 
 class MyForm extends Form {
-	public static $defaultBuilder = MyBuilder::class;
+	public static $defaultBuilderClass = MyBuilder::class;
 }
 
 class FormBuilderTest extends \PHPUnit_Framework_TestCase {
