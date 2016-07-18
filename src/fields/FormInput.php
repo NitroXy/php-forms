@@ -123,7 +123,7 @@ class FormInput implements FormFieldInterface {
 	}
 
 	protected function serializeAttr($data=null){
-		return FormUtils::serializeAttr($data ?: $this->attr);
+		return FormUtils::serializeAttr($data ?: $this->attr, ['type', 'name', 'id']);
 	}
 
 	public function setContainer($container){

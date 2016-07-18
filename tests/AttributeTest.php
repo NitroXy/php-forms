@@ -28,4 +28,10 @@ class AttributeTest extends PHPUnit_Framework_TestCase {
 		/* boolean */
 		$this->assertEquals('foo', FormUtils::serializeAttr(['foo' => true, 'bar' => false]));
 	}
+
+	public function testSerializeAttributeSorted(){
+		$data = ['foo' => true, 'bar' => true];
+		$this->assertEquals('foo bar', FormUtils::serializeAttr($data, ['foo', 'bar']));
+		$this->assertEquals('bar foo', FormUtils::serializeAttr($data, ['bar', 'foo']));
+	}
 }

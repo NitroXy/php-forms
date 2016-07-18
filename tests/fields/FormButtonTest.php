@@ -30,7 +30,7 @@ class FormButtonTest extends PHPUnit_Framework_TestCase {
 		}, ['layout' => $mock]);
 		$this->assertCount(1, $mock->field); /* anonymous button */
 		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field[0]);
-		$this->assertEquals('<button ng-click="foo()" type="button">label</button>', $mock->field[0]->getContent());
+		$this->assertEquals('<button type="button" ng-click="foo()">label</button>', $mock->field[0]->getContent());
 	}
 
 	public function testSubmitAlias(){
@@ -60,7 +60,7 @@ class FormButtonTest extends PHPUnit_Framework_TestCase {
 		}, ['layout' => $mock]);
 		$this->assertCount(1, $mock->field);
 		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field['foo']);
-		$this->assertEquals('<button id="id_foo" name="foo" type="button">label</button>', $mock->field['foo']->getContent());
+		$this->assertEquals('<button type="button" name="foo" id="id_foo">label</button>', $mock->field['foo']->getContent());
 	}
 
 	public function testButtonNameFalse(){
@@ -90,6 +90,6 @@ class FormButtonTest extends PHPUnit_Framework_TestCase {
 		}, ['layout' => $mock]);
 		$this->assertCount(1, $mock->field);
 		$this->assertInstanceOf('NitroXy\PHPForms\FormButton', $mock->field['foo']);
-		$this->assertEquals('<button id="id_foo" name="foo" type="submit">label</button>', $mock->field['foo']->getContent());
+		$this->assertEquals('<button type="submit" name="foo" id="id_foo">label</button>', $mock->field['foo']->getContent());
 	}
 }
