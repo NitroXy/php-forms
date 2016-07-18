@@ -14,7 +14,7 @@ class AttributeTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('foo="bar" fred="barney"', FormUtils::serializeAttr(['foo' => 'bar', 'fred' => 'barney']));
 
 		/* htmlspecialchars */
-		$this->assertEquals('foo="b&quot;a&quot;r"', FormUtils::serializeAttr(['foo' => 'b"a"r']));
+		$this->assertEquals('foo="b&quot;a&quot;r&apos;"', FormUtils::serializeAttr(['foo' => 'b"a"r\'']));
 
 		/* numerical array (e.g. for classes) */
 		$this->assertEquals('foo="a b c"', FormUtils::serializeAttr(['foo' => ['a', 'b', 'c']]));

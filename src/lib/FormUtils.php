@@ -24,7 +24,7 @@ class FormUtils {
 		foreach ( $sorted as list($key, $value) ){
 			if ( is_array($value) ){
 				foreach ( static::_serializeAttrArray($key, $value) as $sub ){
-					$value = htmlspecialchars($sub[1]);
+					$value = htmlspecialchars($sub[1], ENT_QUOTES | ENT_HTML5);
 					$attr[] = "{$sub[0]}=\"{$value}\"";
 				}
 			} else {
@@ -33,7 +33,7 @@ class FormUtils {
 				} else if ( $value === false ){
 					/* ignore */
 				} else {
-					$value = htmlspecialchars($value);
+					$value = htmlspecialchars($value, ENT_QUOTES | ENT_HTML5);
 					$attr[] = "$key=\"$value\"";
 				}
 			}

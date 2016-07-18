@@ -29,7 +29,7 @@ class FormInput implements FormFieldInterface {
 
 		/* add confirmation dialog for submit buttons */
 		if ( $this->popAttr('confirm', $attr, $confirm) ){
-			$attr['onclick'] = "return confirm('".htmlspecialchars($confirm, ENT_QUOTES)."');";
+			$attr['onclick'] = "return confirm('{$confirm}');";
 		}
 
 		$this->popAttr('hint', $attr, $this->hint);
