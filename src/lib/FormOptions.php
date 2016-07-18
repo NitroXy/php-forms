@@ -53,7 +53,7 @@ class FormOptions implements \IteratorAggregate {
 	public function serializeOptions($selected){
 		return implode("\n", array_map(function($cur) use ($selected) {
 			$attr = ['value' => $cur->value];
-			if ( $cur->value === $selected ){
+			if ( $cur->value == $selected ){
 				$attr['selected'] = true;
 			}
 			$sattr = FormUtils::serializeAttr($attr);

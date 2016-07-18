@@ -1,9 +1,30 @@
 <?php
 
 use NitroXy\PHPForms\Form;
+use NitroXy\PHPForms\FormSelect;
 use NitroXy\PHPForms\FormOptions;
 
 class FormSelectTest extends PHPUnit_Framework_TestCase {
+	public function testSelectSimple(){
+		$field = new FormSelect('key', 'id', 'name', '7', 'label', []);
+		$this->assertEquals("<select name=\"name\" id=\"id\">\n\n</select>", $field->getContent());
+	}
+
+	public function testSelectValues(){
+		$field = new FormSelect('key', 'id', 'name', '7', 'label', ['options' => FormOptions::fromArray([1,2,3])]);
+		$this->assertEquals("<select name=\"name\" id=\"id\">\n<option value=\"0\">1</option>\n<option value=\"1\">2</option>\n<option value=\"2\">3</option>\n</select>", $field->getContent());
+	}
+
+	public function testSelectSelected(){
+		$field = new FormSelect('key', 'id', 'name', '1', 'label', ['options' => FormOptions::fromArray([1,2,3])]);
+		$this->assertEquals("<select name=\"name\" id=\"id\">\n<option value=\"0\">1</option>\n<option value=\"1\" selected>2</option>\n<option value=\"2\">3</option>\n</select>", $field->getContent());
+	}
+
+	public function testSelectExplicit(){
+		$field = new FormSelect('key', 'id', 'name', '7', 'label', ['options' => FormOptions::fromArray([1,2,3]), 'selected' => 2]);
+		$this->assertEquals("<select name=\"name\" id=\"id\">\n<option value=\"0\">1</option>\n<option value=\"1\">2</option>\n<option value=\"2\" selected>3</option>\n</select>", $field->getContent());
+	}
+
 	public function testNull(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){

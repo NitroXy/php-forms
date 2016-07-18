@@ -28,6 +28,9 @@ class FormSelect extends FormInput {
 		}
 
 		parent::__construct($key, $id, $name, $value, null, $label, $attr);
+
+		/* FormInput sets value which select shouldn't have */
+		unset($this->attr['value']);
 	}
 
 	public function getOptions(){
@@ -40,6 +43,8 @@ class FormSelect extends FormInput {
 
 	public function getContent(array $extra_attr = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
-		return '<select ' . $this->serializeAttr($attr) . ">\n" . $this->options->serializeOptions($this->selected) . "\n</select>\n";
+		$sattr = $this->serializeAttr($attr, ['name', 'id']);
+		$soptions = $this->options->serializeOptions($this->selected);
+		return "<select {$sattr}>\n{$soptions}\n</select>";
 	}
 }
