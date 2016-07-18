@@ -7,6 +7,7 @@ class Form extends FormContext {
 	const LAYOUT_FILL = 2;
 
 	static public $defaultBuilderClass = FormBuilder::class;
+	static public $defaultResourceClass = FormData::class;
 
 	static protected $base_options = array(
 		'method' => 'post',                  /* form method (get or post) */
@@ -51,25 +52,25 @@ class Form extends FormContext {
 	static public function fromArray($id, array $array=null, callable $callback, array $options=[]){
 		$form = static::createInstance($id, $callback);
 		$form->parseOptions($options);
-		$form->res = new FormData($array);
+		$form->createResource($array);
 		$form->render();
 	}
 
 	/**
-	 * Create a form bound to a BasicObject.
+	 * Create a form bound to an object.
 	 *
 	 * Name will use class name as prefix, e.g name="Foo[field]".
 	 */
-	static public function fromObject($obj, callable $callback, array $options=[]){
+	static public function fromObject($obj=null, callable $callback, array $options=[]){
 		$form = static::createInstance(get_class($obj), $callback);
 		$form->setNamePattern($obj);
 		$form->parseOptions($options);
+		$form->createResource($obj);
 		$form->addClass(get_class($obj));
-		$form->res = $obj ? $obj : new FormData();
 
 		/* use a unique html id if the object has an id, makes it possible to use form for multiple objects of same type */
-		if ( !empty($obj->id) ){
-			$form->setId($form->id . "_{$obj->id}");
+		if ( ($id=$form->res->getId()) ){
+			$form->setId($form->id . "_{$id}");
 		}
 
 		$empty = [];
@@ -86,7 +87,7 @@ class Form extends FormContext {
 	static public function create($id, $callback, array $options=[]){
 		$form = static::createInstance($id, $callback);
 		$form->parseOptions($options);
-		$form->res = null;
+		$form->createResource(null);
 		$form->render();
 	}
 
@@ -108,6 +109,11 @@ class Form extends FormContext {
 	protected static function createInstance($id, callable $callback){
 		$classname = get_called_class();
 		return new $classname($id, $callback);
+	}
+
+	protected function createResource($src){
+		$classname = static::$defaultResourceClass;
+		$this->res = new $classname($src);
 	}
 
 	protected function popAttr($key, &$attr, &$value){
@@ -259,11 +265,9 @@ class Form extends FormContext {
 		$old = [$this->res, $this->id, $this->name_pattern];
 		$this->id = $id;
 		$this->name_pattern = $id . '[%s]';
-		if ( $obj instanceof \BasicObject ) {
-			$this->res = $obj;
+		$this->createResource($obj);
+		if ( is_object($obj) ) {
 			$this->hiddenField("id");
-		} else {
-			$this->res = new FormData($obj);
 		}
 		$this->apply($callback);
 		list($this->res, $this->id, $this->name_pattern) = $old;
@@ -349,8 +353,7 @@ class Form extends FormContext {
 			return $value;
 		}
 
-		if ( !isset($this->res->$key) ) return null;
-		return $this->res->$key;
+		return $this->res->getValueFor($key);
 	}
 
 	public function generateId($key, array &$attr){

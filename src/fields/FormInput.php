@@ -105,8 +105,7 @@ class FormInput implements FormFieldInterface {
 	}
 
 	public function getError($res){
-		if ( !($this->key && isset($res->errors[$this->key])) ) return false;
-		return ucfirst($res->errors[$this->key][0]); /* get first error only */
+		return $res->getErrorFor($this->key);
 	}
 
 	public function getHint(){

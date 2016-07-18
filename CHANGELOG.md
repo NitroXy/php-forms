@@ -12,6 +12,9 @@
   - PHP 5.6 or later is now required.
   - Select API change: prototype more similar to other fields, replaced
     `FormSelect` with `FormOptions`.
+  - Error messages will no longer be pulled via hardcoded `errors`
+    field, to get errors the `FormData::getErrorFor($field)`method
+    must be overridden.
 
 ## Bugfixes
 
