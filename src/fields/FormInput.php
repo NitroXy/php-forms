@@ -98,7 +98,7 @@ class FormInput implements FormFieldInterface {
 
 	public function getContent(array $extra_attr = array()){
 		$attr = array_merge_recursive($extra_attr, $this->attr);
-		if ( $attr['type'] == 'password' && isset($attr['autocomplete']) && $attr['autocomplete'] == 'off' ){
+		if ( $attr['type'] == 'password'){
 			unset($attr['value']);
 		}
 		return "<input " . $this->serializeAttr($attr) . " />";
