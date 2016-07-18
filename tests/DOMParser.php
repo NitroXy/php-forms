@@ -9,6 +9,7 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 
 	protected $html;
 	protected $formId;
+	protected static $layout;
 
 	public function setUp(){
 		$this->html = null;
@@ -25,9 +26,12 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 
 	protected function generate($func, array $options=[]){
 		ob_start();
-		Form::create($this->formId, $func, array_merge(['layout' => 'table'], $options));
-		$this->html = ob_get_contents();
-		ob_end_clean();
+		try {
+			Form::create($this->formId, $func, array_merge(['layout' => static::$layout], $options));
+			$this->html = ob_get_contents();
+		} finally {
+			ob_end_clean();
+		}
 	}
 
 	protected function validate($nodes){
@@ -54,7 +58,7 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 				foreach ( $expected[1] as $key => $value ){
 					if ( $value !== null ){
 						$this->assertArrayHasKey($key, $actual, "Must contain attribute");
-						$this->assertEquals($value, $actual[$key], "Attribute must be");
+						$this->assertEquals($value, $actual[$key], "Attribute \"$key\" must be \"$value\"");
 					} else {
 						$this->assertArrayNotHasKey($key, $actual, "Must not contain attribute");
 					}

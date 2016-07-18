@@ -209,10 +209,13 @@ class Form extends FormContext {
 
 		if ( is_string($layout) ){
 			switch ( $layout ){
-			case 'table': $layout = new FormLayoutTable(); break;
-			case 'plain': $layout = new FormLayoutPlain(); break;
-			case 'bootstrap': $layout = new FormLayoutBootstrap(); break;
-			case 'unbuffered': $this->unbuffered = true; break;
+				case 'table': $layout = new FormLayoutTable(); break;
+				case 'plain': $layout = new FormLayoutPlain(); break;
+				case 'bootstrap': $layout = new FormLayoutBootstrap(); break;
+				case 'unbuffered':
+					$layout = new FormLayoutUnbuffered();
+					$this->unbuffered = true;
+					break;
 			default:
 				trigger_error("Form class called with unknown layout `$layout'", E_USER_NOTICE);
 				$layout = new FormLayoutPlain();
@@ -234,7 +237,7 @@ class Form extends FormContext {
 	}
 
 	public function unbuffered(){
-		return $this->unbuffered;
+		return $this->unbuffered ? $this->layout : false;
 	}
 
 	protected function render(){
@@ -289,14 +292,6 @@ class Form extends FormContext {
 	}
 
 	protected function start() {
-		if ( $this->unbuffered ){
-			if ( $this->attr['action'] !== false ){
-				$attr = FormUtils::serializeAttr($this->attr);
-				echo "<form $attr>\n";
-			}
-			return;
-		}
-
 		if ( $this->attr['action'] !== false ){
 			$this->layout->preamble($this);
 		}

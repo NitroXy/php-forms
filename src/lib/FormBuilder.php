@@ -34,6 +34,15 @@ class FormBuilder {
 	}
 
 	/**
+	 * Access to form object.
+	 *
+	 * @internal
+	 */
+	protected function form(){
+		return $this->context->form();
+	}
+
+	/**
 	 * Generates any kind of input, used by most other fields. Note that
 	 * this function should not be called directly, use
 	 * <code>customField()</code> instead. Common options for all
@@ -65,11 +74,9 @@ class FormBuilder {
 			default: $field = new FormInput($key, $id, $name, $value, $type, $label, $attr); break;
 		}
 
-		if ( $this->unbuffered() ){
-			if($field->getLabel() !== false) {
-				echo "<label for='{$field->getId()}'>{$field->getLabel()}</label>\n";
-			}
-			echo $field->getContent() . "\n";
+		if ( ($layout=$this->unbuffered()) ){
+			$layout->preamble($this->form()); /* preamble is only written first time */
+			$layout->renderField($field, false);
 		}
 
 		return $field;
@@ -128,6 +135,9 @@ class FormBuilder {
 	 * Add a help text.
 	 */
 	public function hint($text, $label=null, array $attr=[]) {
+		if ( $this->unbuffered() ){
+			trigger_error("Cannot use hint in unbuffered mode", E_USER_ERROR);
+		}
 		$field = $this->factory("hint", $text, $label, $attr);
 		return $this->addField($field);
 	}

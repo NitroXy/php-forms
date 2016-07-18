@@ -2,7 +2,9 @@
 
 use NitroXy\PHPForms\FormOptions;
 
-class LayoutTableTest extends DOMParser_TestCase {
+class TableLayoutTest extends DOMParser_TestCase {
+	protected static $layout = 'table';
+
 	public function testId(){
 		$this->formId = 'something';
 		$this->generate(function($f){});

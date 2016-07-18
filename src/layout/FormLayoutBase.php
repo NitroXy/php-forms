@@ -4,6 +4,8 @@ namespace NitroXy\PHPForms;
 
 abstract class FormLayoutBase implements FormLayoutInterface {
 	public function preamble($form){
+		if ( $form->attr['action'] === false ) return;
+
 		$attr = FormUtils::serializeAttr($form->attr);
 		echo "<form $attr>\n";
 	}

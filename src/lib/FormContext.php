@@ -17,6 +17,10 @@ class FormContext {
 		return $this->form->unbuffered();
 	}
 
+	public function form(){
+		return $this->form;
+	}
+
 	public function generateData($key, array &$attr){
 		return $this->form->generateData($key, $attr);
 	}
