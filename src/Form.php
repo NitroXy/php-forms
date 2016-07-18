@@ -28,7 +28,7 @@ class Form extends FormContext {
 	private $options = [];
 	private $unbuffered = false;
 
-	private static $formFieldIdCounter = 1;
+	protected static $formFieldIdCounter = 1;
 
 	/**
 	 * Override to set defaults for subclassed form.
