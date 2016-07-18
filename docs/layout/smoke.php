@@ -19,12 +19,12 @@ Form::create('smoketest', function($f){
 	$f->checkbox('checkbox', 'Checkbox');
 	$f->manual('manual', 'Manual', '<em>Custom html</em>', false);
 	$f->submit('Submit button');
-	$f->button('Generic button', ['class' => 'btn-success']);
+	$f->button('Generic button', false, ['class' => 'btn-success']);
 
 	/* groups allows you to put multiple fields inline (label is optional) */
 	$f->group('Inline group', function($f){
-		$f->button('Button 1', ['class' => 'btn-default']);
-		$f->button('Button 2', ['class' => 'btn-danger']);
+		$f->button('Button 1', false, ['class' => 'btn-default']);
+		$f->button('Button 2', false, ['class' => 'btn-danger']);
 		$f->button('Button 3');
 	});
 

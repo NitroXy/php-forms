@@ -11,7 +11,7 @@ class MyBuilder extends FormBuilder {
 }
 
 class MyForm extends Form {
-	public static $defaultBuilder = MyBuilder::class;
+	public static $defaultBuilderClass = MyBuilder::class;
 }
 
 MyForm::create("id", function($f){
