@@ -70,16 +70,15 @@ class Form extends FormContext {
 		$form->createResource($obj);
 		$form->addClass(get_class($obj));
 
-		/* use a unique html id if the object has an id, makes it possible to use form for multiple objects of same type */
-		if ( ($id=$form->res->getId()) ){
-			$form->setId($form->id . "_{$id}");
-		}
+		$object_id = $form->res->getId();
+		if ( $object_id !== false ){
+			/* use a unique html id if the object has an id, makes it possible to use form for multiple objects of same type */
+			$form->setId($form->id . "_{$object_id}");
 
-		$empty = [];
-		$id = $form->getValue('id', $empty);
-		if ( !empty($id) ){
+			/* automatically add a hidden with the object id */
 			$form->hiddenField("id");
 		}
+
 		$form->render();
 	}
 
