@@ -77,6 +77,17 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('stdClass_7', $mock->form_id, "When object has an ID it should be used as suffix");
 	}
 
+	public function testFromObjectButtonName(){
+		$mock = new MockLayout();
+		$data = (object)['foo' => 'bar'];
+		$form = Form::fromObject($data, function($f){
+			$f->button('Label', 'foo');
+			$f->submit('Label', 'bar');
+		}, ['layout' => $mock]);
+		$this->assertArrayHasKey('foo', $mock->field, "Buttons should always be unprefixed");
+		$this->assertArrayHasKey('bar', $mock->field, "Buttons should always be unprefixed");
+	}
+
 	public function testClassString(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){}, ['layout' => $mock, 'class' => 'foo bar']);

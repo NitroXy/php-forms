@@ -53,8 +53,8 @@ class FormBuilder {
 		list($id, $name, $value) = $this->generateData($key, $attr);
 		switch ( $type ){
 			case 'hidden': $field = new FormInput($key, false, $name, $value, 'hidden', false, $attr); break;
-			case 'button': $field = new FormButton($key, $id, $name, $label, 'button', false, $attr); break;
-			case 'submit': $field = new FormButton($key, $id, $name, $label, 'submit', false, $attr); break;
+			case 'button': $field = new FormButton($key, $id, $key, $label, 'button', false, $attr); break;
+			case 'submit': $field = new FormButton($key, $id, $key, $label, 'submit', false, $attr); break;
 			case 'textarea': $field = new TextAreaField($key, $id, $name, $value, $label, $attr); break;
 			case 'static': $field = new StaticField($value, $label, $attr); break;
 			case 'link': $field = new LinkField($label, $attr); break;

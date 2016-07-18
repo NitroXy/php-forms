@@ -15,6 +15,7 @@
   - Error messages will no longer be pulled via hardcoded `errors`
     field, to get errors the `FormData::getErrorFor($field)`method
     must be overridden.
+  - Buttons name attribute is now always unprefixed.
 
 ## Bugfixes
 
