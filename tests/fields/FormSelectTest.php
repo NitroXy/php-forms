@@ -3,6 +3,7 @@
 use NitroXy\PHPForms\Form;
 use NitroXy\PHPForms\FormSelect;
 use NitroXy\PHPForms\FormOptions;
+use NitroXy\PHPForms\Tests\MockLayout;
 
 class FormSelectTest extends PHPUnit_Framework_TestCase {
 	public function testSelectSimple(){

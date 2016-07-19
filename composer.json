@@ -31,10 +31,11 @@
 		}
 	},
 	"autoload-dev": {
-		"psr-4": { "NitroXy\\PHPForms\\Tests\\": "tests/" },
+		"psr-4": {
+			"NitroXy\\PHPForms\\Tests\\": "tests/mocks/"
+		},
 		"classmap": [
-			"tests/DOMParser.php",
-			"tests/MockForm.php"
+			"tests/DOMParser.php"
 		]
 	}
 }

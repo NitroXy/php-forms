@@ -4,6 +4,7 @@ namespace FormResourceTest;
 
 use \NitroXy\PHPForms\Form;
 use \NitroXy\PHPForms\FormData;
+use \NitroXy\PHPForms\Tests\MockLayout;
 
 class MyResource extends FormData {
 	public function getErrorFor($field){
@@ -17,7 +18,7 @@ class MyForm extends Form {
 
 class FormResourceTest extends \PHPUnit_Framework_TestCase {
 	public function testShouldReturnOldContext(){
-		$mock = new \MockLayout();
+		$mock = new MockLayout();
 		$resource = $this->getMockBuilder(MyResource::class)
 		                 ->enableProxyingToOriginalMethods()
 		                 ->setConstructorArgs([null])

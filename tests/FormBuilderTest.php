@@ -6,6 +6,7 @@ use \NitroXy\PHPForms\Form;
 use \NitroXy\PHPForms\FormBuilder;
 use \NitroXy\PHPForms\FormContext;
 use \NitroXy\PHPForms\FormFieldInterface;
+use \NitroXy\PHPForms\Tests\MockLayout;
 
 class MyField implements FormFieldInterface {
 	public function render($layout, $res){
@@ -93,7 +94,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testDefaultBuilder(){
-		$mock = new \MockLayout();
+		$mock = new MockLayout();
 		$form = MyForm::create('id', function($f){
 			//$f->wrappedManual('label');
 			//$f->button('label');

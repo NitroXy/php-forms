@@ -1,9 +1,8 @@
 <?php
 
-/**
- * @codeCoverageIgnore
- */
-class MockLayout implements NitroXy\PHPForms\FormLayoutInterface {
+namespace NitroXy\PHPForms\Tests;
+
+class MockLayout implements \NitroXy\PHPForms\FormLayoutInterface {
 	public $form_id;
 	public $form_attr;
 	public $group = [];

@@ -1,6 +1,7 @@
 <?php
 
 use NitroXy\PHPForms\Form;
+use NitroXy\PHPForms\Tests\MockLayout;
 
 class FormTest extends PHPUnit_Framework_TestCase {
 	public function testIdFalse(){
@@ -165,7 +166,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 
 	public function testFromBeginEnd(){
 		/* it should always (try to) close layout */
-		$mock = $this->getMockBuilder('MockLayout')->setMethods(['begin', 'end'])->getMock();
+		$mock = $this->getMockBuilder('\NitroXy\PHPForms\Tests\MockLayout')->setMethods(['begin', 'end'])->getMock();
 		$mock->expects($this->never())->method('begin');
 		$mock->expects($this->once())->method('end');
 		$form = Form::create('id', function($f){}, ['layout' => $mock]);
@@ -173,7 +174,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 
 	public function testFromPrePostAmble(){
 		/* pre- and postamble should always be written ... */
-		$mock = $this->getMockBuilder('MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
+		$mock = $this->getMockBuilder('\NitroXy\PHPForms\Tests\MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
 		$mock->expects($this->once())->method('preamble');
 		$mock->expects($this->once())->method('postamble');
 		$form = Form::create('id', function($f){}, ['layout' => $mock]);
@@ -181,14 +182,14 @@ class FormTest extends PHPUnit_Framework_TestCase {
 
 	public function testFromPrePostAmbleNoAction(){
 		/* ... unless action is explicitly disabled */
-		$mock = $this->getMockBuilder('MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
+		$mock = $this->getMockBuilder('\NitroXy\PHPForms\Tests\MockLayout')->setMethods(['preamble', 'postamble'])->getMock();
 		$mock->expects($this->never())->method('preamble');
 		$mock->expects($this->never())->method('postamble');
 		$form = Form::create('id', function($f){}, ['layout' => $mock, 'action' => false]);
 	}
 
 	public function testEmptyFieldset(){
-		$mock = $this->getMockBuilder('MockLayout')->setMethods(['renderFieldset'])->getMock();
+		$mock = $this->getMockBuilder('\NitroXy\PHPForms\Tests\MockLayout')->setMethods(['renderFieldset'])->getMock();
 		$mock->expects($this->never())->method('renderFieldset');
 		$form = Form::create('id', function($f){
 			$f->fieldset(false, function($f){});
@@ -196,7 +197,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyGroup(){
-		$mock = $this->getMockBuilder('MockLayout')->setMethods(['renderGroup'])->getMock();
+		$mock = $this->getMockBuilder('\NitroXy\PHPForms\Tests\MockLayout')->setMethods(['renderGroup'])->getMock();
 		$mock->expects($this->never())->method('renderGroup');
 		$form = Form::create('id', function($f){
 			$f->group(false, function($f){});
