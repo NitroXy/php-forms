@@ -1,6 +1,6 @@
 <?php
 
-use NitroXy\PHPForms\Form;
+use NitroXy\PHPForms\Tests\MockForm;
 
 class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 	const START = 1;
@@ -27,7 +27,7 @@ class DOMParser_TestCase extends PHPUnit_Framework_TestCase {
 	protected function generate($func, array $options=[]){
 		ob_start();
 		try {
-			Form::create($this->formId, $func, array_merge(['layout' => static::$layout], $options));
+			MockForm::createMock($this->formId, $func, array_merge(['layout' => static::$layout], $options));
 			$this->html = ob_get_contents();
 		} finally {
 			ob_end_clean();

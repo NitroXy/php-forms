@@ -23,6 +23,10 @@ class FormUtils {
 
 		foreach ( $sorted as list($key, $value) ){
 			if ( is_array($value) ){
+				/* ignore empty arrays */
+				if ( count($value) === 0 ){
+					continue;
+				}
 				foreach ( static::_serializeAttrArray($key, $value) as $sub ){
 					$value = htmlspecialchars($sub[1], ENT_QUOTES | ENT_HTML5);
 					$attr[] = "{$sub[0]}=\"{$value}\"";

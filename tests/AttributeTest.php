@@ -34,4 +34,8 @@ class AttributeTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('foo bar', FormUtils::serializeAttr($data, ['foo', 'bar']));
 		$this->assertEquals('bar foo', FormUtils::serializeAttr($data, ['bar', 'foo']));
 	}
+
+	public function testSerializeAttributeEmpyArray(){
+		$this->assertEquals('', FormUtils::serializeAttr(['foo' => []]));
+	}
 }

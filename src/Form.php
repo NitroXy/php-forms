@@ -21,7 +21,7 @@ class Form extends FormContext {
 	public $id = "";
 	public $attr = [];
 
-	private $res = null;
+	protected $res = null;
 	private $name_pattern = '%s';
 	private $layout = null;
 	private $callback = null;
@@ -126,7 +126,7 @@ class Form extends FormContext {
 		return false;
 	}
 
-	private function parseOptions($user){
+	protected function parseOptions($user){
 		$options = array_merge(
 			static::$base_options,
 			static::defaultOptions(),

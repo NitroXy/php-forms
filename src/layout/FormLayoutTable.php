@@ -15,7 +15,12 @@ class FormLayoutTable extends FormLayoutBase {
 		$hint = $field->getHint();
 		$hints = $field->layoutHints();
 		$required = $field->attribute('required');
-		$tr_class = FormUtils::serializeAttr($required ? ['class' => 'required'] : []);
+
+		/* prepare classes for row */
+		$tr_class = [];
+		if ( $required ) $tr_class[] = 'required';
+		if ( $error ) $tr_class[] = 'have-error';
+		$tr_class = FormUtils::serializeAttr(['class' => $tr_class]);
 
 		/* addons */
 		list($prefix, $suffix) = $field->getAddons();
@@ -28,7 +33,7 @@ class FormLayoutTable extends FormLayoutBase {
 			if ( $label !== false ){
 				echo "			<th class=\"form-label\"><label for=\"$id\">{$field->getText()}</label></th>\n";
 				echo "			<td class=\"form-field\">$content</td>\n";
-				echo "			<td class=\"form-hint\" >$hint</td>\n";
+				echo "			<td class=\"form-hint\">$hint</td>\n";
 				echo "			<td class=\"form-error\">$error</td>\n";
 			} else {
 				echo "			<td class=\"form-field\" colspan=\"4\"><label>{$content} {$field->getText()}</label></td>\n";
@@ -46,7 +51,7 @@ class FormLayoutTable extends FormLayoutBase {
 				} else {
 					echo "			<td class=\"form-field\">$content</td>\n";
 				}
-				echo "			<td class=\"form-hint\" >$hint</td>\n";
+				echo "			<td class=\"form-hint\">$hint</td>\n";
 				echo "			<td class=\"form-error\">$error</td>\n";
 			} else {
 				echo "			<td class=\"form-field\" colspan=\"4\">$content</td>\n";
@@ -93,7 +98,7 @@ class FormLayoutTable extends FormLayoutBase {
 
 		echo "			</td>\n";
 		if ( $label !== false ){
-			echo "			<td class=\"form-hint\" >$hint</td>\n";
+			echo "			<td class=\"form-hint\">$hint</td>\n";
 			echo "			<td class=\"form-error\"></td>\n";
 		}
 		echo "		</tr>\n";

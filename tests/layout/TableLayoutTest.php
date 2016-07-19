@@ -1,6 +1,7 @@
 <?php
 
 use NitroXy\PHPForms\FormOptions;
+use NitroXy\PHPForms\Tests\MockResource;
 
 class TableLayoutTest extends DOMParser_TestCase {
 	protected static $layout = 'table';
@@ -215,6 +216,26 @@ class TableLayoutTest extends DOMParser_TestCase {
 			['td_start'], ['input', ['type' => 'text', 'name' => 'bar', 'id' => 'id_bar']],	['td_end'],
 			['td_start'], ['td_end'],
 			['td_start'], ['td_end'],
+			['tr_end'],
+			['table_end'],
+			['form_end'],
+		]);
+	}
+
+	public function testHaveError(){
+		$resource = new MockResource([]);
+		$resource->setError('foo', 'error');
+		$this->generate(function($f){
+			$f->textField('foo', 'Test field');
+		}, ['resource' => $resource]);
+		$this->validate([
+			['form_start'],
+			['table_start'],
+			['tr_start', ['class' => 'have-error']],
+			['th_start'], ['label_start', ['for' => 'id_foo']], ['content', 'Test field'], ['label_end'], ['th_end'],
+			['td_start'], ['input', ['type' => 'text', 'name' => 'foo', 'id' => 'id_foo']],	['td_end'],
+			['td_start'], ['td_end'],
+			['td_start'], ['content', 'error'], ['td_end'],
 			['tr_end'],
 			['table_end'],
 			['form_end'],
