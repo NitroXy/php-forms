@@ -21,6 +21,13 @@
 
   - Buttons now sets name attribute properly again.
 
+# 1.4.1
+
+## Bugfixes
+
+  - Fix call to protected method generate_data when nesting FormSelect
+    in containers.
+
 # 1.4.0
 
 ## Breaking changes
