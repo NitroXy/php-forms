@@ -256,7 +256,7 @@ class FormContainer {
 		$this->form->fields_for($id, $obj, $callback, $this);
 	}
 
-	protected function generate_data($key, array &$attr){
+	public function generate_data($key, array &$attr){
 		return $this->form->generate_data($key, $attr);
 	}
 }
