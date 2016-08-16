@@ -26,6 +26,13 @@ class FormSelectTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("<select name=\"name\" id=\"id\">\n<option value=\"0\">1</option>\n<option value=\"1\">2</option>\n<option value=\"2\" selected>3</option>\n</select>", $field->getContent());
 	}
 
+	public function testSelectEscape(){
+		$options = new FormOptions();
+		$options->add('foo & "bar"', '<spam> & <ham>');
+		$field = new FormSelect('key', 'id', 'name', '7', 'label', ['options' => $options]);
+		$this->assertEquals("<select name=\"name\" id=\"id\">\n<option value=\"foo &amp; &quot;bar&quot;\">&lt;spam&gt; &amp; &lt;ham&gt;</option>\n</select>", $field->getContent());
+	}
+
 	public function testNull(){
 		$mock = new MockLayout();
 		$form = Form::create('id', function($f){

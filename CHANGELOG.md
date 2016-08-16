@@ -20,6 +20,7 @@
 ## Bugfixes
 
   - Buttons now sets name attribute properly again.
+  - Select now escapes label again.
 
 # 1.4.1
 

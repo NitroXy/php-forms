@@ -57,7 +57,8 @@ class FormOptions implements \IteratorAggregate {
 				$attr['selected'] = true;
 			}
 			$sattr = FormUtils::serializeAttr($attr);
-			return "<option {$sattr}>{$cur->label}</option>";
+			$label = htmlspecialchars($cur->label);
+			return "<option {$sattr}>{$label}</option>";
 		}, $this->options));
 	}
 }
