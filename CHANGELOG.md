@@ -1,3 +1,9 @@
+# 1.4.2
+
+## Bugfixes
+
+  - Select now escapes label again. (backported from 1.5)
+
 # 1.4.1
 
 ## Bugfixes

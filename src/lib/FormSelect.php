@@ -68,7 +68,7 @@ class FormSelect extends FormInput {
 			$attr['selected'] = 'selected';
 		}
 		$attr['value'] = $value;
-
+		$text = htmlspecialchars($text);
 		$this->options[] = "<option " . $this->serialize_attr($attr) . ">$text</option>";
 	}
 
