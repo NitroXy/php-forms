@@ -29,7 +29,7 @@ class MyBuilder extends FormBuilder {
 	}
 
 	/* change defaults of builtin */
-	public function button($text, array $attr=[]){
+	public function button($text, $key=false, array $attr=[]){
 		$attr = array_merge(['type' => 'submit'], $attr);
 		return parent::button($text, $attr);
 	}
