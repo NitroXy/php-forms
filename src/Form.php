@@ -129,7 +129,7 @@ class Form extends FormContainer {
 		$this->parse_options($options);
 		$this->callback = $callback;
 
-		if($id instanceof BasicObject) {
+		if($id instanceof \BasicObject) {
 			$this->id=get_class($id);
 			$this->res = $id;
 			$this->hidden_field("id");
@@ -268,7 +268,7 @@ class Form extends FormContainer {
 		$old = array($this->res, $this->id, $this->name_pattern);
 		$this->id = $id;
 		$this->name_pattern = $id . '[%s]';
-		if ( $obj instanceof BasicObject ) {
+		if ( $obj instanceof \BasicObject ) {
 			$this->res = $obj;
 			$this->hidden_field("id");
 		} else {

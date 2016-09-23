@@ -1,3 +1,9 @@
+# 1.4.3
+
+## Bugfixes
+
+  - BasicObject compatibility regression fixed.
+
 # 1.4.2
 
 ## Bugfixes
